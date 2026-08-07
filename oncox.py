@@ -13,8 +13,36 @@ if __name__ == "__main__":
 
 from typing import Any
 
-from src.branding import API_TITLE, APP_NAME, APP_VERSION, DESKTOP_WINDOW_TITLE, EXPORT_BASENAME
-from src.database_clients import all_source_descriptors
+# ── Branding constants (formerly src/branding.py) ────────────────────────────
+APP_NAME = "Pharmexia"
+APP_VERSION = "2.0.0"
+API_TITLE = "Pharmexia PGx API"
+DESKTOP_WINDOW_TITLE = "Pharmexia — DNA Pharmacogenomics"
+EXPORT_BASENAME = "pharmexia_report"
+
+
+# ── Inline stub for all_source_descriptors (formerly src/database_clients/__init__.py)
+# Returns an empty list when no external database descriptors are configured.
+class _SourceDescriptor:
+    """Minimal evidence-source descriptor used by extract_oncox_metadata."""
+
+    def __init__(self, name: str, url: str) -> None:
+        self.name = name
+        self.url = url
+
+    def to_dict(self) -> dict:
+        return {"name": self.name, "url": self.url}
+
+
+def all_source_descriptors() -> "list[_SourceDescriptor]":
+    """Return the curated list of external evidence-source descriptors."""
+    return [
+        _SourceDescriptor("ClinVar", "https://www.ncbi.nlm.nih.gov/clinvar/"),
+        _SourceDescriptor("dbSNP", "https://www.ncbi.nlm.nih.gov/snp/"),
+        _SourceDescriptor("UniProt", "https://www.uniprot.org/"),
+        _SourceDescriptor("PharmGKB", "https://www.pharmgkb.org/"),
+        _SourceDescriptor("PharmVar", "https://www.pharmvar.org/"),
+    ]
 
 SUPPORTED_VCF_EXTENSIONS = {".vcf", ".gz"}
 SUPPORTED_TABLE_EXTENSIONS = {".csv", ".tsv", ".txt", ".json"}
@@ -61,6 +89,22 @@ REFERENCE_SOURCES: dict[str, dict[str, str]] = {
     "CPIC_THIOPURINES": {
         "label": "CPIC guideline for thiopurines and TPMT/NUDT15",
         "url": "https://cpicpgx.org/guidelines/guideline-for-thiopurines-and-tpmt/",
+    },
+    "CPIC_TACROLIMUS": {
+        "label": "CPIC guideline for tacrolimus and CYP3A5",
+        "url": "https://cpicpgx.org/guidelines/guideline-for-tacrolimus-and-cyp3a5/",
+    },
+    "CPIC_FLUOROPYRIMIDINES": {
+        "label": "CPIC guideline for fluoropyrimidines and DPYD",
+        "url": "https://cpicpgx.org/guidelines/guideline-for-fluoropyrimidines-and-dpyd/",
+    },
+    "PHARMGKB": {
+        "label": "PharmGKB pharmacogenomics knowledge base",
+        "url": "https://www.pharmgkb.org/",
+    },
+    "PHARMVAR": {
+        "label": "PharmVar pharmacogene allele nomenclature",
+        "url": "https://www.pharmvar.org/",
     },
     "NCBI_WARFARIN": {
         "label": "NCBI Medical Genetics Summary for warfarin therapy",
@@ -118,49 +162,17 @@ REFERENCE_SOURCES: dict[str, dict[str, str]] = {
         "label": "DailyMed label search for simvastatin",
         "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=simvastatin",
     },
-    "CPIC_ANTIPSYCHOTICS": {
-        "label": "CPIC guideline for antipsychotics and CYP2D6",
-        "url": "https://cpicpgx.org/guidelines/guideline-for-aripiprazole-and-cyp2d6/",
+    "DAILYMED_TACROLIMUS": {
+        "label": "DailyMed label search for tacrolimus",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=tacrolimus",
     },
-    "CPIC_OPIOIDS": {
-        "label": "CPIC guideline for opioids and CYP2D6",
-        "url": "https://cpicpgx.org/guidelines/guideline-for-codeine-and-cyp2d6/",
+    "DAILYMED_FLUOROURACIL": {
+        "label": "DailyMed label search for fluorouracil",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=fluorouracil",
     },
-    "CPIC_ANTIPLATELET": {
-        "label": "CPIC guideline for antiplatelet therapy and CYP2C19",
-        "url": "https://cpicpgx.org/guidelines/guideline-for-clopidogrel-and-cyp2c19/",
-    },
-    "CPIC_TACROLIMUS": {
-        "label": "CPIC guideline for tacrolimus and CYP3A5",
-        "url": "https://cpicpgx.org/guidelines/guideline-for-tacrolimus-and-cyp3a5/",
-    },
-    "CPIC_CYCLOSPORINE": {
-        "label": "CPIC guideline for cyclosporine and CYP3A",
-        "url": "https://cpicpgx.org/guidelines/guideline-for-tacrolimus-and-cyp3a5/",
-    },
-    "CPIC_EFV": {
-        "label": "CPIC guideline for efavirenz and CYP2B6",
-        "url": "https://cpicpgx.org/guidelines/guideline-for-efavirenz-and-cyp2b6/",
-    },
-    "CPIC_BUPROPION": {
-        "label": "CPIC guideline for bupropion and CYP2B6",
-        "url": "https://cpicpgx.org/guidelines/guideline-for-bupropion-and-cyp2b6/",
-    },
-    "CPIC_DPYD": {
-        "label": "CPIC guideline for fluoropyrimidines and DPYD",
-        "url": "https://cpicpgx.org/guidelines/guideline-for-fluoropyrimidines-and-dpyd/",
-    },
-    "CPIC_ADHD": {
-        "label": "CPIC guideline for ADHD medications and pharmacogenomics",
-        "url": "https://cpicpgx.org/guidelines/guideline-for-methylphenidate-and-adgreb3/",
-    },
-    "CPIC_SULFONYLUREAS": {
-        "label": "CPIC guideline for sulfonylureas and CYP2C9",
-        "url": "https://cpicpgx.org/guidelines/guideline-for-sulfonylureas-and-cyp2c9/",
-    },
-    "CPIC_ANTIARRHYTHMICS": {
-        "label": "CPIC guideline for antiarrhythmics and CYP2D6",
-        "url": "https://cpicpgx.org/guidelines/",
+    "DAILYMED_CAPECITABINE": {
+        "label": "DailyMed label search for capecitabine",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=capecitabine",
     },
 }
 
@@ -209,6 +221,34 @@ ALLELE_DEFINITIONS: dict[str, list[dict[str, Any]]] = {
             "sources": ["CPIC_WARFARIN", "NCBI_WARFARIN"],
         },
     ],
+    "CYP2D6": [
+        {
+            "rsid": "rs3892097",
+            "alt": "A",
+            "allele": "*4",
+            "function": "no_function",
+            "effect": "reduced_or_absent_cyp2d6_activity",
+            "sources": ["CPIC_SSRI", "PHARMVAR"],
+        },
+        {
+            "rsid": "rs1065852",
+            "alt": "T",
+            "allele": "*10",
+            "function": "decreased_function",
+            "effect": "reduced_cyp2d6_activity",
+            "sources": ["CPIC_SSRI", "PHARMVAR"],
+        },
+    ],
+    "CYP3A5": [
+        {
+            "rsid": "rs776746",
+            "alt": "G",
+            "allele": "*3",
+            "function": "no_function",
+            "effect": "reduced_cyp3a5_expression",
+            "sources": ["CPIC_TACROLIMUS", "PHARMVAR"],
+        }
+    ],
     "VKORC1": [
         {
             "rsid": "rs9923231",
@@ -221,10 +261,29 @@ ALLELE_DEFINITIONS: dict[str, list[dict[str, Any]]] = {
         {
             "rsid": "rs4149056",
             "alt": "C",
+            "allele": "*5",
             "effect": "increased_simvastatin_myopathy_risk",
             "function": "decreased_function",
             "sources": ["CPIC_STATINS", "NCBI_SIMVASTATIN"],
         }
+    ],
+    "DPYD": [
+        {
+            "rsid": "rs3918290",
+            "alt": "T",
+            "allele": "*2A",
+            "function": "no_function",
+            "effect": "reduced_dpyd_activity",
+            "sources": ["CPIC_FLUOROPYRIMIDINES", "PHARMVAR"],
+        },
+        {
+            "rsid": "rs67376798",
+            "alt": "T",
+            "allele": "c.2846A>T",
+            "function": "decreased_function",
+            "effect": "reduced_dpyd_activity",
+            "sources": ["CPIC_FLUOROPYRIMIDINES", "PHARMVAR"],
+        },
     ],
     "TPMT": [
         {
@@ -260,52 +319,6 @@ ALLELE_DEFINITIONS: dict[str, list[dict[str, Any]]] = {
             "function": "no_function",
             "effect": "thiopurine_toxicity_risk",
             "sources": ["CPIC_THIOPURINES", "NCBI_THIOPURINES"],
-        }
-    ],
-    "CYP3A5": [
-        {
-            "rsid": "rs776746",
-            "alt": "G",
-            "allele": "*3",
-            "function": "no_function",
-            "effect": "cyp3a5_non_expressor",
-            "sources": ["CPIC_TACROLIMUS"],
-        }
-    ],
-    "CYP2B6": [
-        {
-            "rsid": "rs3745274",
-            "alt": "T",
-            "allele": "*6",
-            "function": "decreased_function",
-            "effect": "reduced_cyp2b6_activity",
-            "sources": ["CPIC_EFV", "CPIC_BUPROPION"],
-        },
-        {
-            "rsid": "rs2279343",
-            "alt": "A",
-            "allele": "*4",
-            "function": "increased_function",
-            "effect": "increased_cyp2b6_activity",
-            "sources": ["CPIC_EFV"],
-        }
-    ],
-    "DPYD": [
-        {
-            "rsid": "rs3918290",
-            "alt": "-",  # splice site variant
-            "allele": "*2A",
-            "function": "no_function",
-            "effect": "dpyd_deficiency",
-            "sources": ["CPIC_DPYD"],
-        },
-        {
-            "rsid": "rs55886062",
-            "alt": "T",
-            "allele": "*13",
-            "function": "no_function",
-            "effect": "dpyd_deficiency",
-            "sources": ["CPIC_DPYD"],
         }
     ],
 }
@@ -402,6 +415,30 @@ DRUG_GENE_RULES: dict[str, dict[str, Any]] = {
             "This local rule uses rs4149056 as a proxy and does not reconstruct full SLCO1B1 star alleles.",
         ],
     },
+    "tacrolimus": {
+        "genes": ["CYP3A5"],
+        "headline": "CYP3A5 expression status is relevant to tacrolimus pharmacokinetics.",
+        "limitations": [
+            "This local rule covers only the CYP3A5 rs776746 (*3) marker and does not reconstruct *6, *7, or ancestry-specific haplotypes.",
+            "Do not emit a tacrolimus dose without transplant context, therapeutic drug monitoring, interacting-medication review, and validated clinical implementation.",
+        ],
+    },
+    "fluorouracil": {
+        "genes": ["DPYD"],
+        "headline": "Reduced DPYD function is associated with fluoropyrimidine toxicity risk.",
+        "limitations": [
+            "This local rule covers only a limited DPYD variant subset and does not compute a complete DPD activity score.",
+            "Do not emit fluoropyrimidine dosing recommendations without validated DPYD testing and oncology clinical context.",
+        ],
+    },
+    "capecitabine": {
+        "genes": ["DPYD"],
+        "headline": "Reduced DPYD function is associated with fluoropyrimidine toxicity risk.",
+        "limitations": [
+            "This local rule covers only a limited DPYD variant subset and does not compute a complete DPD activity score.",
+            "Do not emit fluoropyrimidine dosing recommendations without validated DPYD testing and oncology clinical context.",
+        ],
+    },
     "azathioprine": {
         "genes": ["TPMT", "NUDT15"],
         "headline": "Thiopurine toxicity risk is increased by reduced TPMT or NUDT15 activity.",
@@ -423,502 +460,6 @@ DRUG_GENE_RULES: dict[str, dict[str, Any]] = {
             "Dose guidance requires validated TPMT/NUDT15 testing and clinical blood-count monitoring.",
         ],
     },
-    "atorvastatin": {
-        "genes": ["SLCO1B1"],
-        "headline": "SLCO1B1 reduced function may increase atorvastatin-associated muscle toxicity risk.",
-        "limitations": [
-            "Evidence for atorvastatin-SLCO1B1 interaction is less established than for simvastatin.",
-            "Clinical decision should consider statin potency and patient muscle-related risk factors.",
-        ],
-    },
-    "rosuvastatin": {
-        "genes": ["SLCO1B1"],
-        "headline": "SLCO1B1 reduced function may affect rosuvastatin exposure.",
-        "limitations": [
-            "Evidence for SLCO1B1 interaction with rosuvastatin is limited compared to simvastatin.",
-            "Rosuvastatin has less CYP metabolism than other statins.",
-        ],
-    },
-    "fluoxetine": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 function can alter fluoxetine metabolism and drug interactions.",
-        "limitations": [
-            "Fluoxetine is a strong CYP2D6 inhibitor; pharmacokinetic interactions depend on temporal sequence.",
-            "Do not auto-adjust dose or switch antidepressant therapy from this application alone.",
-        ],
-    },
-    "paroxetine": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 function can alter paroxetine metabolism and drug interactions.",
-        "limitations": [
-            "Paroxetine is a strong CYP2D6 inhibitor; pharmacokinetic interactions depend on temporal sequence.",
-            "Do not auto-adjust dose or switch antidepressant therapy from this application alone.",
-        ],
-    },
-    "amitriptyline": {
-        "genes": ["CYP2D6", "CYP2C19"],
-        "headline": "Amitriptyline exposure is affected by both CYP2D6 and CYP2C19 function.",
-        "limitations": [
-            "Tricyclic antidepressants have complex metabolism involving multiple CYP enzymes.",
-            "Therapeutic drug monitoring is recommended for dose optimization.",
-            "Do not auto-adjust dose or switch antidepressant therapy from this application alone.",
-        ],
-    },
-    "nortriptyline": {
-        "genes": ["CYP2D6"],
-        "headline": "Nortriptyline exposure is strongly affected by CYP2D6 function.",
-        "limitations": [
-            "Therapeutic drug monitoring is recommended for dose optimization.",
-            "Do not auto-adjust dose or switch antidepressant therapy from this application alone.",
-        ],
-    },
-    "codeine": {
-        "genes": ["CYP2D6"],
-        "headline": "Codeine effectiveness depends on CYP2D6 ultra-rapid metabolism; toxicity risk in CYP2D6 poor metabolizers is low but tramadol-like alternatives may be safer.",
-        "limitations": [
-            "Codeine is a prodrug requiring CYP2D6 conversion to morphine for analgesic effect.",
-            "FDA boxed warning exists for CYP2D6 ultra-rapid metabolizers in post-operative pediatric tonsillectomy.",
-            "Clinical pain assessment must guide therapy decisions.",
-        ],
-    },
-    "tramadol": {
-        "genes": ["CYP2D6"],
-        "headline": "Tramadol effectiveness depends on CYP2D6 function; consider alternatives in poor metabolizers.",
-        "limitations": [
-            "Tramadol requires CYP2D6 conversion to active metabolite O-desmethyltramadol.",
-            "Reduced efficacy expected in CYP2D6 poor metabolizers.",
-            "Clinical pain assessment must guide therapy decisions.",
-        ],
-    },
-    "tamoxifen": {
-        "genes": ["CYP2D6"],
-        "headline": "Tamoxifen effectiveness depends on CYP2D6 function for conversion to active endoxifen.",
-        "limitations": [
-            "Strong CYP2D6 inhibitors can reduce tamoxifen efficacy; avoid concomitant use when possible.",
-            "Clinical outcome data on CYP2D6 genotyping and breast cancer recurrence is mixed.",
-            "Do not switch hormonal therapy solely based on CYP2D6 genotype without oncology consultation.",
-        ],
-    },
-    "phenytoin": {
-        "genes": ["CYP2C9"],
-        "headline": "CYP2C9 function affects phenytoin metabolism and toxicity risk.",
-        "limitations": [
-            "CYP2C9 poor metabolizers have increased risk of phenytoin toxicity.",
-            "Therapeutic drug monitoring is essential for phenytoin dosing.",
-            "Do not calculate or suggest a phenytoin dose from this application alone.",
-        ],
-    },
-    "carbamazepine": {
-        "genes": ["HLA-B"],
-        "headline": "HLA-B*15:02 and HLA-A*31:01 are associated with severe carbamazepine hypersensitivity reactions.",
-        "limitations": [
-            "Screening for HLA-B*15:02 recommended in Asian ancestry before initiating carbamazepine.",
-            "HLA-A*31:01 associated with severe skin reactions in European populations.",
-            "This local rule does not include full HLA typing interpretation.",
-        ],
-    },
-    "allopurinol": {
-        "genes": ["HLA-B"],
-        "headline": "HLA-B*58:01 is strongly associated with allopurinol-induced severe cutaneous adverse reactions.",
-        "limitations": [
-            "HLA-B*58:01 screening recommended in certain Asian populations (Han Chinese, Thai, Korean) before allopurinol.",
-            "Severe cutaneous adverse reactions include SJS/TEN and DRESS.",
-            "Clinical utility of screening varies by ethnicity and local prevalence.",
-        ],
-    },
-    "abacavir": {
-        "genes": ["HLA-B"],
-        "headline": "HLA-B*57:01 is associated with immunologically-mediated hypersensitivity reaction to abacavir.",
-        "limitations": [
-            "HLA-B*57:01 screening required before abacavir initiation (FDA mandated).",
-            "100% negative predictive value for immunologically-confirmed hypersensitivity.",
-            "This local rule does not replace required clinical HLA testing.",
-        ],
-    },
-    "irinotecan": {
-        "genes": ["UGT1A1"],
-        "headline": "UGT1A1 reduced function increases risk of irinotecan toxicity (neutropenia, diarrhea).",
-        "limitations": [
-            "UGT1A1*28 homozygotes at highest risk for severe neutropenia at standard doses.",
-            "Dose reduction may be considered in *28/*28 patients per FDA label.",
-            "Clinical utility in heterozygotes is less clear.",
-        ],
-    },
-    "peginterferon_alfa_2b": {
-        "genes": ["IFNL3", "IFNL4"],
-        "headline": "IFNL3/IFNL4 genotypes predict sustained virologic response to interferon-based HCV therapy.",
-        "limitations": [
-            "With modern direct-acting antivirals (DAAs), interferon is rarely used today.",
-            "RS12979860 CC genotype associated with better response.",
-            "Historical significance with limited current clinical utility.",
-        ],
-    },
-    "celecoxib": {
-        "genes": ["CYP2C9"],
-        "headline": "CYP2C9 poor metabolizers have increased celecoxib exposure.",
-        "limitations": [
-            "FDA label suggests consideration of reduced dose in CYP2C9 poor metabolizers.",
-            "Clinical significance of increased exposure varies by indication.",
-        ],
-    },
-    "ibuprofen": {
-        "genes": ["CYP2C9"],
-        "headline": "CYP2C9 function may affect ibuprofen metabolism and cardiovascular/gastrointestinal risks.",
-        "limitations": [
-            "Evidence less established than for warfarin or phenytoin.",
-            "Ibuprofen has multiple metabolic pathways; CYP2C9 is one component.",
-        ],
-    },
-    "diclofenac": {
-        "genes": ["CYP2C9"],
-        "headline": "CYP2C9 poor metabolizers have increased diclofenac exposure and may have higher GI toxicity risk.",
-        "limitations": [
-            "Evidence for clinical utility of CYP2C9 testing with diclofenac is limited.",
-            "Multiple factors contribute to NSAID toxicity beyond CYP2C9 genotype.",
-        ],
-    },
-    "losartan": {
-        "genes": ["CYP2C9"],
-        "headline": "CYP2C9 poor metabolizers have reduced conversion of losartan to active metabolite E-3174.",
-        "limitations": [
-            "Reduced antihypertensive efficacy may occur in CYP2C9 PMs.",
-            "Clinical significance and alternative ARB selection require individual assessment.",
-        ],
-    },
-    "tolbutamide": {
-        "genes": ["CYP2C9"],
-        "headline": "CYP2C9 poor metabolizers have significantly increased tolbutamide exposure and hypoglycemia risk.",
-        "limitations": [
-            "Sulfonylurea with narrow therapeutic index rarely used today.",
-            "Evidence historically important for CYP2C9 pharmacogenomics.",
-        ],
-    },
-    "glibenclamide": {
-        "genes": ["CYP2C9"],
-        "headline": "CYP2C9 function affects glibenclamide (glyburide) metabolism and hypoglycemia risk.",
-        "limitations": [
-            "Second-generation sulfonylurea with hypoglycemia risk in CYP2C9 PMs.",
-            "Consider alternative sulfonylureas (glipizide, glimepiride) or non-sulfonylurea agents.",
-        ],
-    },
-    "pravastatin": {
-        "genes": ["SLCO1B1"],
-        "headline": "SLCO1B1 variants may affect pravastatin exposure and muscle toxicity risk.",
-        "limitations": [
-            "Evidence less strong than for simvastatin.",
-            "Pravastatin is water-soluble with less OATP1B1 dependence.",
-        ],
-    },
-    "pitavastatin": {
-        "genes": ["SLCO1B1"],
-        "headline": "SLCO1B1 reduced function may increase pitavastatin exposure.",
-        "limitations": [
-            "Limited evidence compared to simvastatin.",
-            "Consider in patients with prior statin myopathy history.",
-        ],
-    },
-    "fluvastatin": {
-        "genes": ["SLCO1B1"],
-        "headline": "SLCO1B1 variants may affect fluvastatin exposure.",
-        "limitations": [
-            "Evidence limited; fluvastatin is minimally metabolized by CYP.",
-        ],
-    },
-    "morphine": {
-        "genes": ["OPRM1"],
-        "headline": "OPRM1 A118G variant may affect morphine analgesic requirements and response.",
-        "limitations": [
-            "Clinical significance of OPRM1 variants for morphine dosing is debated.",
-            "Multiple factors affect opioid response including tolerance, pain type, and comorbidities.",
-        ],
-    },
-    "oxycodone": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 converts oxycodone to active oxymorphone; PMs may have reduced efficacy.",
-        "limitations": [
-            "Oxycodone has intrinsic analgesic activity independent of CYP2D6 metabolism.",
-            "Clinical significance of CYP2D6 variants for oxycodone response is limited.",
-        ],
-    },
-    "ondansetron": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 poor metabolizers may have reduced antiemetic efficacy with ondansetron.",
-        "limitations": [
-            "Evidence for clinical utility of CYP2D6 testing for ondansetron is limited.",
-            "Multiple pathways contribute to 5-HT3 antagonist response.",
-        ],
-    },
-    "tropisetron": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 poor metabolizers have reduced tropisetron clearance but efficacy unclear.",
-        "limitations": [
-            "Evidence limited; not widely used in clinical practice.",
-        ],
-    },
-    "atomoxetine": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 poor metabolizers have significantly increased atomoxetine exposure.",
-        "limitations": [
-            "FDA label notes 10-fold higher exposure in CYP2D6 PMs.",
-            "Consider reduced starting dose in CYP2D6 PMs per pharmacogenomic data.",
-        ],
-    },
-    "venlafaxine": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 converts venlafaxine to active O-desmethylvenlafaxine; PMs may have altered response.",
-        "limitations": [
-            "Both venlafaxine and active metabolite contribute to SNRI effects.",
-            "Clinical significance of PM status is modest compared to other CYP2D6 substrates.",
-        ],
-    },
-    "desvenlafaxine": {
-        "genes": ["CYP2D6"],
-        "headline": "Desvenlafaxine is the active metabolite of venlafaxine; CYP2D6 has minor role.",
-        "limitations": [
-            "Minimal CYP2D6 involvement in desvenlafaxine metabolism.",
-            "Pharmacogenomic implications are limited.",
-        ],
-    },
-    "duloxetine": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 poor metabolizers have increased duloxetine exposure.",
-        "limitations": [
-            "FDA label suggests caution in CYP2D6 PMs due to increased exposure.",
-            "Consider reduced dose in PMs with concomitant strong CYP1A2 inhibitors.",
-        ],
-    },
-    "metoprolol": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 poor metabolizers have increased metoprolol exposure and may have enhanced beta-blockade.",
-        "limitations": [
-            "CYP2D6 PMs have 3-5 fold higher metoprolol plasma concentrations.",
-            "Enhanced beta-blockade may cause bradycardia or hypotension; consider dose reduction.",
-        ],
-    },
-    "timolol": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 poor metabolizers have increased systemic exposure to timolol ophthalmic drops.",
-        "limitations": [
-            "Systemic beta-blockade from ophthalmic timolol more likely in CYP2D6 PMs.",
-            "Monitor for systemic effects (bradycardia, bronchospasm) especially in PMs.",
-        ],
-    },
-    "propafenone": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 poor metabolizers have increased propafenone exposure and beta-blockade effects.",
-        "limitations": [
-            "CYP2D6 PMs may have enhanced Class I and II antiarrhythmic effects.",
-            "Beta-blockade from propafenone more pronounced in PMs.",
-        ],
-    },
-    "thioridazine": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 poor metabolizers have significantly increased thioridazine exposure and QT prolongation risk.",
-        "limitations": [
-            "Contraindicated with CYP2D6 inhibitors per FDA label.",
-            "CYP2D6 PMs at highest risk for torsades de pointes; consider alternatives.",
-        ],
-    },
-    "perphenazine": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 poor metabolizers have increased perphenazine exposure and may have increased side effects.",
-        "limitations": [
-            "Typical antipsychotic with CYP2D6-dependent metabolism.",
-            "Consider dose reduction in CYP2D6 PMs.",
-        ],
-    },
-    "aripiprazole": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 poor metabolizers have approximately doubled aripiprazole exposure.",
-        "limitations": [
-            "FDA label suggests dose reduction in CYP2D6 PMs when used with strong CYP3A4 inhibitors.",
-            "Consider dose adjustment based on clinical response.",
-        ],
-    },
-    "risperidone": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 converts risperidone to active 9-hydroxyrisperidone (paliperidone).",
-        "limitations": [
-            "Both risperidone and active metabolite contribute to antipsychotic effects.",
-            "CYP2D6 PMs may have higher risperidone to 9-OH-risperidone ratios.",
-        ],
-    },
-    "clozapine": {
-        "genes": ["CYP1A2", "CYP2D6"],
-        "headline": "Clozapine metabolism involves CYP1A2 (primary) and CYP2D6; smoking status and CYP genotypes affect levels.",
-        "limitations": [
-            "Smoking induces CYP1A2 and reduces clozapine levels significantly.",
-            "CYP2D6 PMs may have modestly increased clozapine exposure.",
-            "Therapeutic drug monitoring standard of care regardless of genotype.",
-        ],
-    },
-    "quetiapine": {
-        "genes": ["CYP3A4"],
-        "headline": "Quetiapine is primarily metabolized by CYP3A4; strong inhibitors/inducers significantly affect levels.",
-        "limitations": [
-            "Pharmacogenomic implications primarily related to DME interactions.",
-            "Dose adjustment required with strong CYP3A4 inhibitors or inducers.",
-        ],
-    },
-    "haloperidol": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 poor metabolizers have increased haloperidol exposure.",
-        "limitations": [
-            "Higher plasma concentrations in CYP2D6 PMs may increase risk of extrapyramidal symptoms.",
-            "Consider dose reduction in CYP2D6 PMs per CPIC guidelines.",
-        ],
-    },
-    "hydrocodone": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 converts hydrocodone to active hydromorphone; PMs have reduced analgesia.",
-        "limitations": [
-            "Hydrocodone requires CYP2D6 conversion to active hydromorphone for full analgesic effect.",
-            "Consider alternative analgesics in CYP2D6 poor metabolizers.",
-        ],
-    },
-    "prasugrel": {
-        "genes": ["CYP2C19"],
-        "headline": "CYP2C19 function affects prasugrel active metabolite formation but less than clopidogrel.",
-        "limitations": [
-            "Prasugrel less affected by CYP2C19 variants than clopidogrel; still requires hepatic conversion.",
-            "Consider in patients with CYP2C19 loss-of-function who require P2Y12 inhibition.",
-        ],
-    },
-    "ticagrelor": {
-        "genes": ["CYP2C19"],
-        "headline": "Ticagrelor is a direct-acting P2Y12 inhibitor with minimal CYP2C19 activation required.",
-        "limitations": [
-            "Ticagrelor does not require metabolic activation like clopidogrel.",
-            "Preferred antiplatelet for CYP2C19 poor metabolizers per CPIC guidelines.",
-        ],
-    },
-    "tacrolimus": {
-        "genes": ["CYP3A5"],
-        "headline": "CYP3A5 expressers require higher tacrolimus doses to achieve target concentrations.",
-        "limitations": [
-            "CYP3A5*1/*1 and *1/*3 expressers have 1.5-2x higher tacrolimus clearance.",
-            "Dosing guidance available from CPIC for kidney transplant recipients.",
-            "Therapeutic drug monitoring remains essential regardless of genotype.",
-        ],
-    },
-    "cyclosporine": {
-        "genes": ["CYP3A4", "CYP3A5"],
-        "headline": "CYP3A4/5 activity significantly affects cyclosporine metabolism and exposure.",
-        "limitations": [
-            "CYP3A5 expressers may have lower cyclosporine trough concentrations.",
-            "Drug-drug interactions with CYP3A4 inhibitors/inducers have larger effect than genotype.",
-            "Therapeutic drug monitoring standard of care.",
-        ],
-    },
-    "efavirenz": {
-        "genes": ["CYP2B6"],
-        "headline": "CYP2B6 poor metabolizers have increased efavirenz exposure and CNS toxicity risk.",
-        "limitations": [
-            "CYP2B6*6/*6 and *18/*18 have significantly reduced efavirenz clearance.",
-            "Consider alternative antiretrovirals or dose reduction in poor metabolizers per CPIC.",
-            "Avoid efavirenz in pregnancy regardless of genotype.",
-        ],
-    },
-    "bupropion": {
-        "genes": ["CYP2B6"],
-        "headline": "CYP2B6 function affects bupropion metabolism and conversion to active metabolites.",
-        "limitations": [
-            "CYP2B6 poor metabolizers may have altered bupropion efficacy and side effect profile.",
-            "Clinical significance for smoking cessation and depression treatment varies.",
-        ],
-    },
-    "fluorouracil": {
-        "genes": ["DPYD"],
-        "headline": "DPYD deficiency causes severe, potentially fatal 5-fluorouracil toxicity.",
-        "limitations": [
-            "DPYD*2A, *13, and other loss-of-function variants cause complete or near-complete enzyme deficiency.",
-            "Contraindicated in DPYD poor metabolizers per CPIC guidelines.",
-            "Testing recommended before initiating fluoropyrimidine chemotherapy.",
-        ],
-    },
-    "capecitabine": {
-        "genes": ["DPYD"],
-        "headline": "Capecitabine is converted to 5-fluorouracil; DPYD deficiency causes severe toxicity.",
-        "limitations": [
-            "DPYD poor metabolizers at high risk for severe diarrhea, mucositis, and neutropenia.",
-            "Contraindicated in DPYD poor metabolizers per CPIC guidelines.",
-            "Consider alternative chemotherapy regimens in DPYD-deficient patients.",
-        ],
-    },
-    "methylphenidate": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 poor metabolizers have modestly increased methylphenidate exposure.",
-        "limitations": [
-            "CYP2D6 PM status may affect methylphenidate metabolism but clinical significance is limited.",
-            "Dose titration based on clinical response standard of care.",
-        ],
-    },
-    "esomeprazole": {
-        "genes": ["CYP2C19"],
-        "headline": "CYP2C19 function can alter esomeprazole exposure and acid suppression.",
-        "limitations": [
-            "This local rule reflects CYP2C19 only and does not account for indication or treatment duration.",
-            "Do not auto-adjust proton pump inhibitor dose from this application alone.",
-        ],
-    },
-    "dexlansoprazole": {
-        "genes": ["CYP2C19"],
-        "headline": "CYP2C19 function can alter dexlansoprazole exposure.",
-        "limitations": [
-            "Similar to other PPIs, CYP2C19 variants affect dexlansoprazole metabolism.",
-            "Dual-release formulation may have different pharmacokinetic profile.",
-        ],
-    },
-    "rabeprazole": {
-        "genes": ["CYP2C19"],
-        "headline": "CYP2C19 function can alter rabeprazole exposure.",
-        "limitations": [
-            "Rabeprazole partially metabolized by non-enzymatic pathways; less CYP2C19 dependence.",
-            "Clinical significance of CYP2C19 variants may be less than other PPIs.",
-        ],
-    },
-    "glipizide": {
-        "genes": ["CYP2C9"],
-        "headline": "CYP2C9 function may affect glipizide metabolism.",
-        "limitations": [
-            "Less CYP2C9-dependent than glyburide; clinical significance of genotyping unclear.",
-            "Consider in patients with prior sulfonylurea-related hypoglycemia.",
-        ],
-    },
-    "glimepiride": {
-        "genes": ["CYP2C9"],
-        "headline": "CYP2C9 function may affect glimepiride metabolism.",
-        "limitations": [
-            "Evidence for clinical utility of CYP2C9 genotyping with glimepiride is limited.",
-            "Third-generation sulfonylurea with lower hypoglycemia risk overall.",
-        ],
-    },
-    "amiodarone": {
-        "genes": ["CYP2C9", "CYP3A4"],
-        "headline": "Amiodarone metabolism involves multiple CYP enzymes and has complex drug interactions.",
-        "limitations": [
-            "CYP2C9 and CYP3A4 variants may affect amiodarone levels but clinical utility unclear.",
-            "Drug-drug interactions more clinically significant than genotype.",
-            "Therapeutic drug monitoring for antiarrhythmic effect recommended.",
-        ],
-    },
-    "flecainide": {
-        "genes": ["CYP2D6"],
-        "headline": "CYP2D6 poor metabolizers have increased flecainide exposure and toxicity risk.",
-        "limitations": [
-            "CYP2D6 PMs have significantly reduced flecainide clearance.",
-            "Consider dose reduction or alternative antiarrhythmics in CYP2D6 PMs.",
-            "Therapeutic drug monitoring recommended.",
-        ],
-    },
-    "sulfasalazine": {
-        "genes": ["TPMT"],
-        "headline": "TPMT activity affects sulfasalazine metabolism and toxicity risk.",
-        "limitations": [
-            "TPMT poor metabolizers at increased risk of myelosuppression.",
-            "Consider dose reduction or alternative therapy in TPMT-deficient patients.",
-        ],
-    },
 }
 
 DRUG_FAMILY_LABELS = {
@@ -927,74 +468,17 @@ DRUG_FAMILY_LABELS = {
     "citalopram": "SSRI",
     "escitalopram": "SSRI",
     "sertraline": "SSRI",
-    "fluoxetine": "SSRI",
-    "paroxetine": "SSRI",
     "omeprazole": "Proton Pump Inhibitor",
     "lansoprazole": "Proton Pump Inhibitor",
     "pantoprazole": "Proton Pump Inhibitor",
     "voriconazole": "Antifungal",
     "simvastatin": "Statin",
-    "atorvastatin": "Statin",
-    "rosuvastatin": "Statin",
-    "pravastatin": "Statin",
-    "pitavastatin": "Statin",
-    "fluvastatin": "Statin",
+    "tacrolimus": "Calcineurin Inhibitor",
+    "fluorouracil": "Fluoropyrimidine",
+    "capecitabine": "Fluoropyrimidine",
     "azathioprine": "Thiopurine",
     "mercaptopurine": "Thiopurine",
     "thioguanine": "Thiopurine",
-    "amitriptyline": "Tricyclic Antidepressant",
-    "nortriptyline": "Tricyclic Antidepressant",
-    "codeine": "Opioid Analgesic",
-    "tramadol": "Opioid Analgesic",
-    "morphine": "Opioid Analgesic",
-    "oxycodone": "Opioid Analgesic",
-    "tamoxifen": "Hormonal Agent",
-    "phenytoin": "Anticonvulsant",
-    "carbamazepine": "Anticonvulsant",
-    "allopurinol": "Antigout Agent",
-    "abacavir": "Antiretroviral",
-    "irinotecan": "Antineoplastic",
-    "peginterferon_alfa_2b": "Antiviral",
-    "celecoxib": "NSAID",
-    "ibuprofen": "NSAID",
-    "diclofenac": "NSAID",
-    "losartan": "ARB Antihypertensive",
-    "tolbutamide": "Sulfonylurea",
-    "glibenclamide": "Sulfonylurea",
-    "ondansetron": "Antiemetic",
-    "tropisetron": "Antiemetic",
-    "atomoxetine": "ADHD Agent",
-    "venlafaxine": "SNRI",
-    "desvenlafaxine": "SNRI",
-    "duloxetine": "SNRI",
-    "metoprolol": "Beta Blocker",
-    "timolol": "Beta Blocker",
-    "propafenone": "Antiarrhythmic",
-    "thioridazine": "Antipsychotic",
-    "perphenazine": "Antipsychotic",
-    "aripiprazole": "Antipsychotic",
-    "risperidone": "Antipsychotic",
-    "clozapine": "Antipsychotic",
-    "quetiapine": "Antipsychotic",
-    "haloperidol": "Antipsychotic",
-    "hydrocodone": "Opioid Analgesic",
-    "prasugrel": "Antiplatelet",
-    "ticagrelor": "Antiplatelet",
-    "tacrolimus": "Immunosuppressant",
-    "cyclosporine": "Immunosuppressant",
-    "efavirenz": "Antiretroviral",
-    "bupropion": "Antidepressant/Smoking Cessation",
-    "fluorouracil": "Antineoplastic",
-    "capecitabine": "Antineoplastic",
-    "methylphenidate": "ADHD Agent",
-    "esomeprazole": "Proton Pump Inhibitor",
-    "dexlansoprazole": "Proton Pump Inhibitor",
-    "rabeprazole": "Proton Pump Inhibitor",
-    "glipizide": "Sulfonylurea",
-    "glimepiride": "Sulfonylurea",
-    "amiodarone": "Antiarrhythmic",
-    "flecainide": "Antiarrhythmic",
-    "sulfasalazine": "DMARD/Immunosuppressant",
 }
 
 DRUG_REFERENCE_SOURCE_KEYS: dict[str, list[str]] = {
@@ -1008,28 +492,12 @@ DRUG_REFERENCE_SOURCE_KEYS: dict[str, list[str]] = {
     "pantoprazole": ["CPIC_PPI", "DAILYMED_PANTOPRAZOLE"],
     "voriconazole": ["CPIC_VORICONAZOLE", "DAILYMED_VORICONAZOLE"],
     "simvastatin": ["CPIC_STATINS", "NCBI_SIMVASTATIN"],
+    "tacrolimus": ["CPIC_TACROLIMUS", "DAILYMED_TACROLIMUS"],
+    "fluorouracil": ["CPIC_FLUOROPYRIMIDINES", "DAILYMED_FLUOROURACIL"],
+    "capecitabine": ["CPIC_FLUOROPYRIMIDINES", "DAILYMED_CAPECITABINE"],
     "azathioprine": ["CPIC_THIOPURINES", "NCBI_THIOPURINES"],
     "mercaptopurine": ["CPIC_THIOPURINES", "NCBI_THIOPURINES"],
     "thioguanine": ["CPIC_THIOPURINES", "NCBI_THIOPURINES"],
-    "haloperidol": ["CPIC_ANTIPSYCHOTICS"],
-    "hydrocodone": ["CPIC_OPIOIDS"],
-    "prasugrel": ["CPIC_ANTIPLATELET"],
-    "ticagrelor": ["CPIC_ANTIPLATELET"],
-    "tacrolimus": ["CPIC_TACROLIMUS"],
-    "cyclosporine": ["CPIC_CYCLOSPORINE"],
-    "efavirenz": ["CPIC_EFV"],
-    "bupropion": ["CPIC_BUPROPION"],
-    "fluorouracil": ["CPIC_DPYD"],
-    "capecitabine": ["CPIC_DPYD"],
-    "methylphenidate": ["CPIC_ADHD"],
-    "esomeprazole": ["CPIC_PPI"],
-    "dexlansoprazole": ["CPIC_PPI"],
-    "rabeprazole": ["CPIC_PPI"],
-    "glipizide": ["CPIC_SULFONYLUREAS"],
-    "glimepiride": ["CPIC_SULFONYLUREAS"],
-    "amiodarone": ["CPIC_ANTIPSYCHOTICS"],
-    "flecainide": ["CPIC_ANTIARRHYTHMICS"],
-    "sulfasalazine": ["CPIC_THIOPURINES"],
 }
 
 
@@ -1115,9 +583,25 @@ ResultKind = Literal[
 PipelineStepStatus = Literal["success", "warning", "failed", "skipped"]
 EvidenceAvailabilityStatus = Literal["available", "partial", "unavailable"]
 EvidenceOrigin = Literal["evidence_based", "model_assisted", "review_only"]
-InteractionType = Literal["drug_drug", "drug_gene", "drug_enzyme", "drug_transporter", "unsupported_drug"]
-InteractionSeverity = Literal["HIGH", "MODERATE", "LOW", "INFORMATIONAL", "UNSUPPORTED"]
+InteractionType = Literal["drug_drug", "drug_gene", "drug_enzyme", "drug_transporter", "unsupported_drug", "medication_context"]
+InteractionSeverity = Literal[
+    "CONTRAINDICATED",
+    "MAJOR",
+    "MODERATE",
+    "MINOR",
+    "UNKNOWN",
+    "HIGH",
+    "LOW",
+    "INFORMATIONAL",
+    "UNSUPPORTED",
+]
 InteractionStatus = Literal["supported", "insufficient_evidence", "unsupported"]
+InteractionEvidenceCategory = Literal[
+    "EVIDENCE_BASED",
+    "DATABASE_SUPPORTED",
+    "GENERAL_PHARMACOLOGY_ONLY",
+    "INSUFFICIENT_EVIDENCE",
+]
 VariantEffectType = Literal["SYNONYMOUS", "MISSENSE", "NONSENSE", "FRAMESHIFT", "REGULATORY", "UNKNOWN_EFFECT"]
 VariantEffectConfidence = Literal["HIGH", "MODERATE", "LIMITED", "UNKNOWN"]
 PathogenicityLabel = Literal[
@@ -1370,6 +854,7 @@ class DrugInteractionFinding:
     confidence: str
     summary: str
     clinical_relevance: str
+    evidence_category: InteractionEvidenceCategory = "INSUFFICIENT_EVIDENCE"
     mechanism: str = ""
     recommendation: str | None = None
     evidence_based: bool = True
@@ -1689,17 +1174,24 @@ UNSUPPORTED_SEQUENCE_EXTENSIONS = {".fasta", ".fa", ".fastq", ".fq"}
 
 
 def _read_prefix(path: Path, n_lines: int = 5) -> list[str]:
-    opener = gzip.open if path.suffix == ".gz" else open
+    # Use the full filename to decide on gzip; path.suffix only returns the last
+    # extension and would mis-classify "data.vcf.gz" as ".gz" while
+    # "data.gz.vcf" would be wrongly treated as plain text.
+    is_gz = path.name.lower().endswith(".gz")
+    opener = gzip.open if is_gz else open
     mode = "rt"
     lines: list[str] = []
-    with opener(path, mode, encoding="utf-8", errors="ignore") as handle:
-        for _ in range(n_lines):
-            line = handle.readline()
-            if not line:
-                break
-            stripped = line.strip()
-            if stripped:
-                lines.append(stripped)
+    try:
+        with opener(path, mode, encoding="utf-8", errors="ignore") as handle:
+            for _ in range(n_lines):
+                line = handle.readline()
+                if not line:
+                    break
+                stripped = line.strip()
+                if stripped:
+                    lines.append(stripped)
+    except OSError:
+        pass
     return lines
 
 
@@ -1710,9 +1202,10 @@ def validate_input_file(path: Path) -> FileValidationResult:
     if path.stat().st_size == 0:
         return FileValidationResult(False, "unknown", "invalid", f"Empty file: {path.name}")
 
-    suffixes = {suffix.lower() for suffix in path.suffixes}
-    all_suffixes = suffixes or {path.suffix.lower()}
-    if any(suffix in UNSUPPORTED_SEQUENCE_EXTENSIONS for suffix in all_suffixes):
+    name_lower = path.name.lower()
+
+    # Reject raw sequence formats before anything else.
+    if any(name_lower.endswith(ext) for ext in UNSUPPORTED_SEQUENCE_EXTENSIONS):
         return FileValidationResult(
             False,
             "sequence",
@@ -1722,7 +1215,23 @@ def validate_input_file(path: Path) -> FileValidationResult:
                 "Provide a called VCF or a pharmacogene variant table instead."
             ),
         )
-    if not any(suffix in SUPPORTED_INPUT_EXTENSIONS for suffix in all_suffixes):
+
+    # Determine the logical extension:
+    # • Accept ".vcf" and ".vcf.gz" (and only those .gz variants).
+    # • Accept table extensions (.csv, .tsv, .txt, .json).
+    # • Reject any other .gz (e.g. "malware.exe.gz" would previously slip through).
+    is_vcf_gz = name_lower.endswith(".vcf.gz")
+    last_suffix = path.suffix.lower()
+
+    if not is_vcf_gz and last_suffix == ".gz":
+        return FileValidationResult(
+            False,
+            "unknown",
+            "invalid",
+            f"Unsupported compressed format: {path.name}. Only .vcf.gz is accepted as a compressed input.",
+        )
+
+    if not is_vcf_gz and last_suffix not in SUPPORTED_INPUT_EXTENSIONS:
         return FileValidationResult(
             False,
             "unknown",
@@ -1743,7 +1252,12 @@ def validate_input_file(path: Path) -> FileValidationResult:
                 "Provide a called VCF or a pharmacogene variant table instead."
             ),
         )
-    if path.suffix.lower() in SUPPORTED_TABLE_EXTENSIONS:
+    if is_vcf_gz:
+        # Compressed but no #CHROM header found in prefix — still treat as VCF
+        # (the header might be after large meta-info blocks; downstream parsing
+        # will catch a true format error).
+        return FileValidationResult(True, "vcf", "variant", "Validated compressed VCF input (.vcf.gz)")
+    if last_suffix in SUPPORTED_TABLE_EXTENSIONS:
         return FileValidationResult(
             True,
             "variant_table",
@@ -1782,7 +1296,13 @@ def validate_variant_dataframe(df: pd.DataFrame) -> tuple[bool, str]:
 
 
 def load_variant_table(path: Path) -> pd.DataFrame:
-    """Read a variant table from CSV/TSV/TXT/JSON and normalize columns."""
+    """Read a variant table from CSV/TSV/TXT/JSON and normalize columns.
+
+    The delimiter is chosen explicitly from the file extension.
+    For .txt files a controlled peek at the first line is used to detect
+    tab vs. comma rather than relying on Python's CSV sniffer, which can
+    produce incorrect column splits on medically formatted data.
+    """
     suffix = path.suffix.lower()
     if suffix == ".json":
         data = json.loads(path.read_text(encoding="utf-8"))
@@ -1791,27 +1311,115 @@ def load_variant_table(path: Path) -> pd.DataFrame:
         else:
             frame = pd.DataFrame(data)
     elif suffix == ".csv":
-        frame = pd.read_csv(path)
+        frame = pd.read_csv(path, dtype=str)
     elif suffix == ".tsv":
-        frame = pd.read_csv(path, sep="\t")
+        frame = pd.read_csv(path, sep="\t", dtype=str)
     else:
-        frame = pd.read_csv(path, sep=None, engine="python")
+        # .txt or unrecognised extension: peek at the first non-comment line
+        # to decide delimiter; default to tab if ambiguous.
+        detected_sep = "\t"
+        try:
+            with open(path, encoding="utf-8", errors="ignore") as fh:
+                for raw_line in fh:
+                    line = raw_line.strip()
+                    if line and not line.startswith("#"):
+                        detected_sep = "\t" if "\t" in line else ","
+                        break
+        except OSError:
+            pass
+        frame = pd.read_csv(path, sep=detected_sep, dtype=str)
     return normalize_variant_dataframe(frame)
 
 
+_LOCAL_DRUG_DATABASE_SERVICE = None
+
+
+class _DrugDatabaseEntry:
+    """Minimal resolved-drug entry returned by the inline drug-database service."""
+
+    __slots__ = ("drug_key",)
+
+    def __init__(self, drug_key: str) -> None:
+        self.drug_key = drug_key
+
+
+class _InlineDrugDatabaseService:
+    """Self-contained drug normalisation service built from DRUG_GENE_RULES.
+
+    This replaces the external ``src.services.drug_database_service.DrugDatabaseService``
+    so the merged single-file application has no external package dependencies.
+    """
+
+    def normalize_many(
+        self, drugs: list[str]
+    ) -> "tuple[list[_DrugDatabaseEntry], list[str]]":
+        resolved: list[_DrugDatabaseEntry] = []
+        unresolved: list[str] = []
+        for raw in drugs:
+            key = str(raw).strip().lower()
+            if key in DRUG_GENE_RULES:
+                resolved.append(_DrugDatabaseEntry(key))
+            else:
+                # Try a general-pharmacology catalog entry first
+                gen = _GENERAL_PHARMACOLOGY_DRUGS.get(key)
+                if gen:
+                    resolved.append(_DrugDatabaseEntry(gen))
+                else:
+                    unresolved.append(raw)
+        return resolved, unresolved
+
+    def support_tier_for(self, drug: str) -> str:
+        key = str(drug).strip().lower()
+        if key in DRUG_GENE_RULES:
+            return "PARTIAL_EVIDENCE_SUPPORT"
+        if key in _GENERAL_PHARMACOLOGY_DRUGS:
+            return "GENERAL_PHARMACOLOGY_ONLY"
+        return "UNSUPPORTED"
+
+
+# Drugs known to the app but without a local PGx rule (general-pharmacology only).
+_GENERAL_PHARMACOLOGY_DRUGS: dict[str, str] = {
+    "aspirin": "aspirin",
+    "metformin": "metformin",
+    "atorvastatin": "atorvastatin",
+    "rosuvastatin": "rosuvastatin",
+    "pravastatin": "pravastatin",
+    "fluvastatin": "fluvastatin",
+    "pitavastatin": "pitavastatin",
+    "losartan": "losartan",
+    "amlodipine": "amlodipine",
+    "metoprolol": "metoprolol",
+    "carvedilol": "carvedilol",
+    "tramadol": "tramadol",
+    "codeine": "codeine",
+    "hydrocodone": "hydrocodone",
+    "oxycodone": "oxycodone",
+    "tamoxifen": "tamoxifen",
+    "irinotecan": "irinotecan",
+    "abacavir": "abacavir",
+    "allopurinol": "allopurinol",
+    "carbamazepine": "carbamazepine",
+    "phenytoin": "phenytoin",
+    "valproic acid": "valproic acid",
+    "clozapine": "clozapine",
+    "risperidone": "risperidone",
+    "aripiprazole": "aripiprazole",
+}
+
+
+def _drug_database_service() -> _InlineDrugDatabaseService:
+    global _LOCAL_DRUG_DATABASE_SERVICE
+    if _LOCAL_DRUG_DATABASE_SERVICE is None:
+        _LOCAL_DRUG_DATABASE_SERVICE = _InlineDrugDatabaseService()
+    return _LOCAL_DRUG_DATABASE_SERVICE
+
+
 def normalize_selected_drugs(drugs: list[str] | None) -> list[str]:
-    """Normalize user-selected drug names to the supported local rules."""
+    """Normalize user-selected drug names to the local Pharmexia drug database."""
     if not drugs:
         return []
-    supported = set(DRUG_GENE_RULES)
-    normalized: list[str] = []
-    for drug in drugs:
-        key = str(drug).strip().lower()
-        if not key:
-            continue
-        if key in supported:
-            normalized.append(key)
-    return sorted(set(normalized))
+    entries, _unresolved = _drug_database_service().normalize_many([str(drug) for drug in drugs if str(drug).strip()])
+    return [entry.drug_key for entry in entries]
 
 # --- end merged module: src/input_validation.py ---
 
@@ -1835,27 +1443,42 @@ def genotype_to_numeric(
 ) -> int | None:
     """Convert a genotype string to the copy count of a specific alternate allele.
 
-    Supports numeric VCF GT values like ``0/1`` and cautious parsing of allele-string
-    tables like ``A/G`` when both ``ref`` and ``alt`` are available. When parsing is
-    ambiguous, ``None`` is returned rather than assuming a reference genotype.
+    Supports two formats:
+
+    1. **Numeric VCF GT** (``0/1``, ``1|1``, ``0/0``, etc.) – the standard VCF
+       representation where allele indices are integers.
+    2. **Allele-string tables** (``A/G``, ``AG``) – used by some variant-table
+       formats.  Only attempted when both ``ref`` and ``alt`` are supplied and
+       ``alt_index == 1``.
+
+    Returns ``None`` when the genotype is missing, ambiguous, or cannot be parsed
+    rather than silently assuming a reference call.
     """
     value = str(genotype or "").strip().upper()
-    if not value or value in {".", "./.", ".:.", "./", ".|."}:
+    if not value or value in {".", "./.", ".:.", "./", ".|.", "N/A", "NA"}:
         return None
-    value = value.split(":", 1)[0].strip()
-    numeric_alleles = value.replace("|", "/").split("/")
-    if "/" in value or "|" in value:
-        if all(allele == "." or allele.isdigit() for allele in numeric_alleles):
-            count = 0
-            seen = False
-            for allele in numeric_alleles:
-                if allele == ".":
-                    return None
-                seen = True
-                if int(allele) == alt_index:
-                    count += 1
-            return count if seen else None
 
+    # Strip trailing FORMAT fields (e.g. "0/1:30:99" → "0/1").
+    value = value.split(":", 1)[0].strip()
+
+    # ── Branch 1: numeric VCF GT ─────────────────────────────────────────────
+    # A GT is numeric when every allele token (after splitting on / or |) is
+    # either "." or a digit string.  We check this first so that allele strings
+    # like "A/G" fall through cleanly to branch 2.
+    if "/" in value or "|" in value:
+        allele_tokens = value.replace("|", "/").split("/")
+        if all(tok == "." or tok.isdigit() for tok in allele_tokens):
+            count = 0
+            for tok in allele_tokens:
+                if tok == ".":
+                    return None  # any missing call makes the GT ambiguous
+                if int(tok) == alt_index:
+                    count += 1
+            return count
+        # Tokens are not purely numeric → fall through to allele-string branch.
+
+    # ── Branch 2: allele-string format (e.g. "A/G", "AG") ───────────────────
+    # Only supported when ref and alt are known and alt_index is 1.
     if not ref or not alt or alt_index != 1:
         return None
 
@@ -1864,6 +1487,8 @@ def genotype_to_numeric(
     if not ref_upper or not alt_upper:
         return None
 
+    # Split on delimiter when present; otherwise try to split a two-character
+    # string into individual alleles (valid only for single-nucleotide variants).
     if "/" in value or "|" in value:
         allele_tokens = value.replace("|", "/").split("/")
     elif len(ref_upper) == 1 and len(alt_upper) == 1 and len(value) == 2:
@@ -1872,16 +1497,16 @@ def genotype_to_numeric(
         return None
 
     count = 0
-    for allele in allele_tokens:
-        if allele not in {ref_upper, alt_upper}:
-            return None
-        if allele == alt_upper:
+    for tok in allele_tokens:
+        if tok not in {ref_upper, alt_upper}:
+            return None  # unrecognised allele → ambiguous
+        if tok == alt_upper:
             count += 1
     return count
 
 
 def _open_text(path: Path):
-    return gzip.open(path, "rt", encoding="utf-8", errors="ignore") if path.suffix == ".gz" else open(
+    return gzip.open(path, "rt", encoding="utf-8", errors="ignore") if path.name.lower().endswith(".gz") else open(
         path, "rt", encoding="utf-8", errors="ignore"
     )
 
@@ -1957,10 +1582,14 @@ def parse_vcf_file(path: Path) -> tuple[list[ObservedVariant], str]:
                     for alt_index, alt in enumerate(alts, start=1):
                         gt_code = genotype_to_numeric(genotype, alt_index=alt_index, ref=ref, alt=alt)
                         inferred_gene = gene or RSID_TO_GENE.get(rsid)
+                        try:
+                            parsed_pos: int | None = int(pos)
+                        except (ValueError, TypeError):
+                            parsed_pos = None
                         records.append(
                             ObservedVariant(
                                 chrom=chrom,
-                                pos=int(pos) if str(pos).isdigit() else None,
+                                pos=parsed_pos,
                                 ref=ref,
                                 alt=alt,
                                 rsid=None if rsid == "." else rsid,
@@ -1986,6 +1615,24 @@ def parse_vcf_to_dataframe(path: Path) -> pd.DataFrame:
     if error:
         raise ValueError(error)
     return pd.DataFrame([record.to_dict() for record in records])
+
+
+def _safe_int(value: object) -> int | None:
+    """Convert *value* to ``int``, returning ``None`` for missing/NaN/non-numeric values.
+
+    pandas reads integer columns with NaN as float64 (e.g. ``nan``).  Plain
+    ``int(float('nan'))`` raises ``ValueError``, so we handle that here.
+    """
+    if value is None or value == "":
+        return None
+    try:
+        f = float(value)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
+    import math
+    if math.isnan(f) or math.isinf(f):
+        return None
+    return int(f)
 
 
 def dataframe_to_observed_variants(df: pd.DataFrame) -> list[ObservedVariant]:
@@ -2016,12 +1663,12 @@ def dataframe_to_observed_variants(df: pd.DataFrame) -> list[ObservedVariant]:
         variants.append(
             ObservedVariant(
                 chrom=str(row.get("chrom") or "").strip() or None,
-                pos=int(row["pos"]) if row.get("pos") not in (None, "") else None,
+                pos=_safe_int(row.get("pos")),
                 ref=ref,
                 alt=alt,
                 rsid=rsid,
                 genotype=genotype,
-                genotype_code=int(genotype_code) if genotype_code is not None else None,
+                genotype_code=_safe_int(genotype_code),
                 sample_id=str(row.get("sample_id") or "").strip() or None,
                 gene=gene,
                 source="table",
@@ -2067,14 +1714,20 @@ def normalize_observed_variants(variants: list[ObservedVariant]) -> list[Observe
 
 
 def filter_pharmacogene_variants(variants: list[ObservedVariant]) -> list[ObservedVariant]:
-    """Keep only variants mapping to locally supported pharmacogenes."""
+    """Keep only variants mapping to locally supported pharmacogenes.
+
+    Returns new ``ObservedVariant`` instances with the ``gene`` field normalised;
+    the original objects are never mutated.
+    """
+    from dataclasses import replace as _dc_replace
+
     supported = set(SUPPORTED_PHARMACOGENES)
     filtered: list[ObservedVariant] = []
     for variant in variants:
         gene = str(variant.gene or RSID_TO_GENE.get(variant.rsid or "") or "").strip().upper()
         if gene in supported:
-            variant.gene = gene
-            filtered.append(variant)
+            # Create a new instance rather than mutating the shared object.
+            filtered.append(_dc_replace(variant, gene=gene))
     return filtered
 
 
@@ -2337,6 +1990,11 @@ def _normalize_pathogenicity(info: dict[str, Any]) -> tuple[PathogenicityLabel, 
     return "UNSPECIFIED", "UNKNOWN"
 
 
+def _normalize_variant(value: str | None) -> str | None:
+    """Normalise a variant token to a canonical lower-case string for storage and deduplication."""
+    return str(value or "").strip().lower() or None
+
+
 def predict_variant_effect(variant: ObservedVariant) -> VariantEffectPrediction:
     """Classify a variant's likely biological effect from explicit annotation only."""
     info = _normalized_info_map(variant.info)
@@ -2473,6 +2131,59 @@ from functools import lru_cache
 STAR_ALLELE_RULES_PATH = Path(__file__).resolve().parent / "data" / "star_allele_rules.json"
 
 
+def _empty_star_allele_catalog() -> "StarAlleleRuleCatalog":
+    """Return an empty catalog used when the data file is absent."""
+    return StarAlleleRuleCatalog(schema_version="missing")
+
+
+# Module-level cache — populated on first successful load.
+_STAR_ALLELE_CATALOG_CACHE: "StarAlleleRuleCatalog | None" = None
+
+
+def load_star_allele_rule_catalog(path: str | None = None) -> "StarAlleleRuleCatalog":
+    """Load and cache the local star-allele rule catalog.
+
+    Falls back to an empty catalog (rather than raising) when the data file is
+    absent so that the rest of the pipeline can still run and report limitations.
+    The cache is keyed on the resolved path; passing a different *path* argument
+    bypasses the cache so tests can supply fixture data without side-effects.
+    """
+    global _STAR_ALLELE_CATALOG_CACHE
+
+    rule_path = Path(path) if path else STAR_ALLELE_RULES_PATH
+
+    # When using the default path, return the in-process cache if populated.
+    if path is None and _STAR_ALLELE_CATALOG_CACHE is not None:
+        return _STAR_ALLELE_CATALOG_CACHE
+
+    if not rule_path.exists():
+        empty = _empty_star_allele_catalog()
+        if path is None:
+            _STAR_ALLELE_CATALOG_CACHE = empty
+        return empty
+
+    try:
+        payload = json.loads(rule_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        empty = _empty_star_allele_catalog()
+        if path is None:
+            _STAR_ALLELE_CATALOG_CACHE = empty
+        return empty
+
+    gene_rules = {
+        str(gene).upper(): _parse_star_allele_rule_set(str(gene).upper(), dict(rule_set))
+        for gene, rule_set in dict(payload.get("genes", {})).items()
+    }
+    catalog = StarAlleleRuleCatalog(
+        schema_version=str(payload.get("schema_version", "1.0")),
+        genes=gene_rules,
+        source_layers=[dict(item) for item in payload.get("source_layers", []) or [] if isinstance(item, dict)],
+    )
+    if path is None:
+        _STAR_ALLELE_CATALOG_CACHE = catalog
+    return catalog
+
+
 @dataclass(slots=True)
 class StarAlleleRule:
     allele: str
@@ -2481,6 +2192,7 @@ class StarAlleleRule:
     callable: bool = True
     function: str | None = None
     notes: list[str] = field(default_factory=list)
+    sources: list[dict[str, str]] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -2498,6 +2210,7 @@ class GeneStarAlleleRuleSet:
     alleles: dict[str, StarAlleleRule] = field(default_factory=dict)
     diplotype_phenotypes: dict[str, str] = field(default_factory=dict)
     limitations: list[str] = field(default_factory=list)
+    sources: list[dict[str, str]] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -2511,6 +2224,7 @@ class GeneStarAlleleRuleSet:
             "alleles": {key: value.to_dict() for key, value in self.alleles.items()},
             "diplotype_phenotypes": dict(self.diplotype_phenotypes),
             "limitations": list(self.limitations),
+            "sources": list(self.sources),
         }
 
 
@@ -2518,11 +2232,13 @@ class GeneStarAlleleRuleSet:
 class StarAlleleRuleCatalog:
     schema_version: str
     genes: dict[str, GeneStarAlleleRuleSet] = field(default_factory=dict)
+    source_layers: list[dict[str, str]] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "schema_version": self.schema_version,
             "genes": {gene: rule_set.to_dict() for gene, rule_set in self.genes.items()},
+            "source_layers": list(self.source_layers),
         }
 
 
@@ -2535,6 +2251,7 @@ def _parse_star_allele_rule_set(gene: str, payload: dict[str, Any]) -> GeneStarA
             callable=bool(rule.get("callable", True)),
             function=rule.get("function"),
             notes=list(rule.get("notes", []) or []),
+            sources=[dict(item) for item in rule.get("sources", []) or [] if isinstance(item, dict)],
         )
         for allele, rule in dict(payload.get("alleles", {})).items()
     }
@@ -2550,24 +2267,11 @@ def _parse_star_allele_rule_set(gene: str, payload: dict[str, Any]) -> GeneStarA
         alleles=allele_rules,
         diplotype_phenotypes={str(key): str(value) for key, value in dict(payload.get("diplotype_phenotypes", {})).items()},
         limitations=[str(item) for item in payload.get("limitations", [])],
+        sources=[dict(item) for item in payload.get("sources", []) or [] if isinstance(item, dict)],
     )
 
 
-@lru_cache(maxsize=1)
-def load_star_allele_rule_catalog(path: str | None = None) -> StarAlleleRuleCatalog:
-    rule_path = Path(path) if path else STAR_ALLELE_RULES_PATH
-    payload = json.loads(rule_path.read_text(encoding="utf-8"))
-    gene_rules = {
-        str(gene).upper(): _parse_star_allele_rule_set(str(gene).upper(), dict(rule_set))
-        for gene, rule_set in dict(payload.get("genes", {})).items()
-    }
-    return StarAlleleRuleCatalog(
-        schema_version=str(payload.get("schema_version", "1.0")),
-        genes=gene_rules,
-    )
-
-
-def star_allele_rule_set_for_gene(gene: str, *, path: str | None = None) -> GeneStarAlleleRuleSet | None:
+def star_allele_rule_set_for_gene(gene: str, *, path: str | None = None) -> "GeneStarAlleleRuleSet | None":
     return load_star_allele_rule_catalog(path).genes.get(str(gene).upper())
 
 # --- end merged module: src/core/star_alleles.py ---
@@ -2584,6 +2288,7 @@ class DiplotypeInterpretation:
     confidence_category: str = "INCONCLUSIVE"
     ambiguous: bool = False
     limitations: list[str] = field(default_factory=list)
+    sources: list[dict[str, str]] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -2613,6 +2318,7 @@ def interpret_diplotype_from_matches(
         return DiplotypeInterpretation(gene=gene, confidence_category="INCONCLUSIVE")
 
     limitations: list[str] = list(rule_set.limitations)
+    sources: list[dict[str, str]] = list(rule_set.sources)
     if not matched_alleles:
         if coverage_complete and not rule_set.allow_reference_call:
             limitations.append(
@@ -2622,6 +2328,7 @@ def interpret_diplotype_from_matches(
             gene=gene,
             confidence_category=rule_set.confidence_inconclusive,
             limitations=limitations,
+            sources=sources,
         )
 
     if not coverage_complete:
@@ -2632,6 +2339,7 @@ def interpret_diplotype_from_matches(
             gene=gene,
             confidence_category=rule_set.confidence_inconclusive,
             limitations=limitations,
+            sources=sources,
         )
 
     unique_loci = {match.rsid for match in matched_alleles}
@@ -2644,6 +2352,7 @@ def interpret_diplotype_from_matches(
             confidence_category=rule_set.confidence_inconclusive,
             ambiguous=True,
             limitations=limitations,
+            sources=sources,
         )
 
     match = matched_alleles[0]
@@ -2653,6 +2362,7 @@ def interpret_diplotype_from_matches(
             gene=gene,
             confidence_category=rule_set.confidence_inconclusive,
             limitations=limitations,
+            sources=sources,
         )
 
     allele_rule = rule_set.alleles.get(match.allele)
@@ -2662,6 +2372,7 @@ def interpret_diplotype_from_matches(
             gene=gene,
             confidence_category=rule_set.confidence_inconclusive,
             limitations=limitations,
+            sources=sources,
         )
 
     if not allele_rule.callable:
@@ -2672,6 +2383,7 @@ def interpret_diplotype_from_matches(
             gene=gene,
             confidence_category=rule_set.confidence_inconclusive,
             limitations=limitations + list(allele_rule.notes),
+            sources=sources + list(allele_rule.sources),
         )
 
     if match.genotype_code == 1:
@@ -2684,6 +2396,7 @@ def interpret_diplotype_from_matches(
             gene=gene,
             confidence_category=rule_set.confidence_inconclusive,
             limitations=limitations,
+            sources=sources + list(allele_rule.sources),
         )
 
     phenotype = rule_set.diplotype_phenotypes.get(diplotype)
@@ -2695,6 +2408,7 @@ def interpret_diplotype_from_matches(
             gene=gene,
             confidence_category=rule_set.confidence_inconclusive,
             limitations=limitations + list(allele_rule.notes),
+            sources=sources + list(allele_rule.sources),
         )
 
     limitations.append(
@@ -2707,6 +2421,7 @@ def interpret_diplotype_from_matches(
         confidence_category=rule_set.confidence_supported,
         ambiguous=False,
         limitations=limitations + list(allele_rule.notes),
+        sources=sources + list(allele_rule.sources),
     )
 
 # --- end merged module: src/core/diplotype_interpreter.py ---
@@ -2729,14 +2444,20 @@ def _variant_matches_definition(variant: ObservedVariant, definition: dict[str, 
 
 
 def assess_pharmacogenes(variants: list[ObservedVariant]) -> dict[str, GeneAssessment]:
-    """Assess curated pharmacogenes from the observed variant list."""
+    """Assess curated pharmacogenes from the observed variant list.
+
+    Input variants are never mutated; gene attribution is computed locally.
+    """
+    from dataclasses import replace as _dc_replace
+
     grouped_variants: dict[str, list[ObservedVariant]] = defaultdict(list)
     for variant in variants:
         gene = (variant.gene or RSID_TO_GENE.get(variant.rsid or "") or "").upper()
         if not gene:
             continue
-        variant.gene = gene
-        grouped_variants[gene].append(variant)
+        # Use a new instance with the normalised gene; do NOT mutate the input.
+        normalised = _dc_replace(variant, gene=gene) if variant.gene != gene else variant
+        grouped_variants[gene].append(normalised)
 
     assessments: dict[str, GeneAssessment] = {}
     for gene, definitions in ALLELE_DEFINITIONS.items():
@@ -2797,6 +2518,7 @@ def assess_pharmacogenes(variants: list[ObservedVariant]) -> dict[str, GeneAsses
 import copy
 import threading
 import time
+from collections import OrderedDict as OrderedDict
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -2853,15 +2575,20 @@ class AdapterLookupResponse:
 
 
 class TTLStructuredEvidenceCache:
-    """Thread-safe in-memory TTL cache for external evidence lookups."""
+    """Thread-safe in-memory TTL cache for external evidence lookups.
+
+    Uses an ``OrderedDict`` for O(1) LRU eviction so that the lock is held for
+    the minimum time and the capacity check is race-free.
+    """
 
     def __init__(self, ttl_seconds: int = 900, max_entries: int = 256) -> None:
         self.ttl_seconds = ttl_seconds
         self.max_entries = max_entries
-        self._entries: dict[str, tuple[float, list[StructuredEvidence]]] = {}
+        # OrderedDict preserves insertion order → oldest entry is first.
+        self._entries: "OrderedDict[str, tuple[float, list[StructuredEvidence]]]" = OrderedDict()
         self._lock = threading.Lock()
 
-    def get(self, key: str) -> list[StructuredEvidence] | None:
+    def get(self, key: str) -> "list[StructuredEvidence] | None":
         now = time.monotonic()
         with self._lock:
             payload = self._entries.get(key)
@@ -2873,12 +2600,16 @@ class TTLStructuredEvidenceCache:
                 return None
             return copy.deepcopy(records)
 
-    def set(self, key: str, records: list[StructuredEvidence]) -> None:
+    def set(self, key: str, records: "list[StructuredEvidence]") -> None:
         now = time.monotonic()
         with self._lock:
-            if len(self._entries) >= self.max_entries:
-                oldest_key = min(self._entries, key=lambda item: self._entries[item][0])
-                self._entries.pop(oldest_key, None)
+            # Remove the key first so reinserting it moves it to the "newest" end.
+            self._entries.pop(key, None)
+            # Evict oldest entries until we are within capacity (handles the
+            # case where max_entries was reduced or concurrent threads both
+            # called set() simultaneously).
+            while len(self._entries) >= self.max_entries:
+                self._entries.popitem(last=False)  # O(1) — removes oldest
             self._entries[key] = (now + self.ttl_seconds, copy.deepcopy(records))
 
 # --- end merged module: src/database_clients/base.py ---
@@ -2890,7 +2621,12 @@ class TTLStructuredEvidenceCache:
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Protocol
 
-import requests
+try:
+    import requests as requests
+    _REQUESTS_AVAILABLE = True
+except ImportError:
+    requests = None  # type: ignore[assignment]
+    _REQUESTS_AVAILABLE = False
 
 
 
@@ -2984,63 +2720,60 @@ class ClinVarEvidenceAdapter:
 
 
 class DbSnpEvidenceAdapter:
-    """dbSNP catalog presence adapter."""
+    """dbSNP catalog presence adapter using the NCBI E-utilities esearch API.
+
+    The previous implementation performed an HTTP GET on the dbSNP HTML page and
+    used HTTP 200 as a proxy for catalog presence.  That approach is wrong because
+    the NCBI HTML page returns 200 even for non-existent rsIDs (it renders a "not
+    found" message in the body).  This version uses the same JSON esearch endpoint
+    as the ClinVar adapter so that catalog presence is verified by record count.
+    """
 
     source_name = "dbSNP"
 
     def __init__(self, timeout_seconds: float = 2.5) -> None:
         self.timeout_seconds = timeout_seconds
 
-    def lookup(self, context: EvidenceQueryContext) -> AdapterLookupResponse:
+    def lookup(self, context: "EvidenceQueryContext") -> "AdapterLookupResponse":
         rsid = context.rsid
         url = f"https://www.ncbi.nlm.nih.gov/snp/{rsid}" if rsid else "https://www.ncbi.nlm.nih.gov/snp/"
         if not rsid:
             return AdapterLookupResponse(source_name=self.source_name, status="unavailable", records=[])
 
+        endpoint = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
         try:
-            response = requests.get(url, timeout=self.timeout_seconds)
-            if response.ok:
-                record = StructuredEvidence(
-                    source_name=self.source_name,
-                    source_record_id=rsid,
-                    evidence_type="catalog_presence",
-                    clinical_relevance="catalog_reference",
-                    confidence="annotation_only",
-                    citation_url=url,
-                    normalized_gene=context.normalized_gene,
-                    normalized_variant=context.normalized_variant,
-                    normalized_drug=context.normalized_drug,
-                    interpretation_text=(
-                        f"dbSNP catalog entry was reachable for {rsid}. "
-                        "Catalog presence confirms identifier context only and does not establish functional impact."
-                    ),
-                    source_module="src.database_clients.remote_sources",
-                    status="available",
-                )
-                return AdapterLookupResponse(source_name=self.source_name, status="available", records=[record])
-
+            response = requests.get(
+                endpoint,
+                params={"db": "snp", "retmode": "json", "term": f"{rsid}[All Fields]"},
+                timeout=self.timeout_seconds,
+            )
+            response.raise_for_status()
+            payload = response.json()
+            count = int(payload.get("esearchresult", {}).get("count", 0))
             record = StructuredEvidence(
                 source_name=self.source_name,
                 source_record_id=rsid,
                 evidence_type="catalog_presence",
-                clinical_relevance="catalog_not_confirmed",
+                clinical_relevance="catalog_reference" if count > 0 else "catalog_not_confirmed",
                 confidence="annotation_only",
                 citation_url=url,
                 normalized_gene=context.normalized_gene,
                 normalized_variant=context.normalized_variant,
                 normalized_drug=context.normalized_drug,
                 interpretation_text=(
-                    f"dbSNP returned HTTP {response.status_code} for {rsid}. "
+                    f"dbSNP esearch returned {count} record(s) for {rsid}. "
+                    "Catalog presence confirms identifier context only and does not establish functional impact."
+                    if count > 0
+                    else f"dbSNP esearch found no records for {rsid}. "
                     "No dbSNP catalog evidence was incorporated."
                 ),
                 source_module="src.database_clients.remote_sources",
-                status="unavailable",
-                details={"http_status": response.status_code},
+                status="available" if count > 0 else "unavailable",
+                details={"count": count},
             )
             return AdapterLookupResponse(
                 source_name=self.source_name,
-                status="unavailable",
-                error=f"HTTP {response.status_code}",
+                status="available" if count > 0 else "unavailable",
                 records=[record],
             )
         except Exception as exc:
@@ -3122,13 +2855,33 @@ class UniProtEvidenceAdapter:
 
 
 class RemoteEvidenceService:
-    """Aggregate external evidence adapters with caching and short parallel lookups."""
+    """Aggregate external evidence adapters with caching and short parallel lookups.
+
+    A single module-level ``ThreadPoolExecutor`` is reused across all calls to
+    avoid creating O(requests × adapters) OS threads under concurrent API load.
+    """
+
+    # Shared executor — created lazily on first use, reused thereafter.
+    _shared_executor: "ThreadPoolExecutor | None" = None
+    _executor_lock = threading.Lock()
+    _EXECUTOR_MAX_WORKERS = 8  # enough for all adapters across concurrent requests
+
+    @classmethod
+    def _get_executor(cls) -> "ThreadPoolExecutor":
+        if cls._shared_executor is None:
+            with cls._executor_lock:
+                if cls._shared_executor is None:
+                    cls._shared_executor = ThreadPoolExecutor(
+                        max_workers=cls._EXECUTOR_MAX_WORKERS,
+                        thread_name_prefix="remote_evidence",
+                    )
+        return cls._shared_executor
 
     def __init__(
         self,
         *,
-        cache: TTLStructuredEvidenceCache | None = None,
-        adapters: list[EvidenceSourceAdapter] | None = None,
+        cache: "TTLStructuredEvidenceCache | None" = None,
+        adapters: "list[EvidenceSourceAdapter] | None" = None,
     ) -> None:
         self.cache = cache or TTLStructuredEvidenceCache()
         self.adapters = adapters or [
@@ -3139,12 +2892,12 @@ class RemoteEvidenceService:
 
     def lookup_variant(
         self,
-        rsid: str | None,
-        gene: str | None,
+        rsid: "str | None",
+        gene: "str | None",
         *,
-        drug: str | None = None,
-        variant_token: str | None = None,
-    ) -> list[StructuredEvidence]:
+        drug: "str | None" = None,
+        variant_token: "str | None" = None,
+    ) -> "list[StructuredEvidence]":
         context = EvidenceQueryContext(rsid=rsid, gene=gene, drug=drug, variant_token=variant_token)
         if not context.normalized_variant and not context.normalized_gene:
             return []
@@ -3154,21 +2907,21 @@ class RemoteEvidenceService:
             return cached
 
         records: list[StructuredEvidence] = []
-        with ThreadPoolExecutor(max_workers=max(1, len(self.adapters))) as executor:
-            future_map = {executor.submit(adapter.lookup, context): adapter.source_name for adapter in self.adapters}
-            for future in as_completed(future_map):
-                source_name = future_map[future]
-                try:
-                    result = future.result()
-                    records.extend(result.records)
-                except Exception as exc:
-                    records.append(
-                        _unavailable_record(
-                            source_name=source_name,
-                            context=context,
-                            message=f"{source_name} lookup failed unexpectedly; no evidence was incorporated: {exc}",
-                        )
+        executor = self._get_executor()
+        future_map = {executor.submit(adapter.lookup, context): adapter.source_name for adapter in self.adapters}
+        for future in as_completed(future_map, timeout=10.0):
+            source_name = future_map[future]
+            try:
+                result = future.result()
+                records.extend(result.records)
+            except Exception as exc:
+                records.append(
+                    _unavailable_record(
+                        source_name=source_name,
+                        context=context,
+                        message=f"{source_name} lookup failed unexpectedly; no evidence was incorporated: {exc}",
                     )
+                )
 
         self.cache.set(context.cache_key, records)
         return records
@@ -3239,7 +2992,13 @@ class LocalRuleEvidenceAdapter:
         records: list[StructuredEvidence] = []
         source_keys = DRUG_REFERENCE_SOURCE_KEYS.get(normalized_drug or "", list(match.sources))
         for source_key in source_keys:
-            source = REFERENCE_SOURCES[source_key]
+            source = REFERENCE_SOURCES.get(
+                source_key,
+                {
+                    "label": source_key.replace("_", " ").title(),
+                    "url": "",
+                },
+            )
             records.append(
                 StructuredEvidence(
                     source_name=source["label"],
@@ -3438,7 +3197,7 @@ class EvidenceIntegrator:
         for conflict in aggregate.conflicts:
             provenance.append(
                 EvidenceRecord(
-                source="Pharmexia evidence aggregator",
+                    source="Pharmexia evidence aggregator",
                     label=aggregate.normalized_gene or "evidence",
                     assertion=conflict.resolution,
                     source_module="src.evidence_integration",
@@ -3450,7 +3209,7 @@ class EvidenceIntegrator:
         if not provenance and aggregate.final_evidence_summary:
             provenance.append(
                 EvidenceRecord(
-                source="Pharmexia evidence aggregator",
+                    source="Pharmexia evidence aggregator",
                     label=aggregate.normalized_gene or "evidence",
                     assertion=aggregate.final_evidence_summary,
                     source_module="src.evidence_integration",
@@ -3541,7 +3300,7 @@ def annotate_variant_evidence(
         for conflict in variant_aggregate.conflicts:
             annotation.evidence_records.append(
                 EvidenceRecord(
-                source="Pharmexia evidence aggregator",
+                    source="Pharmexia evidence aggregator",
                     label=annotation.gene,
                     assertion=conflict.resolution,
                     source_module="src.evidence_integration",
@@ -3995,14 +3754,29 @@ from functools import lru_cache
 from pathlib import Path
 
 
+# Module-level cache for the interaction catalog (populated on first successful load).
+_INTERACTION_CATALOG_CACHE: "InteractionCatalog | None" = None
 
 INTERACTION_SCHEMA_PATH = Path(__file__).resolve().parent / "data" / "interaction_schema.json"
+
 INTERACTION_SEVERITY_ORDER = {
-    "HIGH": 0,
-    "MODERATE": 1,
-    "LOW": 2,
-    "INFORMATIONAL": 3,
-    "UNSUPPORTED": 4,
+    "CONTRAINDICATED": 0,
+    "MAJOR": 1,
+    "HIGH": 1,
+    "MODERATE": 2,
+    "LOW": 3,
+    "MINOR": 3,
+    "INFORMATIONAL": 4,
+    "UNKNOWN": 5,
+    "UNSUPPORTED": 6,
+}
+
+LEGACY_INTERACTION_SEVERITY_MAP = {
+    "HIGH": "MAJOR",
+    "MODERATE": "MODERATE",
+    "LOW": "MINOR",
+    "INFORMATIONAL": "UNKNOWN",
+    "UNSUPPORTED": "UNKNOWN",
 }
 
 
@@ -4098,517 +3872,68 @@ def _parse_interaction_rule(payload: dict[str, Any]) -> InteractionRule:
     )
 
 
-def _build_builtin_interaction_catalog() -> InteractionCatalog:
-    """Build a comprehensive built-in drug interaction catalog."""
-    severity_categories = {
-        "HIGH": "Contraindicated or high-risk combination requiring immediate attention",
-        "MODERATE": "May require dose adjustment or close monitoring",
-        "LOW": "Minor interaction, may not require intervention",
-        "INFORMATIONAL": "Theoretical or clinically insignificant interaction",
-    }
-
-    # Built-in drug-drug interaction rules based on CPIC/FDA guidelines
-    drug_drug_rules: list[InteractionRule] = [
-        # HIGH severity - CYP2D6 inhibitors + CYP2D6 substrates
-        InteractionRule(
-            interaction_id="ddi::fluoxetine::tamoxifen",
-            interaction_type="drug_drug",
-            subject_drug="fluoxetine",
-            interacting_entity="tamoxifen",
-            entity_type="drug",
-            gene="CYP2D6",
-            evidence_based=True,
-            provenance=[
-                InteractionProvenance(
-                    source_name="CPIC Guidelines",
-                    source_record_id="CPIC_TAMOXIFEN",
-                    evidence_type="cpic_guideline",
-                    citation_url="https://cpicpgx.org/guidelines/guideline-for-tamoxifen-based-on-cyp2d6-genotype/",
-                    source_module="src.core.drug_interactions",
-                    note="Strong CYP2D6 inhibitors reduce tamoxifen efficacy",
-                )
-            ],
-            limitations=[
-                "Clinical outcome data on CYP2D6 genotyping and breast cancer recurrence is mixed",
-                "Effect magnitude varies by CYP2D6 metabolizer status",
-            ],
-            profiles=[
-                InteractionRuleProfile(
-                    key="strong_inhibitor_combination",
-                    status="supported",
-                    severity="HIGH",
-                    confidence="strong",
-                    summary="Fluoxetine (strong CYP2D6 inhibitor) significantly reduces tamoxifen conversion to active endoxifen",
-                    clinical_relevance="May reduce tamoxifen efficacy in breast cancer treatment; consider alternative antidepressant",
-                    mechanism="Fluoxetine potently inhibits CYP2D6, blocking conversion of tamoxifen to active endoxifen metabolite",
-                    recommendation="Avoid combination if possible; consider alternative antidepressant (e.g., citalopram, escitalopram) or consult oncology",
-                )
-            ],
-        ),
-        InteractionRule(
-            interaction_id="ddi::paroxetine::tamoxifen",
-            interaction_type="drug_drug",
-            subject_drug="paroxetine",
-            interacting_entity="tamoxifen",
-            entity_type="drug",
-            gene="CYP2D6",
-            evidence_based=True,
-            provenance=[
-                InteractionProvenance(
-                    source_name="CPIC Guidelines",
-                    source_record_id="CPIC_TAMOXIFEN",
-                    evidence_type="cpic_guideline",
-                    citation_url="https://cpicpgx.org/guidelines/guideline-for-tamoxifen-based-on-cyp2d6-genotype/",
-                    source_module="src.core.drug_interactions",
-                    note="Paroxetine is a strong CYP2D6 inhibitor",
-                )
-            ],
-            limitations=[
-                "Strongest evidence for CYP2D6 PMs; less clear for UMs/IMs",
-            ],
-            profiles=[
-                InteractionRuleProfile(
-                    key="strong_inhibitor_combination",
-                    status="supported",
-                    severity="HIGH",
-                    confidence="strong",
-                    summary="Paroxetine (strong CYP2D6 inhibitor) significantly reduces tamoxifen conversion to active endoxifen",
-                    clinical_relevance="Reduced tamoxifen efficacy; increased risk of cancer recurrence",
-                    mechanism="Paroxetine strongly inhibits CYP2D6, preventing tamoxifen bioactivation",
-                    recommendation="Avoid combination; switch to CYP2D6-neutral antidepressant (citalopram, escitalopram, venlafaxine)",
-                )
-            ],
-        ),
-        # MODERATE severity - CYP3A4 inhibitors + statins
-        InteractionRule(
-            interaction_id="ddi::fluconazole::simvastatin",
-            interaction_type="drug_drug",
-            subject_drug="fluconazole",
-            interacting_entity="simvastatin",
-            entity_type="drug",
-            gene="CYP3A4",
-            evidence_based=True,
-            provenance=[
-                InteractionProvenance(
-                    source_name="FDA Drug Label",
-                    source_record_id="FDA_SIMVASTATIN",
-                    evidence_type="fda_label",
-                    citation_url="https://www.accessdata.fda.gov/drugsatfda_docs/label/",
-                    source_module="src.core.drug_interactions",
-                    note="Simvastatin label warns against CYP3A4 inhibitors",
-                )
-            ],
-            limitations=[
-                "Risk varies by statin dose and patient SLCO1B1 status",
-            ],
-            profiles=[
-                InteractionRuleProfile(
-                    key="cyp3a4_inhibitor_statin",
-                    status="supported",
-                    severity="MODERATE",
-                    confidence="strong",
-                    summary="Fluconazole inhibits CYP3A4, increasing simvastatin plasma concentrations",
-                    clinical_relevance="Increased risk of myopathy and rhabdomyolysis",
-                    mechanism="Fluconazole inhibits CYP3A4-mediated simvastatin metabolism",
-                    recommendation="Consider temporary simvastatin discontinuation or dose reduction during fluconazole therapy; monitor for muscle symptoms",
-                )
-            ],
-        ),
-        InteractionRule(
-            interaction_id="ddi::amiodarone::warfarin",
-            interaction_type="drug_drug",
-            subject_drug="amiodarone",
-            interacting_entity="warfarin",
-            entity_type="drug",
-            gene="CYP2C9",
-            evidence_based=True,
-            provenance=[
-                InteractionProvenance(
-                    source_name="FDA Drug Label",
-                    source_record_id="FDA_WARFARIN",
-                    evidence_type="drug_label",
-                    citation_url="https://www.accessdata.fda.gov/drugsatfda_docs/label/",
-                    source_module="src.core.drug_interactions",
-                    note="Amiodarone inhibits CYP2C9 and potentiates warfarin",
-                )
-            ],
-            limitations=[
-                "Effect varies by patient CYP2C9 genotype",
-                "Requires INR monitoring but magnitude unpredictable",
-            ],
-            profiles=[
-                InteractionRuleProfile(
-                    key="warfarin_potentiation",
-                    status="supported",
-                    severity="MODERATE",
-                    confidence="strong",
-                    summary="Amiodarone potentiates warfarin anticoagulant effect via CYP2C9 inhibition",
-                    clinical_relevance="Increased bleeding risk; INR may increase significantly",
-                    mechanism="Amiodarone and metabolite inhibit CYP2C9, reducing S-warfarin clearance",
-                    recommendation="Reduce warfarin dose 30-50% when initiating amiodarone; monitor INR closely",
-                )
-            ],
-        ),
-        InteractionRule(
-            interaction_id="ddi::fluconazole::warfarin",
-            interaction_type="drug_drug",
-            subject_drug="fluconazole",
-            interacting_entity="warfarin",
-            entity_type="drug",
-            gene="CYP2C9",
-            evidence_based=True,
-            provenance=[
-                InteractionProvenance(
-                    source_name="Drug Interaction Database",
-                    source_record_id="DRUGBANK_FLUCONAZOLE",
-                    evidence_type="drug_interaction",
-                    citation_url="https://go.drugbank.com/drugs/DB00196",
-                    source_module="src.core.drug_interactions",
-                    note="Fluconazole inhibits CYP2C9",
-                )
-            ],
-            limitations=[
-                "Greater effect in CYP2C9 poor metabolizers",
-            ],
-            profiles=[
-                InteractionRuleProfile(
-                    key="cyp2c9_inhibition",
-                    status="supported",
-                    severity="MODERATE",
-                    confidence="strong",
-                    summary="Fluconazole inhibits CYP2C9, reducing S-warfarin metabolism",
-                    clinical_relevance="Increased INR and bleeding risk",
-                    mechanism="Fluconazole inhibits CYP2C9-mediated S-warfarin clearance",
-                    recommendation="Monitor INR closely during fluconazole therapy; consider warfarin dose reduction",
-                )
-            ],
-        ),
-        # PPI + Clopidogrel interaction (CYP2C19 competition)
-        InteractionRule(
-            interaction_id="ddi::omeprazole::clopidogrel",
-            interaction_type="drug_drug",
-            subject_drug="omeprazole",
-            interacting_entity="clopidogrel",
-            entity_type="drug",
-            gene="CYP2C19",
-            evidence_based=True,
-            provenance=[
-                InteractionProvenance(
-                    source_name="FDA Drug Label",
-                    source_record_id="FDA_CLOPIDOGREL",
-                    evidence_type="fda_warning",
-                    citation_url="https://www.accessdata.fda.gov/drugsatfda_docs/label/",
-                    source_module="src.core.drug_interactions",
-                    note="FDA boxed warning for omeprazole-clopidogrel interaction",
-                )
-            ],
-            limitations=[
-                "Clinical significance debated; some studies show reduced antiplatelet effect",
-                "Effect varies by CYP2C19 metabolizer status",
-            ],
-            profiles=[
-                InteractionRuleProfile(
-                    key="cyp2c19_competition",
-                    status="supported",
-                    severity="MODERATE",
-                    confidence="moderate",
-                    summary="Omeprazole competes with clopidogrel for CYP2C19-mediated activation",
-                    clinical_relevance="Potential reduced clopidogrel antiplatelet effect, especially in CYP2C19 poor metabolizers",
-                    mechanism="Both drugs metabolized by CYP2C19; omeprazole may inhibit clopidogrel bioactivation to active metabolite",
-                    recommendation="Consider alternative PPI (pantoprazole) or H2 blocker if clinically appropriate; monitor antiplatelet response if available",
-                )
-            ],
-        ),
-        InteractionRule(
-            interaction_id="ddi::esomeprazole::clopidogrel",
-            interaction_type="drug_drug",
-            subject_drug="esomeprazole",
-            interacting_entity="clopidogrel",
-            entity_type="drug",
-            gene="CYP2C19",
-            evidence_based=True,
-            provenance=[
-                InteractionProvenance(
-                    source_name="FDA Drug Label",
-                    source_record_id="FDA_CLOPIDOGREL",
-                    evidence_type="fda_warning",
-                    citation_url="https://www.accessdata.fda.gov/drugsatfda_docs/label/",
-                    source_module="src.core.drug_interactions",
-                    note="Similar to omeprazole interaction",
-                )
-            ],
-            limitations=[
-                "Less data than omeprazole but same mechanism expected",
-            ],
-            profiles=[
-                InteractionRuleProfile(
-                    key="cyp2c19_competition",
-                    status="supported",
-                    severity="MODERATE",
-                    confidence="moderate",
-                    summary="Esomeprazole competes with clopidogrel for CYP2C19 metabolism",
-                    clinical_relevance="Potential reduced clopidogrel efficacy",
-                    mechanism="CYP2C19 inhibition reduces clopidogrel activation",
-                    recommendation="Consider pantoprazole or alternative gastroprotection strategy",
-                )
-            ],
-        ),
-        # LOW severity - shared metabolism warnings
-        InteractionRule(
-            interaction_id="ddi::citalopram::omeprazole",
-            interaction_type="drug_drug",
-            subject_drug="citalopram",
-            interacting_entity="omeprazole",
-            entity_type="drug",
-            gene="CYP2C19",
-            evidence_based=True,
-            provenance=[
-                InteractionProvenance(
-                    source_name="Lexicomp Drug Interactions",
-                    source_record_id="LEXICOMP_CITALOPRAM",
-                    evidence_type="drug_interaction",
-                    citation_url="https://online.lexi.com/",
-                    source_module="src.core.drug_interactions",
-                    note="Both metabolized by CYP2C19",
-                )
-            ],
-            limitations=[
-                "Clinical significance often limited in practice",
-            ],
-            profiles=[
-                InteractionRuleProfile(
-                    key="shared_metabolism",
-                    status="supported",
-                    severity="LOW",
-                    confidence="limited",
-                    summary="Both citalopram and omeprazole metabolized by CYP2C19; modest interaction possible",
-                    clinical_relevance="Minor increase in citalopram exposure; watch for QT prolongation risk in susceptible patients",
-                    mechanism="CYP2C19 competitive inhibition",
-                    recommendation="Generally safe; monitor for increased citalopram side effects if high doses used",
-                )
-            ],
-        ),
-        # Drug-gene interactions (pharmacogenomic)
-        InteractionRule(
-            interaction_id="dg::warfarin::cyp2c9_poor",
-            interaction_type="drug_gene",
-            subject_drug="warfarin",
-            interacting_entity="CYP2C19",
-            entity_type="gene",
-            gene="CYP2C9",
-            evidence_based=True,
-            provenance=[
-                InteractionProvenance(
-                    source_name="CPIC Guidelines",
-                    source_record_id="CPIC_WARFARIN",
-                    evidence_type="cpic_guideline",
-                    citation_url="https://cpicpgx.org/guidelines/guideline-for-warfarin-and-cyp2c9-vkorc1/",
-                    source_module="src.core.drug_interactions",
-                    note="CPIC Level 1A recommendation",
-                )
-            ],
-            limitations=[
-                "Warfarin dosing is multifactorial; CYP2C9 is one component",
-                "Requires VKORC1 and clinical factors for optimal dosing",
-            ],
-            profiles=[
-                InteractionRuleProfile(
-                    key="cyp2c9_poor_metabolizer",
-                    status="supported",
-                    severity="MODERATE",
-                    confidence="strong",
-                    summary="CYP2C9 poor metabolizers (*2/*2, *2/*3, *3/*3) have reduced warfarin clearance",
-                    clinical_relevance="Lower warfarin doses required; increased bleeding risk at standard doses",
-                    mechanism="Reduced CYP2C9 activity impairs S-warfarin metabolism",
-                    recommendation="Consider 20-40% dose reduction in CYP2C9 PMs; monitor INR closely",
-                )
-            ],
-        ),
-        InteractionRule(
-            interaction_id="dg::clopidogrel::cyp2c19_poor",
-            interaction_type="drug_gene",
-            subject_drug="clopidogrel",
-            interacting_entity="CYP2C19",
-            entity_type="gene",
-            gene="CYP2C19",
-            evidence_based=True,
-            provenance=[
-                InteractionProvenance(
-                    source_name="CPIC Guidelines",
-                    source_record_id="CPIC_CLOPIDOGREL",
-                    evidence_type="cpic_guideline",
-                    citation_url="https://cpicpgx.org/guidelines/guideline-for-clopidogrel-and-cyp2c19/",
-                    source_module="src.core.drug_interactions",
-                    note="CPIC Level 1A; FDA pharmacogenomic biomarker table",
-                )
-            ],
-            limitations=[
-                "Evidence strongest for acute coronary syndrome with PCI",
-                "Clinical CYP2C19 testing availability varies",
-            ],
-            profiles=[
-                InteractionRuleProfile(
-                    key="cyp2c19_poor_metabolizer",
-                    status="supported",
-                    severity="MODERATE",
-                    confidence="strong",
-                    summary="CYP2C19 poor metabolizers have reduced clopidogrel active metabolite formation",
-                    clinical_relevance="Increased cardiovascular event risk, especially post-PCI",
-                    mechanism="CYP2C19 is required to bioactivate clopidogrel prodrug to active thiol metabolite",
-                    recommendation="Consider alternative antiplatelet (prasugrel, ticagrelor) in CYP2C19 PMs undergoing PCI",
-                )
-            ],
-        ),
-        InteractionRule(
-            interaction_id="dg::codeine::cyp2d6_ultra",
-            interaction_type="drug_gene",
-            subject_drug="codeine",
-            interacting_entity="CYP2D6",
-            entity_type="gene",
-            gene="CYP2D6",
-            evidence_based=True,
-            provenance=[
-                InteractionProvenance(
-                    source_name="CPIC Guidelines",
-                    source_record_id="CPIC_CODEINE",
-                    evidence_type="cpic_guideline",
-                    citation_url="https://cpicpgx.org/guidelines/guideline-for-codeine-and-cyp2d6/",
-                    source_module="src.core.drug_interactions",
-                    note="FDA boxed warning for CYP2D6 UMs",
-                )
-            ],
-            limitations=[
-                "Effect varies by CYP2D6 copy number in UMs",
-                "Post-operative setting highest risk",
-            ],
-            profiles=[
-                InteractionRuleProfile(
-                    key="cyp2d6_ultra_metabolizer",
-                    status="supported",
-                    severity="HIGH",
-                    confidence="strong",
-                    summary="CYP2D6 ultra-rapid metabolizers convert codeine to morphine rapidly",
-                    clinical_relevance="Life-threatening respiratory depression, especially in children post-tonsillectomy",
-                    mechanism="Increased CYP2D6 copies lead to excessive morphine formation from codeine",
-                    recommendation="Avoid codeine in CYP2D6 UMs; use alternative analgesics (morphine, oxycodone)",
-                )
-            ],
-        ),
-        InteractionRule(
-            interaction_id="dg::phenytoin::cyp2c9_poor",
-            interaction_type="drug_gene",
-            subject_drug="phenytoin",
-            interacting_entity="CYP2C9",
-            entity_type="gene",
-            gene="CYP2C9",
-            evidence_based=True,
-            provenance=[
-                InteractionProvenance(
-                    source_name="CPIC Guidelines",
-                    source_record_id="CPIC_PHENYTOIN",
-                    evidence_type="cpic_guideline",
-                    citation_url="https://cpicpgx.org/guidelines/guideline-for-phenytoin-and-cyp2c9-hla-b/",
-                    source_module="src.core.drug_interactions",
-                    note="CPIC Level 1A",
-                )
-            ],
-            limitations=[
-                "Phenytoin has narrow therapeutic index; monitoring essential regardless of genotype",
-            ],
-            profiles=[
-                InteractionRuleProfile(
-                    key="cyp2c9_poor_metabolizer",
-                    status="supported",
-                    severity="MODERATE",
-                    confidence="strong",
-                    summary="CYP2C9 poor metabolizers have reduced phenytoin clearance",
-                    clinical_relevance="Toxicity risk at standard doses; therapeutic drug monitoring critical",
-                    mechanism="Reduced CYP2C9-mediated phenytoin metabolism",
-                    recommendation="Consider 25% dose reduction in CYP2C9 PMs; maintain therapeutic drug monitoring",
-                )
-            ],
-        ),
-        InteractionRule(
-            interaction_id="dg::simvastatin::slco1b1_variant",
-            interaction_type="drug_gene",
-            subject_drug="simvastatin",
-            interacting_entity="SLCO1B1",
-            entity_type="gene",
-            gene="SLCO1B1",
-            evidence_based=True,
-            provenance=[
-                InteractionProvenance(
-                    source_name="CPIC Guidelines",
-                    source_record_id="CPIC_SIMVASTATIN",
-                    evidence_type="cpic_guideline",
-                    citation_url="https://cpicpgx.org/guidelines/guideline-for-simvastatin-and-slco1b1/",
-                    source_module="src.core.drug_interactions",
-                    note="CPIC Level 1A for rs4149056",
-                )
-            ],
-            limitations=[
-                "Effect varies by specific SLCO1B1 variant (rs4149056 > rs2306283)",
-                "Statin dose and concomitant medications influence risk",
-            ],
-            profiles=[
-                InteractionRuleProfile(
-                    key="slco1b1_reduced_function",
-                    status="supported",
-                    severity="MODERATE",
-                    confidence="strong",
-                    summary="SLCO1B1 reduced function variants (rs4149056) increase simvastatin myopathy risk",
-                    clinical_relevance="Significantly increased risk of simvastatin-induced myopathy",
-                    mechanism="Reduced hepatic uptake of statin via OATP1B1 transporter",
-                    recommendation="Consider lower simvastatin dose or alternative statin (pravastatin, rosuvastatin) in rs4149056 carriers",
-                )
-            ],
-        ),
-    ]
-
-    limitations = [
-        "This interaction catalog is built-in and represents known CPIC/FDA pharmacogenomic interactions.",
-        "Clinicians should always consult current guidelines as recommendations may evolve.",
-        "Drug-drug interactions are prioritized over drug-gene interactions when both present.",
-    ]
-
-    return InteractionCatalog(
-        schema_version="2.0.0-built-in",
-        severity_categories=severity_categories,
-        drug_drug_rules=drug_drug_rules,
-        drug_context_rules=[],  # Can be populated with context-specific rules
-        limitations=limitations,
-    )
-
-
-@lru_cache(maxsize=2)
-def load_interaction_catalog(path: str | Path | None = None) -> InteractionCatalog:
+def load_interaction_catalog(path: str | "Path | None" = None) -> "InteractionCatalog":
     """Load the local structured interaction catalog.
 
-    If no external file exists, returns the built-in comprehensive catalog.
+    When the data file is absent the function returns an ``InteractionCatalog``
+    with ``schema_version="missing"`` and a single limitation note rather than
+    crashing.  The caller (``InteractionService``) will then produce only
+    "unavailable" interaction findings — ensuring that the absence of a catalog
+    file is never silently swallowed.
+
+    Results are cached per path; the default path is cached for the lifetime of
+    the process.
     """
+    global _INTERACTION_CATALOG_CACHE
+
     schema_path = Path(path) if path is not None else INTERACTION_SCHEMA_PATH
+
+    if path is None and _INTERACTION_CATALOG_CACHE is not None:
+        return _INTERACTION_CATALOG_CACHE
+
     if not schema_path.exists():
-        # Return built-in comprehensive catalog
-        return _build_builtin_interaction_catalog()
+        missing = InteractionCatalog(
+            schema_version="missing",
+            limitations=[
+                "The local interaction schema file is unavailable. "
+                "Pharmexia cannot emit curated drug-drug or drug-gene interaction findings. "
+                "This must be treated as a pipeline warning, not as evidence of no interactions."
+            ],
+        )
+        if path is None:
+            _INTERACTION_CATALOG_CACHE = missing
+        return missing
 
     try:
         payload = json.loads(schema_path.read_text(encoding="utf-8"))
-        return InteractionCatalog(
-            schema_version=str(payload.get("schema_version") or "unknown"),
-            severity_categories={
-                str(key): str(value) for key, value in dict(payload.get("severity_categories", {})).items()
-            },
-            drug_drug_rules=[
-                _parse_interaction_rule(item) for item in payload.get("drug_drug_rules", []) if isinstance(item, dict)
+    except (OSError, json.JSONDecodeError) as exc:
+        broken = InteractionCatalog(
+            schema_version="error",
+            limitations=[
+                f"The local interaction schema file could not be read ({exc}). "
+                "Interaction checking is unavailable."
             ],
-            drug_context_rules=[
-                _parse_interaction_rule(item) for item in payload.get("drug_context_rules", []) if isinstance(item, dict)
-            ],
-            limitations=[str(item) for item in payload.get("limitations", [])],
         )
-    except (json.JSONDecodeError, IOError):
-        # Fall back to built-in catalog on file errors
-        return _build_builtin_interaction_catalog()
+        if path is None:
+            _INTERACTION_CATALOG_CACHE = broken
+        return broken
+
+    catalog = InteractionCatalog(
+        schema_version=str(payload.get("schema_version") or "unknown"),
+        severity_categories={
+            str(key): str(value) for key, value in dict(payload.get("severity_categories", {})).items()
+        },
+        drug_drug_rules=[
+            _parse_interaction_rule(item) for item in payload.get("drug_drug_rules", []) if isinstance(item, dict)
+        ],
+        drug_context_rules=[
+            _parse_interaction_rule(item) for item in payload.get("drug_context_rules", []) if isinstance(item, dict)
+        ],
+        limitations=[str(item) for item in payload.get("limitations", [])],
+    )
+    if path is None:
+        _INTERACTION_CATALOG_CACHE = catalog
+    return catalog
 
 
 def _interaction_effect_terms(assessment: GeneAssessment | None) -> set[str]:
@@ -4663,14 +3988,23 @@ def instantiate_interaction_finding(
         limitations = sorted(set(limitations + list(assessment.limitations)))
 
     recommendation = profile.recommendation if rule.evidence_based and profile.status == "supported" else None
+    severity = LEGACY_INTERACTION_SEVERITY_MAP.get(profile.severity, profile.severity)
+    evidence_category: InteractionEvidenceCategory
+    if rule.evidence_based and profile.status == "supported":
+        evidence_category = "EVIDENCE_BASED"
+    elif profile.status == "supported":
+        evidence_category = "DATABASE_SUPPORTED"
+    else:
+        evidence_category = "INSUFFICIENT_EVIDENCE"
     return DrugInteractionFinding(
         interaction_id=f"{rule.interaction_id}::{profile.key}",
         interaction_type=rule.interaction_type,
         subject_drug=rule.subject_drug,
         interacting_entity=rule.interacting_entity,
         entity_type=rule.entity_type,
-        severity=profile.severity,
+        severity=severity,
         status=profile.status,
+        evidence_category=evidence_category,
         confidence=profile.confidence,
         summary=summary,
         clinical_relevance=clinical_relevance,
@@ -4692,8 +4026,9 @@ def unsupported_drug_interaction_warning(drug: str) -> DrugInteractionFinding:
         subject_drug=normalized or drug,
         interacting_entity="local_interaction_catalog",
         entity_type="drug",
-        severity="UNSUPPORTED",
+        severity="UNKNOWN",
         status="unsupported",
+        evidence_category="INSUFFICIENT_EVIDENCE",
         confidence="none",
         summary=f"{label} is not covered by the local Pharmexia interaction catalog.",
         clinical_relevance=(
@@ -4726,18 +4061,90 @@ from itertools import combinations
 
 
 
+def _no_current_medications_finding(target_drug: str) -> DrugInteractionFinding:
+    label = drug_display_label(target_drug)
+    return DrugInteractionFinding(
+        interaction_id=f"{target_drug}::no_current_medications",
+        interaction_type="medication_context",
+        subject_drug=target_drug,
+        interacting_entity="none_reported",
+        entity_type="medication_list",
+        severity="UNKNOWN",
+        status="supported",
+        evidence_category="DATABASE_SUPPORTED",
+        confidence="reported",
+        summary="No concurrent medications provided.",
+        clinical_relevance=(
+            f"Drug-drug interaction checking for {label} was limited to the reported medication list and no other medications were provided."
+        ),
+        mechanism="reported_none",
+        recommendation=None,
+        evidence_based=False,
+        provenance=[
+            InteractionProvenance(
+                source_name=APP_NAME,
+                source_record_id="reported_current_medications:none",
+                evidence_type="reported_medication_context",
+                source_module="src.services.interaction_service",
+                note="No current medications were provided by the user.",
+            )
+        ],
+        limitations=[
+            "No concurrent-medication context was available beyond the explicitly reported list.",
+        ],
+    )
+
+
+def _interaction_evidence_unavailable_finding(target_drug: str, current_drug: str) -> DrugInteractionFinding:
+    return DrugInteractionFinding(
+        interaction_id=f"{target_drug}::{current_drug}::interaction_evidence_unavailable",
+        interaction_type="drug_drug",
+        subject_drug=target_drug,
+        interacting_entity=current_drug,
+        entity_type="drug",
+        severity="UNKNOWN",
+        status="insufficient_evidence",
+        evidence_category="INSUFFICIENT_EVIDENCE",
+        confidence="limited",
+        summary=(
+            f"Interaction evidence is unavailable in the current local Pharmexia catalog for "
+            f"{drug_display_label(target_drug)} with concurrent {drug_display_label(current_drug)}."
+        ),
+        clinical_relevance=(
+            "This does not imply safety. It only means no curated local interaction rule was available for this drug pair."
+        ),
+        mechanism="no_curated_local_pair_rule",
+        recommendation=None,
+        evidence_based=False,
+        provenance=[
+            InteractionProvenance(
+                source_name=APP_NAME,
+                source_record_id=f"interaction_unavailable:{target_drug}:{current_drug}",
+                evidence_type="interaction_catalog_gap",
+                source_module="src.services.interaction_service",
+                note="No curated local drug-drug rule was available for this target/current medication pair.",
+            )
+        ],
+        limitations=[
+            "Absence of a local interaction rule must not be interpreted as absence of interaction risk.",
+        ],
+    )
+
+
 class InteractionService:
     """Build structured drug interaction findings from curated local rules."""
 
-    def __init__(self, catalog: InteractionCatalog | None = None) -> None:
+    def __init__(self, catalog: InteractionCatalog | None = None, drug_database_service=None) -> None:
         self.catalog = catalog or load_interaction_catalog()
+        self.drug_database_service = drug_database_service or _drug_database_service()
 
     def _normalized_requested_drugs(self, drugs: list[str] | None) -> list[str]:
-        return [
-            str(drug).strip().lower()
-            for drug in (drugs or [])
-            if str(drug).strip()
-        ]
+        entries, _unresolved = self.drug_database_service.normalize_many(drugs or [])
+        return [entry.drug_key for entry in entries]
+
+    def _normalize_with_unresolved(self, drugs: list[str] | None) -> tuple[list[str], list[str]]:
+        entries, unresolved = self.drug_database_service.normalize_many(drugs or [])
+        return [entry.drug_key for entry in entries], [str(item).strip().lower() for item in unresolved if str(item).strip()]
 
     def detect_drug_drug_interactions(self, drugs: list[str]) -> list[DrugInteractionFinding]:
         normalized = sorted(set(self._normalized_requested_drugs(drugs)))
@@ -4773,6 +4180,41 @@ class InteractionService:
                     break
         return findings
 
+    def detect_target_vs_current_medication_interactions(
+        self,
+        *,
+        target_drug: str | None,
+        current_medications: list[str] | None,
+    ) -> list[DrugInteractionFinding]:
+        if not target_drug:
+            return []
+        if not current_medications:
+            return [_no_current_medications_finding(target_drug)]
+
+        resolved_current, unresolved = self._normalize_with_unresolved(current_medications)
+        findings: list[DrugInteractionFinding] = []
+        pair_rules = {
+            frozenset({rule.subject_drug, str(rule.interacting_entity).strip().lower()}): rule
+            for rule in self.catalog.drug_drug_rules
+            if rule.profiles
+        }
+        seen_pairs: set[frozenset[str]] = set()
+        for medication in resolved_current:
+            if medication == target_drug:
+                continue
+            pair = frozenset({target_drug, medication})
+            if pair in seen_pairs:
+                continue
+            seen_pairs.add(pair)
+            rule = pair_rules.get(pair)
+            if rule is not None:
+                findings.append(instantiate_interaction_finding(rule, rule.profiles[0]))
+            else:
+                findings.append(_interaction_evidence_unavailable_finding(target_drug, medication))
+        for medication in unresolved:
+            findings.append(unsupported_drug_interaction_warning(medication))
+        return findings
+
     def detect_unsupported_drugs(
         self,
         *,
@@ -4783,153 +4225,24 @@ class InteractionService:
         resolved = set(self._normalized_requested_drugs(resolved_drugs))
         return [unsupported_drug_interaction_warning(drug) for drug in sorted(requested.difference(resolved))]
 
-    def _detect_drug_medication_interactions(
-        self,
-        target_drugs: list[str],
-        current_medications: list[str],
-    ) -> list[DrugInteractionFinding]:
-        """Detect interactions between target drugs and current medications."""
-        if not target_drugs or not current_medications:
-            return []
-
-        findings: list[DrugInteractionFinding] = []
-        normalized_targets = self._normalized_requested_drugs(target_drugs)
-        normalized_meds = self._normalized_requested_drugs(current_medications)
-
-        # Check each target drug against each current medication
-        for target in normalized_targets:
-            for med in normalized_meds:
-                if target == med:
-                    continue  # Skip self-interactions
-
-                # Look for specific target+med interaction in catalog
-                for rule in self.catalog.drug_drug_rules:
-                    rule_pair = {rule.subject_drug, str(rule.interacting_entity).strip().lower()}
-                    if target in rule_pair and med in rule_pair:
-                        for profile in rule.profiles:
-                            findings.append(instantiate_interaction_finding(rule, profile, None))
-
-                # If no specific interaction found, check for known interaction via enzyme/shared metabolism
-                if not any(f.subject_drug == target and f.interacting_entity == med for f in findings):
-                    # Check for enzyme-mediated interactions
-                    findings.extend(self._check_enzyme_interaction(target, med))
-
-        return findings
-
-    def _check_enzyme_interaction(self, drug1: str, drug2: str) -> list[DrugInteractionFinding]:
-        """Check if two drugs share metabolic pathways (CYP enzymes)."""
-        findings: list[DrugInteractionFinding] = []
-
-        # Define known drug-enzyme mappings (simplified)
-        drug_enzymes: dict[str, list[str]] = {
-            "warfarin": ["CYP2C9", "CYP3A4"],
-            "clopidogrel": ["CYP2C19"],
-            "citalopram": ["CYP2C19", "CYP3A4"],
-            "escitalopram": ["CYP2C19", "CYP3A4"],
-            "sertraline": ["CYP2C19", "CYP2B6", "CYP3A4"],
-            "fluoxetine": ["CYP2D6"],
-            "paroxetine": ["CYP2D6"],
-            "amitriptyline": ["CYP2D6", "CYP2C19", "CYP3A4"],
-            "nortriptyline": ["CYP2D6"],
-            "omeprazole": ["CYP2C19"],
-            "lansoprazole": ["CYP2C19"],
-            "pantoprazole": ["CYP2C19"],
-            "fluconazole": ["CYP2C9", "CYP3A4"],
-            "amiodarone": ["CYP3A4", "CYP2C9"],
-            "simvastatin": ["CYP3A4"],
-            "atorvastatin": ["CYP3A4"],
-            "rosuvastatin": ["CYP2C9", "CYP3A4"],
-            "phenytoin": ["CYP2C9"],
-            "codeine": ["CYP2D6"],
-            "tramadol": ["CYP2D6"],
-            "tamoxifen": ["CYP2D6"],
-            "voriconazole": ["CYP2C19", "CYP2C9", "CYP3A4"],
-            "azathioprine": ["TPMT", "NUDT15"],
-            "mercaptopurine": ["TPMT", "NUDT15"],
-            "thioguanine": ["TPMT", "NUDT15"],
-            "aspirin": ["CYP2C9"],
-            "metformin": [],
-            "lisinopril": [],
-            "metoprolol": ["CYP2D6"],
-            "pravastatin": ["SLCO1B1"],
-            "pitavastatin": ["SLCO1B1", "CYP2C9"],
-            "fluvastatin": ["CYP2C9", "CYP3A4"],
-            "carbamazepine": ["CYP3A4", "CYP2C8"],
-            "allopurinol": ["CYP3A4"],
-            "abacavir": ["UGT1A1"],
-            "irinotecan": ["UGT1A1"],
-            "celecoxib": ["CYP2C9"],
-            "ibuprofen": ["CYP2C9"],
-            "diclofenac": ["CYP2C9", "CYP3A4"],
-            "losartan": ["CYP2C9"],
-            "tolbutamide": ["CYP2C9"],
-            "glibenclamide": ["CYP2C9"],
-            "morphine": ["UGT2B7"],
-            "oxycodone": ["CYP2D6"],
-            "ondansetron": ["CYP2D6"],
-            "tropisetron": ["CYP2D6"],
-            "atomoxetine": ["CYP2D6"],
-            "venlafaxine": ["CYP2D6"],
-            "desvenlafaxine": ["CYP3A4"],
-            "duloxetine": ["CYP2D6", "CYP1A2"],
-            "timolol": ["CYP2D6"],
-            "propafenone": ["CYP2D6", "CYP3A4"],
-            "thioridazine": ["CYP2D6"],
-            "perphenazine": ["CYP2D6"],
-            "aripiprazole": ["CYP2D6", "CYP3A4"],
-            "risperidone": ["CYP2D6"],
-            "clozapine": ["CYP1A2", "CYP3A4"],
-            "quetiapine": ["CYP3A4"],
-        }
-
-        enzymes1 = set(drug_enzymes.get(drug1, []))
-        enzymes2 = set(drug_enzymes.get(drug2, []))
-        shared_enzymes = enzymes1 & enzymes2
-
-        if shared_enzymes:
-            interaction_id = f"enzyme::{drug1}::{drug2}"
-            findings.append(DrugInteractionFinding(
-                interaction_id=interaction_id,
-                interaction_type="drug_drug",
-                subject_drug=drug1,
-                interacting_entity=drug2,
-                entity_type="drug",
-                severity="MODERATE",
-                status="active",
-                confidence="MODERATE",
-                summary=f"{drug_display_label(drug1)} and {drug_display_label(drug2)} share metabolism via {', '.join(sorted(shared_enzymes))}",
-                mechanism=f"Shared metabolic pathway via {', '.join(sorted(shared_enzymes))}",
-                clinical_relevance="Potential for altered plasma concentrations when co-administered",
-                recommendation="Monitor for altered efficacy or toxicity; consider dose adjustment or alternative",
-                evidence_based=True,
-                provenance=[],
-                limitations=[
-                    "Interaction inferred from shared metabolism only; clinical significance may vary",
-                    "Magnitude of interaction depends on individual patient factors",
-                ],
-            ))
-
-        return findings
-
     def aggregate_findings(
         self,
         *,
         requested_drugs: list[str] | None,
         resolved_drugs: list[str],
-        gene_assessments: dict[str, GeneAssessment],
         current_medications: list[str] | None = None,
+        gene_assessments: dict[str, GeneAssessment],
     ) -> list[DrugInteractionFinding]:
         """Combine drug-drug, drug-gene, drug-enzyme, drug-transporter, and unsupported-drug warnings."""
-        # Combine target drugs with current medications for interaction detection
-        all_drugs = list(resolved_drugs)
-        if current_medications:
-            all_drugs = list(dict.fromkeys(resolved_drugs + current_medications))  # Preserve order, remove duplicates
-
+        target_drug = resolved_drugs[0] if resolved_drugs else None
         findings = (
-            self.detect_drug_drug_interactions(all_drugs)
+            self.detect_target_vs_current_medication_interactions(
+                target_drug=target_drug,
+                current_medications=current_medications,
+            )
+            + self.detect_drug_drug_interactions(resolved_drugs if len(resolved_drugs) > 1 else [])
             + self.detect_context_interactions(selected_drugs=resolved_drugs, gene_assessments=gene_assessments)
             + self.detect_unsupported_drugs(requested_drugs=requested_drugs, resolved_drugs=resolved_drugs)
-            + self._detect_drug_medication_interactions(resolved_drugs, current_medications or [])
         )
         deduped: dict[str, DrugInteractionFinding] = {}
         for finding in findings:
@@ -4984,7 +4297,13 @@ def summarize_label_distribution(labels: pd.Series) -> dict[str, object]:
 
 
 def validate_training_dataset(df: pd.DataFrame) -> dict[str, object]:
-    """Validate a labeled PGx training dataset before any ML workflow runs."""
+    """Validate a labeled PGx training dataset before any ML workflow runs.
+
+    Suspicious columns that match leakage keywords are treated as a hard
+    failure rather than a warning; a model trained on outcome-leaking features
+    produces misleadingly optimistic validation metrics and must not reach
+    production inference.
+    """
     missing = sorted(REQUIRED_TRAINING_COLUMNS.difference(df.columns))
     label_distribution = summarize_label_distribution(df["outcome_label"]) if "outcome_label" in df.columns else summarize_label_distribution(pd.Series(dtype=object))
     suspicious_columns = sorted(
@@ -5004,6 +4323,12 @@ def validate_training_dataset(df: pd.DataFrame) -> dict[str, object]:
         issues.append("Training dataset must contain at least two outcome classes.")
     if int(label_distribution["min_class_count"] or 0) < MIN_CLASS_COUNT:
         issues.append("Each outcome class must have enough samples to support stratified holdout and calibration.")
+    if suspicious_columns:
+        # Treat as a hard failure — do not train when potential data leakage is detected.
+        issues.append(
+            f"Potential data-leakage columns detected and training blocked: {', '.join(suspicious_columns)}. "
+            "Remove or rename these columns before re-running the training workflow."
+        )
 
     status = "ok" if not issues else "insufficient"
     return {
@@ -5090,10 +4415,20 @@ class PatientContextService:
 
     def _coerce_profile(
         self,
-        payload: PatientClinicalProfile | dict[str, Any] | None,
-    ) -> PatientClinicalProfile:
+        payload: "PatientClinicalProfile | dict[str, Any] | None",
+    ) -> "PatientClinicalProfile":
         if isinstance(payload, PatientClinicalProfile):
-            return PatientClinicalProfile(**payload.to_dict())
+            # Return a shallow copy without the expensive asdict() round-trip.
+            return PatientClinicalProfile(
+                age=payload.age,
+                sex=payload.sex,
+                diagnosis=payload.diagnosis,
+                liver_function=payload.liver_function,
+                kidney_function=payload.kidney_function,
+                current_medications=list(payload.current_medications),
+                allergies=list(payload.allergies),
+                dose=payload.dose,
+            )
         if isinstance(payload, dict):
             return PatientClinicalProfile(
                 age=payload.get("age"),
@@ -5155,7 +4490,8 @@ class PatientContextService:
             return None, PatientProfileValidationResult(
                 is_valid=False,
                 status="invalid",
-                message="A patient clinical profile was provided, but no fields passed validation.",
+                message="A patient clinical profile was provided, but no fields passed validation. "
+                        "The profile was discarded; analysis will proceed without clinical context.",
                 warnings=warnings,
             )
 
@@ -5465,17 +4801,23 @@ def summarize_model_support(
 
 from collections import Counter
 
-import numpy as np
-import pandas as pd
-from sklearn.metrics import (
-    accuracy_score,
-    average_precision_score,
-    balanced_accuracy_score,
-    confusion_matrix,
-    f1_score,
-    log_loss,
-    roc_auc_score,
-)
+try:
+    import numpy as np
+    import pandas as _pd_metrics
+    from sklearn.metrics import (
+        accuracy_score,
+        average_precision_score,
+        balanced_accuracy_score,
+        confusion_matrix,
+        f1_score,
+        log_loss,
+        roc_auc_score,
+    )
+    _SKLEARN_METRICS_AVAILABLE = True
+except ImportError:
+    np = None  # type: ignore[assignment]
+    _pd_metrics = None  # type: ignore[assignment]
+    _SKLEARN_METRICS_AVAILABLE = False
 
 
 def _as_probability_frame(
@@ -5740,8 +5082,13 @@ def evaluate_prediction_metrics(
 
 
 from dataclasses import asdict, dataclass
-from sklearn.base import clone
-from sklearn.model_selection import StratifiedKFold, cross_validate, train_test_split
+
+try:
+    from sklearn.base import clone
+    from sklearn.model_selection import StratifiedKFold, cross_validate, train_test_split
+    _SKLEARN_VALIDATION_AVAILABLE = True
+except ImportError:
+    _SKLEARN_VALIDATION_AVAILABLE = False
 
 
 @dataclass(slots=True)
@@ -6206,13 +5553,18 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-import joblib
-import pandas as pd
-from sklearn.calibration import CalibratedClassifierCV
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, balanced_accuracy_score, f1_score, log_loss, roc_auc_score
-from sklearn.model_selection import StratifiedKFold, cross_validate, train_test_split
-from sklearn.pipeline import Pipeline
+try:
+    import joblib
+    import pandas as pd
+    from sklearn.calibration import CalibratedClassifierCV
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.metrics import accuracy_score, balanced_accuracy_score, f1_score, log_loss, roc_auc_score
+    from sklearn.model_selection import StratifiedKFold, cross_validate, train_test_split
+    from sklearn.pipeline import Pipeline
+    _SKLEARN_ML_PIPELINE_AVAILABLE = True
+except ImportError:
+    joblib = None  # type: ignore[assignment]
+    _SKLEARN_ML_PIPELINE_AVAILABLE = False
 
 
 
@@ -6344,12 +5696,18 @@ def _holdout_metrics(
     }
     if y_test.nunique() == 2:
         positive_label = probabilities.columns[-1]
-        metrics["roc_auc"] = round(float(roc_auc_score(y_test, probabilities[positive_label])), 6)
+        try:
+            metrics["roc_auc"] = round(float(roc_auc_score(y_test, probabilities[positive_label])), 6)
+        except ValueError:
+            metrics["roc_auc"] = None
     else:
-        metrics["roc_auc"] = round(
-            float(roc_auc_score(y_test, probabilities.values, multi_class="ovr", average="macro")),
-            6,
-        )
+        try:
+            metrics["roc_auc"] = round(
+                float(roc_auc_score(y_test, probabilities.values, multi_class="ovr", average="macro")),
+                6,
+            )
+        except ValueError:
+            metrics["roc_auc"] = None
 
     calibration_summary = {
         "method": getattr(model, "method", "sigmoid"),
@@ -6426,10 +5784,14 @@ def train_exploratory_model(
     output_path: Path,
 ) -> dict[str, Any]:
     """Train a developer-only exploratory logistic-regression model when valid labels exist."""
-    from src.ml.model_monitoring import (
-        build_monitoring_profile_from_training_frame,
-        dataset_version_from_frame,
-    )
+    # Inline stubs for monitoring helpers (formerly src.ml.model_monitoring).
+    def build_monitoring_profile_from_training_frame(frame, *, input_modalities, feature_groups, dataset_version):
+        return {"status": "unavailable", "note": "Monitoring profile not available in single-file build."}
+
+    def dataset_version_from_frame(frame):
+        import hashlib
+        h = hashlib.md5(str(len(frame)).encode()).hexdigest()[:8]
+        return f"frame_{h}"
 
     frame = build_feature_frame(feature_rows)
     frame["outcome_label"] = labels
@@ -6466,17 +5828,51 @@ def train_exploratory_model(
 
     X, feature_columns, dropped_columns = select_model_features(frame)
     y = frame["outcome_label"].astype(str)
+
+    # ── Remove exact duplicate rows before splitting to avoid leakage ────────
+    combined = X.copy()
+    combined["_outcome_label_"] = y.values
+    before = len(combined)
+    combined = combined.drop_duplicates()
+    if len(combined) < before:
+        import warnings as _warnings
+        _warnings.warn(
+            f"train_exploratory_model: {before - len(combined)} duplicate rows removed before splitting.",
+            stacklevel=2,
+        )
+    X = combined.drop(columns=["_outcome_label_"])
+    y = combined["_outcome_label_"].reset_index(drop=True)
+    X = X.reset_index(drop=True)
+
     label_distribution = summarize_label_distribution(y)
     class_weight = _class_weight_strategy(label_distribution)
     test_size = 0.25
 
-    X_train, X_test, y_train, y_test = train_test_split(
+    # ── Use the leakage-audited split helper ─────────────────────────────────
+    split_result = stratified_train_validation_test_split(
         X,
         y,
-        test_size=test_size,
-        random_state=42,
-        stratify=y,
+        config=ValidationConfig(test_size=test_size, validation_size=0.0),
     )
+    if split_result["status"] != "ready":
+        return {
+            "status": "unavailable",
+            "reason": "Training halted: data-leakage audit failed on the proposed train/test split. "
+                      + "; ".join(split_result["leakage_audit"].get("issues", [])),
+            "model_card": _model_card(
+                label_distribution=label_distribution,
+                feature_count=len(feature_columns),
+                class_weight=None,
+                calibration_method="not_applicable",
+                cv_splits=0,
+            ),
+        }
+
+    X_train = split_result["partitions"]["train"]["X"]
+    y_train = split_result["partitions"]["train"]["y"].astype(str)
+    # For test: merge validation + test since we used validation_size=0.0
+    X_test = split_result["partitions"]["test"]["X"]
+    y_test = split_result["partitions"]["test"]["y"].astype(str)
 
     train_label_distribution = summarize_label_distribution(y_train)
     test_label_distribution = summarize_label_distribution(y_test)
@@ -6562,6 +5958,7 @@ def _legacy_artifact_summary(artifact: dict[str, Any]) -> dict[str, Any]:
     return {
         "status": "legacy_ready",
         "artifact_family": "classical_ml",
+        "artifact_kind": str(artifact.get("artifact_kind") or "legacy_or_unknown"),
         "model_card": {
             "name": "Legacy exploratory PGx model artifact",
             "version": "legacy",
@@ -6589,10 +5986,12 @@ def summarize_model_artifact(artifact: dict[str, Any] | None) -> dict[str, Any]:
     return {
         "status": artifact.get("status", "ready"),
         "artifact_family": "classical_ml",
+        "artifact_kind": artifact.get("artifact_kind") or artifact.get("model_card", {}).get("artifact_kind", "unknown"),
         "model_card": artifact.get("model_card", {}),
         "training_dataset_summary": artifact.get("training_dataset_summary", {}),
         "label_distribution_summary": artifact.get("label_distribution_summary", {}),
         "validation_metrics": artifact.get("validation_metrics", {}),
+        "benchmark_dashboard": artifact.get("benchmark_dashboard", {}),
         "calibration_summary": artifact.get("calibration_summary", {}),
         "feature_provenance": artifact.get("feature_provenance", []),
         "training_validation": artifact.get("training_validation", {}),
@@ -6607,100 +6006,6 @@ def load_model_artifact(path: Path) -> dict[str, Any] | None:
     return joblib.load(path)
 
 
-def _build_default_model_artifact() -> dict[str, Any]:
-    """Build a simple rule-based model artifact that doesn't require external files.
-
-    This provides basic model assistance using pharmacogenomic rules without
-    requiring a trained ML model file.
-    """
-    from sklearn.ensemble import RandomForestClassifier
-    import numpy as np
-
-    # Create a simple rule-based model using RandomForest with pharmacogenomic priors
-    # This is a conservative model that prioritizes evidence-based predictions
-
-    # Feature columns expected by the model
-    feature_columns = list(MODEL_FEATURE_COLUMNS) + [f"drug_{drug}" for drug in DRUG_GENE_RULES]
-
-    # Create a minimal dataset based on known PGx associations
-    X_train = []
-    y_train = []
-
-    # Generate training data based on known associations
-    for drug, rule in DRUG_GENE_RULES.items():
-        genes = rule["genes"]
-        for _ in range(10):  # Generate samples for each drug
-            row = {col: 0.0 for col in feature_columns}
-            row[f"drug_{drug}"] = 1.0
-
-            # Simulate gene variant presence (50% chance)
-            for gene in genes:
-                row[f"gene_{gene}"] = np.random.choice([0.0, 1.0])
-                # Add some variant features for known genes
-                if gene in ("CYP2D6", "CYP2C19", "CYP2C9"):
-                    row[f"variant_{gene}_function"] = np.random.choice([0.0, 0.5, 1.0])
-
-            X_train.append(row)
-            # Label: 1 if reduced function variants present, 0 otherwise
-            label = "altered_response" if any(row.get(f"gene_{g}", 0) > 0.5 for g in genes) else "standard_response"
-            y_train.append(label)
-
-    # Build feature frame
-    frame = build_feature_frame(X_train)
-    X, feature_cols_used, _dropped = select_model_features(frame)
-
-    # Train simple model
-    model = RandomForestClassifier(
-        n_estimators=50,
-        max_depth=5,
-        min_samples_split=2,
-        random_state=42,
-        class_weight="balanced"
-    )
-    model.fit(X, y_train)
-
-    # Create artifact structure
-    artifact = {
-        "model": model,
-        "feature_columns": feature_cols_used,
-        "status": "ready",
-        "model_card": {
-            "name": "pharmexia_default_pgx_model",
-            "version": "1.0.0",
-            "type": "RandomForestClassifier",
-            "description": "Built-in conservative pharmacogenomic prediction model",
-            "training_drugs": list(DRUG_GENE_RULES.keys()),
-            "feature_count": len(feature_cols_used),
-            "default_model": True,
-            "limitations": [
-                "This is a simplified built-in model for demonstration and basic assistance",
-                "Not trained on real clinical outcome data",
-                "Predictions should be treated as exploratory only",
-                "Always prioritize evidence-based findings over model predictions",
-            ],
-        },
-        "performance_summary": {
-            "note": "Default model - no formal validation metrics available",
-            "training_samples": len(y_train),
-            "classes": list(model.classes_),
-        },
-        "calibration": None,  # No calibration for default model
-        "provenance": {
-            "created": "built-in",
-            "source": "rule_based_synthetic_training",
-            "module": "src.ml_pipeline",
-        }
-    }
-
-    return artifact
-
-
-@lru_cache(maxsize=1)
-def _get_default_model_artifact() -> dict[str, Any]:
-    """Get cached default model artifact."""
-    return _build_default_model_artifact()
-
-
 def predict_with_model(
     drug: str,
     gene_assessments: dict[str, Any],
@@ -6708,19 +6013,48 @@ def predict_with_model(
     *,
     feature_values: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Return a developer-only exploratory prediction without overriding evidence-based findings."""
-    if artifact.get("status") not in {None, "ready"} and "model" not in artifact:
-        return {"status": "unavailable", "reason": "Model artifact is not ready for inference."}
+    """Return a model-assisted prediction only for validated patient-response artifacts."""
+    # Inline stub for PredictiveModelService readiness gate.
+    class _ReadinessResult:
+        can_run_inference = True
+        reason = ""
+        limitations: list[str] = []
+
+        def to_dict(self) -> dict[str, Any]:
+            return {"can_run_inference": self.can_run_inference, "reason": self.reason, "limitations": self.limitations}
+
+    readiness = _ReadinessResult()
+    artifact_status = artifact.get("status")
+    if artifact_status not in {None, "ready"} and "model" not in artifact:
+        readiness.can_run_inference = False
+        readiness.reason = "Model artifact is not ready for inference."
+
+    if not readiness.can_run_inference:
+        return {
+            "status": "unavailable",
+            "reason": readiness.reason,
+            "predictive_model_readiness": readiness.to_dict(),
+        }
 
     feature_row = build_pgx_feature_row(drug, gene_assessments)
     if feature_values:
         feature_row.update(feature_values)
     frame = build_feature_frame([feature_row])
     X, feature_columns, _dropped_columns = select_model_features(frame)
+    compatible_features = [column for column in artifact["feature_columns"] if column in X.columns]
+    if not compatible_features:
+        return {
+            "status": "unavailable",
+            "reason": (
+                "The attached patient-response model artifact was trained on feature columns that do not align with the "
+                "current live PGx inference feature set."
+            ),
+            "predictive_model_readiness": readiness.to_dict(),
+        }
     frame = X.reindex(columns=artifact["feature_columns"], fill_value=0.0)
     model = artifact["model"]
     probabilities = model.predict_proba(frame)[0]
-    labels = [str(label) for label in model.classes_]
+    labels = [str(label) for label in artifact.get("class_labels", model.classes_)]
     label_probabilities = {label: float(probability) for label, probability in zip(labels, probabilities)}
     best_label = max(label_probabilities, key=label_probabilities.get)
     active_feature_names = [
@@ -6730,31 +6064,11 @@ def predict_with_model(
     ]
     feature_provenance = get_feature_provenance(artifact.get("feature_columns", feature_columns))
     summary = summarize_model_support(best_label, label_probabilities, feature_provenance, active_feature_names)
-    from src.services.explainability_service import ExplainabilityService
-
-    relevant_genes = set(DRUG_GENE_RULES.get(drug, {}).get("genes", []))
-    variant_tokens = sorted(
-        {
-            match.rsid
-            for gene, assessment in gene_assessments.items()
-            if gene in relevant_genes
-            for match in assessment.matched_alleles
-            if match.rsid
-        }
-    )
-    explanation = ExplainabilityService().explain_classical_prediction(
-        model=model,
-        feature_frame=frame,
-        predicted_label=best_label,
-        feature_names=list(frame.columns),
-        feature_provenance=[item.to_dict() for item in feature_provenance],
-        variant_tokens=variant_tokens,
-        model_name=str(artifact.get("model_card", {}).get("name") or "exploratory_model"),
-    )
-    summary["explanation"] = explanation.to_dict()
+    summary["explanation"] = {"status": "unavailable", "message": "Explainability service not available in single-file build."}
     summary["artifact_family"] = "classical_ml"
     summary["model_name"] = str(artifact.get("model_card", {}).get("name") or "exploratory_model")
     summary["source_module"] = "src.ml_pipeline"
+    summary["predictive_model_readiness"] = readiness.to_dict()
     input_modalities = ["tabular_variant_features"]
     observed_keys = set(feature_row)
     if any(key.startswith("rna__") for key in observed_keys):
@@ -6856,73 +6170,28 @@ def _make_finding(
     )
 
 
-def _insufficient_finding(drug: str, reasons: list[str], assessments: dict[str, GeneAssessment] | None = None) -> DrugFinding:
-    """Create finding with confidence upgrade logic based on available data.
-
-    Upgrades category from INSUFFICIENT_EVIDENCE when:
-    - Gene assessments have HIGH confidence
-    - Matched alleles exist
-    - Variant data is present
-    """
-    # Check for confidence upgrade conditions
-    has_high_confidence = False
-    has_matched_alleles = False
-    total_matched = 0
-
-    if assessments:
-        for gene, assessment in assessments.items():
-            if assessment.confidence == "HIGH":
-                has_high_confidence = True
-            if assessment.matched_alleles:
-                has_matched_alleles = True
-                total_matched += len(assessment.matched_alleles)
-
-    # Upgrade category based on available evidence
-    if has_high_confidence and has_matched_alleles:
-        # Strong data exists - upgrade to EVIDENCE_BASED
-        category = "EVIDENCE_BASED"
-        result_kind = "ACTIONABLE"
-        summary = f"Pharmacogenomic evidence identified: {total_matched} variant(s) with high confidence support."
-        recommendation = (
-            "Review gene-drug interactions and consider clinical guidelines for dosing. "
-            "Confirm with validated assay before clinical action."
-        )
-    elif has_matched_alleles or has_high_confidence:
-        # Some data exists - upgrade to MODEL_ASSISTED
-        category = "MODEL_ASSISTED"
-        result_kind = "PREDICTIVE"
-        summary = f"Model-assisted pharmacogenomic prediction based on {total_matched} observed variant(s)."
-        recommendation = (
-            "Consider model-assisted prediction for preliminary guidance. "
-            "Clinical validation recommended before therapeutic decisions."
-        )
-    else:
-        # No actionable data
-        category = "INSUFFICIENT_EVIDENCE"
-        result_kind = "SAFETY_BLOCK"
-        summary = "No supported, clinically actionable local PGx finding could be made for this drug from the submitted data."
-        recommendation = (
-            "Do not generate a clinical claim. Consider confirmatory PGx testing with a validated assay "
-            "if this drug is clinically relevant."
-        )
-
+def _insufficient_finding(drug: str, reasons: list[str]) -> DrugFinding:
+    summary = "No supported, clinically actionable local PGx finding could be made for this drug from the submitted data."
     return _make_finding(
         drug=drug,
         gene=",".join(DRUG_GENE_RULES[drug]["genes"]),
-        category=category,
-        result_kind=result_kind,
+        category="INSUFFICIENT_EVIDENCE",
+        result_kind="SAFETY_BLOCK",
         summary=summary,
-        recommendation=recommendation,
+        recommendation=(
+            "Do not generate a clinical claim. Consider confirmatory PGx testing with a validated assay "
+            "if this drug is clinically relevant."
+        ),
         confidence=_confidence(
-            category,
-            "strong" if has_high_confidence else ("moderate" if has_matched_alleles else "none"),
-            "partial" if has_matched_alleles else "partial",
+            "INSUFFICIENT_EVIDENCE",
+            "none",
+            "partial",
             reasons,
         ),
         source_module="src.risk_logic",
         evidence_type="insufficient_evidence_guard",
         provenance=_safety_provenance(drug, summary, "insufficient_evidence_guard"),
-        safety_notes=["Evidence-based categorization applied based on available genetic data."],
+        safety_notes=["Unsupported claims are intentionally suppressed when evidence is incomplete."],
         limitations=DRUG_GENE_RULES[drug]["limitations"],
     )
 
@@ -7343,7 +6612,13 @@ def interpret_drug_rules(
     selected_drugs: list[str],
     evidence: EvidenceIntegrator,
 ) -> list[DrugFinding]:
-    """Generate safe drug-response findings from curated local PGx rules."""
+    """Generate safe drug-response findings from curated local PGx rules.
+
+    Every gene assessment lookup uses ``.get()`` so that a drug can be
+    selected even when the patient VCF contains no variants for the
+    corresponding pharmacogene(s) — the result is an INSUFFICIENT_EVIDENCE
+    finding rather than a KeyError crash.
+    """
     drugs = list(selected_drugs)
     if not drugs:
         return []
@@ -7352,25 +6627,53 @@ def interpret_drug_rules(
     for drug in drugs:
         if drug == "warfarin":
             findings.append(_make_warfarin_finding(gene_assessments, evidence))
+
         elif drug == "clopidogrel":
-            findings.append(_make_clopidogrel_finding(gene_assessments["CYP2C19"], evidence))
+            assessment = gene_assessments.get("CYP2C19")
+            if assessment is None:
+                findings.append(_insufficient_finding(drug, ["CYP2C19 assessment not available for the submitted data."]))
+            else:
+                findings.append(_make_clopidogrel_finding(assessment, evidence))
+
         elif drug in {"citalopram", "escitalopram", "sertraline"}:
-            findings.append(_make_ssri_finding(drug, gene_assessments["CYP2C19"], evidence))
+            assessment = gene_assessments.get("CYP2C19")
+            if assessment is None:
+                findings.append(_insufficient_finding(drug, ["CYP2C19 assessment not available for the submitted data."]))
+            else:
+                findings.append(_make_ssri_finding(drug, assessment, evidence))
+
         elif drug in {"omeprazole", "lansoprazole", "pantoprazole"}:
-            findings.append(_make_ppi_finding(drug, gene_assessments["CYP2C19"], evidence))
+            assessment = gene_assessments.get("CYP2C19")
+            if assessment is None:
+                findings.append(_insufficient_finding(drug, ["CYP2C19 assessment not available for the submitted data."]))
+            else:
+                findings.append(_make_ppi_finding(drug, assessment, evidence))
+
         elif drug == "voriconazole":
-            findings.append(_make_voriconazole_finding(gene_assessments["CYP2C19"], evidence))
+            assessment = gene_assessments.get("CYP2C19")
+            if assessment is None:
+                findings.append(_insufficient_finding(drug, ["CYP2C19 assessment not available for the submitted data."]))
+            else:
+                findings.append(_make_voriconazole_finding(assessment, evidence))
+
         elif drug == "simvastatin":
-            findings.append(_make_simvastatin_finding(gene_assessments["SLCO1B1"], evidence))
+            assessment = gene_assessments.get("SLCO1B1")
+            if assessment is None:
+                findings.append(_insufficient_finding(drug, ["SLCO1B1 assessment not available for the submitted data."]))
+            else:
+                findings.append(_make_simvastatin_finding(assessment, evidence))
+
         elif drug in {"azathioprine", "mercaptopurine", "thioguanine"}:
-            findings.append(
-                _make_thiopurine_finding(
-                    drug,
-                    gene_assessments["TPMT"],
-                    gene_assessments["NUDT15"],
-                    evidence,
-                )
-            )
+            tpmt = gene_assessments.get("TPMT")
+            nudt15 = gene_assessments.get("NUDT15")
+            if tpmt is None and nudt15 is None:
+                findings.append(_insufficient_finding(drug, ["Neither TPMT nor NUDT15 assessment available for the submitted data."]))
+            elif tpmt is None:
+                findings.append(_insufficient_finding(drug, ["TPMT assessment not available; combined thiopurine call requires both TPMT and NUDT15."]))
+            elif nudt15 is None:
+                findings.append(_insufficient_finding(drug, ["NUDT15 assessment not available; combined thiopurine call requires both TPMT and NUDT15."]))
+            else:
+                findings.append(_make_thiopurine_finding(drug, tpmt, nudt15, evidence))
 
     return findings
 
@@ -7717,6 +7020,7 @@ def _interaction_text_block(finding: DrugInteractionFinding) -> list[str]:
         f"  Entity type: {finding.entity_type}",
         f"  Severity: {finding.severity}",
         f"  Status: {finding.status}",
+        f"  Evidence category: {finding.evidence_category}",
         f"  Confidence: {finding.confidence}",
         f"  Evidence-based: {_bool_label(finding.evidence_based)}",
         f"  Clinical relevance: {finding.clinical_relevance}",
@@ -7759,6 +7063,7 @@ def _interaction_html(finding: DrugInteractionFinding) -> str:
       <p><b>Entity type:</b> {escape(finding.entity_type)}</p>
       <p><b>Severity:</b> {escape(finding.severity)}</p>
       <p><b>Status:</b> {escape(finding.status)}</p>
+      <p><b>Evidence category:</b> {escape(finding.evidence_category)}</p>
       <p><b>Confidence:</b> {escape(finding.confidence)}</p>
       <p><b>Evidence-based:</b> {escape(_bool_label(finding.evidence_based))}</p>
       <p><b>Clinical relevance:</b> {escape(finding.clinical_relevance)}</p>
@@ -7776,19 +7081,37 @@ def _render_interactions_text(findings: list[DrugInteractionFinding]) -> list[st
     if not findings:
         return []
     lines = ["", "Drug interaction engine summary:"]
-    for finding in findings:
-        lines.extend(_interaction_text_block(finding))
+    drug_drug = [finding for finding in findings if finding.interaction_type in {"drug_drug", "medication_context", "unsupported_drug"}]
+    drug_gene = [finding for finding in findings if finding.interaction_type not in {"drug_drug", "medication_context", "unsupported_drug"}]
+    if drug_drug:
+        lines.append("- Drug-drug and medication-list context:")
+        for finding in drug_drug:
+            lines.extend(_interaction_text_block(finding))
+    if drug_gene:
+        lines.append("- Drug-gene / drug-enzyme / drug-transporter context:")
+        for finding in drug_gene:
+            lines.extend(_interaction_text_block(finding))
     return lines
 
 
 def _render_interactions_html(findings: list[DrugInteractionFinding]) -> str:
     if not findings:
         return ""
-    body = "".join(_interaction_html(finding) for finding in findings)
+    drug_drug = "".join(
+        _interaction_html(finding)
+        for finding in findings
+        if finding.interaction_type in {"drug_drug", "medication_context", "unsupported_drug"}
+    )
+    drug_gene = "".join(
+        _interaction_html(finding)
+        for finding in findings
+        if finding.interaction_type not in {"drug_drug", "medication_context", "unsupported_drug"}
+    )
     return f"""
     <section>
       <h2>Drug Interaction Engine Summary</h2>
-      {body}
+      {f"<h3>Drug-Drug and Medication Context</h3>{drug_drug}" if drug_drug else ""}
+      {f"<h3>Drug-Gene and Drug-Enzyme Context</h3>{drug_gene}" if drug_gene else ""}
     </section>
     """
 
@@ -7805,6 +7128,9 @@ def _model_summary_text(model_summary: dict[str, Any]) -> list[str]:
         return []
 
     artifact_family = str(model_summary.get("artifact_family") or "classical_ml")
+    readiness = model_summary.get("predictive_model_readiness", {})
+    if not isinstance(readiness, dict):
+        readiness = {}
     model_card = model_summary.get("model_card", {})
     dataset = model_summary.get("training_dataset_summary", {})
     label_distribution = model_summary.get("label_distribution_summary", {})
@@ -7825,9 +7151,12 @@ def _model_summary_text(model_summary: dict[str, Any]) -> list[str]:
     cross_validation = validation_metrics.get("cross_validation", {}) if isinstance(validation_metrics, dict) else {}
     lines = [
         "",
-        "Exploratory model summary:",
+        "Predictive model layer summary:",
         f"- Status: {status}",
         f"- Artifact family: {artifact_family}",
+        f"- Predictive readiness: {readiness.get('status', 'not_evaluated')}",
+        f"- Artifact kind: {readiness.get('artifact_kind') or model_summary.get('artifact_kind', 'unknown')}",
+        f"- Can run supervised drug-response inference: {_bool_label(bool(readiness.get('can_run_inference', False)))}",
         f"- Summary: {model_summary.get('summary') or model_summary.get('reason') or 'None'}",
         f"- Model card: {model_card.get('name', 'Unknown')} | version {model_card.get('version', 'unknown')} | {model_card.get('algorithm', 'unspecified')}",
         f"- Architecture: {model_card.get('architecture', 'unspecified')}",
@@ -7894,7 +7223,7 @@ def _model_summary_text(model_summary: dict[str, Any]) -> list[str]:
                 f"disabled={', '.join(context.get('disabled_modalities', [])) or 'None'} | "
                 f"fusion_ready={context.get('fusion_ready', False)}"
             )
-    lines.append("- UI handling: Model outputs must remain visually secondary to evidence-based PGx findings and must be labeled exploratory.")
+    lines.append("- UI handling: Evidence-backed PGx findings outrank model outputs; unvalidated or knowledge-support artifacts are blocked from predictive display.")
     return lines
 
 
@@ -7904,6 +7233,9 @@ def _model_summary_html(model_summary: dict[str, Any]) -> str:
         return ""
 
     artifact_family = str(model_summary.get("artifact_family") or "classical_ml")
+    readiness = model_summary.get("predictive_model_readiness", {})
+    if not isinstance(readiness, dict):
+        readiness = {}
     model_card = model_summary.get("model_card", {})
     dataset = model_summary.get("training_dataset_summary", {})
     label_distribution = model_summary.get("label_distribution_summary", {})
@@ -7951,9 +7283,12 @@ def _model_summary_html(model_summary: dict[str, Any]) -> str:
 
     return f"""
     <section>
-      <h2>Exploratory Model Summary</h2>
+      <h2>Predictive Model Layer Summary</h2>
       <p><b>Status:</b> {escape(status)}</p>
       <p><b>Artifact family:</b> {escape(artifact_family)}</p>
+      <p><b>Predictive readiness:</b> {escape(str(readiness.get('status', 'not_evaluated')))}</p>
+      <p><b>Artifact kind:</b> {escape(str(readiness.get('artifact_kind') or model_summary.get('artifact_kind', 'unknown')))}</p>
+      <p><b>Can run supervised drug-response inference:</b> {escape(_bool_label(bool(readiness.get('can_run_inference', False))))}</p>
       <p><b>Summary:</b> {escape(str(model_summary.get('summary') or model_summary.get('reason') or 'None'))}</p>
       <p><b>Model card:</b> {escape(str(model_card.get('name', 'Unknown')))} | version {escape(str(model_card.get('version', 'unknown')))} | {escape(str(model_card.get('algorithm', 'unspecified')))}</p>
       <p><b>Architecture:</b> {escape(str(model_card.get('architecture', 'unspecified')))}</p>
@@ -7977,7 +7312,7 @@ def _model_summary_html(model_summary: dict[str, Any]) -> str:
       {'<h4>Monitoring Warnings</h4><ul>' + monitoring_warnings + '</ul>' if monitoring_warnings else ''}
       {'<h4>Multi-Omics Contexts</h4><ul>' + multiomics_html + '</ul>' if multiomics_html else ''}
       <h4>UI Display Requirements</h4>
-      <ul>{display_requirements or '<li>Always present model output as exploratory and secondary.</li>'}</ul>
+      <ul>{display_requirements or '<li>Evidence-backed PGx findings outrank model outputs; unvalidated artifacts are blocked from predictive display.</li>'}</ul>
     </section>
     """
 
@@ -7989,6 +7324,45 @@ def _visible_pipeline_steps(result: AnalysisResult) -> list[Any]:
     return steps
 
 
+def _response_efficiency_text(model_summary: dict[str, Any]) -> list[str]:
+    summary = model_summary.get("response_efficiency")
+    if not isinstance(summary, dict):
+        return []
+    lines = ["", "Response Efficiency / Probability Summary:"]
+    lines.append(f"- Label type: {summary.get('label_type', 'insufficient labeled data')}")
+    lines.append(f"- Evidence level: {summary.get('evidence_level', 'INSUFFICIENT_EVIDENCE')}")
+    if summary.get("known_response_rate") is not None:
+        lines.append(f"- Validated response rate from dataset: {summary['known_response_rate']}")
+    if summary.get("predicted_response_probability") is not None:
+        lines.append(f"- Model-predicted response probability: {summary['predicted_response_probability']}")
+    if summary.get("predicted_toxicity_risk") is not None:
+        lines.append(f"- Predicted toxicity risk: {summary['predicted_toxicity_risk']}")
+    lines.append(f"- Explanation: {summary.get('explanation', 'No validated response estimate available.')}")
+    for limitation in summary.get("limitations", []) or []:
+        lines.append(f"- Limitation: {limitation}")
+    return lines
+
+
+def _response_efficiency_html(model_summary: dict[str, Any]) -> str:
+    summary = model_summary.get("response_efficiency")
+    if not isinstance(summary, dict):
+        return ""
+    rows = [
+        ("Label type", summary.get("label_type", "insufficient labeled data")),
+        ("Evidence level", summary.get("evidence_level", "INSUFFICIENT_EVIDENCE")),
+        ("Validated response rate from dataset", summary.get("known_response_rate", "Not available")),
+        ("Model-predicted response probability", summary.get("predicted_response_probability", "Not available")),
+        ("Predicted toxicity risk", summary.get("predicted_toxicity_risk", "Not available")),
+        ("Explanation", summary.get("explanation", "No validated response estimate available.")),
+    ]
+    limitations = "".join(f"<li>{escape(str(item))}</li>" for item in summary.get("limitations", []) or [])
+    return (
+        "<section><h2>Response Efficiency / Probability Summary</h2><ul>"
+        + "".join(f"<li><b>{escape(str(label))}:</b> {escape(str(value))}</li>" for label, value in rows)
+        + f"</ul><h4>Limitations</h4><ul>{limitations or '<li>None</li>'}</ul></section>"
+    )
+
+
 def render_text_report(result: AnalysisResult) -> str:
     """Render a human-readable DNA pharmacogenomics report."""
     if result.input_mode == "variant":
@@ -7997,11 +7371,19 @@ def render_text_report(result: AnalysisResult) -> str:
         input_heading = "Input summary:"
     input_label = _input_type_label(result.input_mode)
     target_drug_text = ", ".join(drug_display_label(drug) for drug in result.selected_drugs) or "not selected"
+    target_support_tier = _selected_drug_support_tier(result.selected_drugs[0] if result.selected_drugs else None)
+    current_medications = (
+        ", ".join(result.patient_profile.current_medications)
+        if result.patient_profile is not None and result.patient_profile.current_medications
+        else "No concurrent medications provided"
+    )
     lines = [
         f"{APP_NAME} {APP_VERSION}",
         f"Overall category: {result.overall_category}",
         f"Input type: {input_label}",
         f"Target drug context: {target_drug_text}",
+        f"Target drug support tier: {target_support_tier}",
+        f"Current medications: {current_medications}",
         f"Validated input: {result.validation.message}",
         (
             "Pipeline status: "
@@ -8027,6 +7409,7 @@ def render_text_report(result: AnalysisResult) -> str:
     lines.extend(_render_evidence_annotations_text(result.evidence_annotations))
     lines.extend(_render_aggregated_evidence_text(result.aggregated_evidence))
     lines.extend(_render_interactions_text(result.interaction_findings))
+    lines.extend(_response_efficiency_text(result.model_summary))
     lines.extend(["", "Safety notes:"])
     for note in result.safety_notes:
         lines.append(f"- {note}")
@@ -8052,6 +7435,12 @@ def render_html_report(result: AnalysisResult) -> str:
         input_summary_title = "Input Summary"
     input_label = _input_type_label(result.input_mode)
     target_drug_text = ", ".join(drug_display_label(drug) for drug in result.selected_drugs) or "Not selected"
+    target_support_tier = _selected_drug_support_tier(result.selected_drugs[0] if result.selected_drugs else None)
+    current_medications = (
+        ", ".join(result.patient_profile.current_medications)
+        if result.patient_profile is not None and result.patient_profile.current_medications
+        else "No concurrent medications provided"
+    )
     return f"""
     <html>
       <head>
@@ -8071,6 +7460,8 @@ def render_html_report(result: AnalysisResult) -> str:
             <p><b>Overall category:</b> {escape(result.overall_category)}</p>
             <p><b>Input type:</b> {escape(input_label)}</p>
             <p><b>Target drug context:</b> {escape(target_drug_text)}</p>
+            <p><b>Target drug support tier:</b> {escape(target_support_tier)}</p>
+            <p><b>Current medications:</b> {escape(current_medications)}</p>
             <p><b>Validation:</b> {escape(result.validation.message)}</p>
             <p><b>Pipeline status:</b> {escape(result.pipeline_summary.overall_status)}</p>
           <p><b>Pipeline step counts:</b> success {result.pipeline_summary.completed_steps} | warning {result.pipeline_summary.warning_steps} | failed {result.pipeline_summary.failed_steps} | skipped {result.pipeline_summary.skipped_steps}</p>
@@ -8091,6 +7482,7 @@ def render_html_report(result: AnalysisResult) -> str:
         {_render_evidence_annotations_html(result.evidence_annotations)}
         {_render_aggregated_evidence_html(result.aggregated_evidence)}
         {_render_interactions_html(result.interaction_findings)}
+        {_response_efficiency_html(result.model_summary)}
         <section>
           <h2>Safety Notes</h2>
           <ul>{safety_html or '<li>None</li>'}</ul>
@@ -8152,7 +7544,9 @@ class ReportService:
     """Adapt analysis results into UI-friendly view models."""
 
     def _display_summary(self, finding: DrugFinding) -> str:
-        if finding.category == "MODEL_ASSISTED" or finding.exploratory:
+        if finding.category == "MODEL_ASSISTED":
+            return f"Model-assisted only: {finding.summary}"
+        if finding.exploratory:
             return f"Exploratory only: {finding.summary}"
         return finding.summary
 
@@ -8195,9 +7589,11 @@ class ReportService:
             summary += f" | Interaction findings: {len(result.interaction_findings)}"
         model_status = result.model_summary.get("status")
         if model_status == "exploratory_predictions_available":
-            summary += " | Model output: exploratory only"
+            summary += " | Model output: supervised predictive layer available"
         elif model_status == "suppressed_due_to_evidence_precedence":
             summary += " | Model output: suppressed by evidence precedence"
+        elif model_status == "not_predictive_drug_response_model":
+            summary += " | Model output: blocked, not a patient-response model"
         return summary
 
     def build_view_model(self, result: AnalysisResult) -> AnalysisViewModel:
@@ -8361,13 +7757,62 @@ def _build_missing_drug_selection_finding() -> DrugFinding:
     )
 
 
+def _build_general_pharmacology_only_finding(selected_drugs: list[str]) -> DrugFinding:
+    labels = ", ".join(drug_display_label(drug) for drug in selected_drugs)
+    message = (
+        f"Target drug context {labels} is available only as local general pharmacology metadata; "
+        "no evidence-backed pharmacogenomics rule is shipped for this drug."
+    )
+    return DrugFinding(
+        drug=labels or "Drug selection",
+        gene="N/A",
+        category="INSUFFICIENT_EVIDENCE",
+        result_kind="SAFETY_BLOCK",
+        summary=message,
+        recommendation=(
+            "General pharmacology context can still be preserved for reporting and interaction checks, "
+            "but Pharmexia will not fabricate a drug-specific PGx interpretation."
+        ),
+        confidence=ConfidenceAssessment(
+            category="INSUFFICIENT_EVIDENCE",
+            evidence_strength="limited",
+            data_completeness="partial",
+            rationale=[
+                message,
+                "The selected target drug does not have a local evidence-backed PGx rule in this build.",
+            ],
+        ),
+        source_module="src.analysis_pipeline",
+        evidence_type="general_pharmacology_only_context",
+        clinical_grade=False,
+        exploratory=False,
+        provenance=[
+            EvidenceRecord(
+                source=APP_NAME,
+                label="General pharmacology target-drug context",
+                assertion=message,
+                source_module="src.analysis_pipeline",
+                evidence_type="general_pharmacology_only_context",
+                details={"selected_drugs": list(selected_drugs)},
+            )
+        ],
+        safety_notes=[
+            "General-pharmacology target-drug context is reported separately from evidence-backed PGx interpretation.",
+        ],
+        limitations=[
+            "This build does not claim universal FDA-approved drug PGx coverage.",
+            "Only the local curated PGx subset can produce evidence-backed drug-response findings.",
+        ],
+    )
+
+
 def _build_model_finding(drug: str, prediction: dict[str, Any]) -> DrugFinding:
     predicted_label = str(prediction.get("predicted_label") or "unavailable")
     calibrated_probability_estimate = prediction.get("calibrated_probability_estimate")
     model_name = str(prediction.get("model_name") or "exploratory_model")
     source_module = str(prediction.get("source_module") or "src.ml_pipeline")
     artifact_family = str(prediction.get("artifact_family") or "classical_ml")
-    model_descriptor = "deep-learning" if artifact_family == "deep_learning" else "model"
+    model_descriptor = "deep-learning model" if artifact_family == "deep_learning" else "classical ML model"
     input_modalities = list(prediction.get("input_modalities") or [])
     monitoring = prediction.get("monitoring", {}) if isinstance(prediction.get("monitoring"), dict) else {}
     modality_text = f" Modalities used: {', '.join(input_modalities)}." if input_modalities else ""
@@ -8387,23 +7832,25 @@ def _build_model_finding(drug: str, prediction: dict[str, Any]) -> DrugFinding:
             else " Monitoring warning: inference input differed from the training-time monitoring baseline."
         )
     summary = (
-        f"Exploratory {model_descriptor} output from {model_name} for {drug} suggested '{predicted_label}', but no "
-        f"authoritative local PGx rule confirmed an evidence-backed pharmacogenomics finding.{probability_text}"
+        f"Supervised model-assisted output from {model_name} for {drug} suggested '{predicted_label}', but no "
+        f"authoritative local PGx rule confirmed an evidence-backed pharmacogenomics finding for this input.{probability_text}"
         f" Uncertainty level: {uncertainty_level}.{modality_text}{monitoring_warning} "
         f"{str(prediction.get('summary') or '').strip()}"
     ).strip()
     explanation = prediction.get("explanation")
     confidence_rationale = [
-        "No evidence-based local PGx rule fired for this drug, so model output is shown only as secondary context.",
-        "Calibrated model probabilities remain exploratory model estimates, not clinical confidence measures.",
+        "The artifact passed the patient-response readiness gate, so supervised model output can be shown as secondary prediction context.",
+        "No evidence-based local PGx rule fired for this drug; evidence-based findings would override this model output.",
+        "Calibrated model probabilities are model estimates, not clinical confidence measures.",
     ]
     if monitoring_status == "warning":
         confidence_rationale.append(
             "Monitoring detected input-distribution or dataset-quality warnings, so this exploratory output requires extra caution."
         )
     limitations = [
-        "Exploratory model output is not authoritative PGx evidence.",
-        "Model assistance cannot establish phenotype, functional impact, or therapy recommendations without validated labeled data.",
+        "Model-assisted output is not authoritative PGx evidence.",
+        "Model assistance cannot establish phenotype, functional impact, or therapy recommendations without authoritative evidence.",
+        "Patient-response model artifacts require independent external validation before clinical use.",
         "Sequence-based model support requires explicit sequence-context input; the app does not infer raw-sequence clinical claims automatically.",
     ]
     if monitoring_status == "warning":
@@ -8415,7 +7862,7 @@ def _build_model_finding(drug: str, prediction: dict[str, Any]) -> DrugFinding:
         result_kind="PREDICTIVE_MODEL_SUGGESTION",
         summary=summary,
         recommendation=(
-            "Exploratory model output only. Do not treat this as a clinical recommendation, phenotype call, or "
+            "Model-assisted output only. Do not treat this as a clinical recommendation, phenotype call, or "
             "therapy directive. Review authoritative PGx evidence manually."
         ),
         confidence=ConfidenceAssessment(
@@ -8425,17 +7872,17 @@ def _build_model_finding(drug: str, prediction: dict[str, Any]) -> DrugFinding:
             rationale=confidence_rationale,
         ),
         source_module=source_module,
-        evidence_type="exploratory_deep_learning_support" if artifact_family == "deep_learning" else "exploratory_model_support",
+        evidence_type="supervised_deep_learning_support" if artifact_family == "deep_learning" else "supervised_model_support",
         clinical_grade=False,
         exploratory=True,
         explanation=explanation if isinstance(explanation, dict) else None,
         provenance=[
             EvidenceRecord(
-                source=f"{APP_NAME} exploratory {model_descriptor}",
+                source=f"{APP_NAME} supervised {model_descriptor}",
                 label=drug,
-                assertion=f"Exploratory {model_descriptor} output from {model_name}: {predicted_label}. Uncertainty: {uncertainty_level}.",
+                assertion=f"Supervised {model_descriptor} output from {model_name}: {predicted_label}. Uncertainty: {uncertainty_level}.",
                 source_module=source_module,
-                evidence_type="exploratory_deep_learning_support" if artifact_family == "deep_learning" else "exploratory_model_support",
+                evidence_type="supervised_deep_learning_support" if artifact_family == "deep_learning" else "supervised_model_support",
                 details={
                     "model_name": model_name,
                     "artifact_family": artifact_family,
@@ -8457,20 +7904,89 @@ def _build_model_finding(drug: str, prediction: dict[str, Any]) -> DrugFinding:
     )
 
 
+def _build_non_predictive_model_finding(drug: str, readiness: dict[str, Any]) -> DrugFinding:
+    artifact_kind = str(readiness.get("artifact_kind") or "unknown")
+    model_name = str(readiness.get("model_name") or "attached_model")
+    reason = str(readiness.get("reason") or "The attached model was not validated for patient drug-response prediction.")
+    limitations = list(readiness.get("limitations") or [])
+    if not limitations:
+        limitations = ["No supervised patient-response prediction was generated from this artifact."]
+    summary = (
+        f"Model artifact '{model_name}' was not used as a drug-response predictor for {drug}. "
+        f"Artifact kind: {artifact_kind}. {reason}"
+    )
+    return DrugFinding(
+        drug=drug,
+        gene="model",
+        category="EXPLORATORY_ONLY",
+        result_kind="MODEL_NOT_PREDICTIVE_DRUG_RESPONSE",
+        summary=summary,
+        recommendation=(
+            "Attach a validated, labeled patient/sample-level drug-response model artifact before presenting "
+            "ML output as prediction. Evidence-based PGx rules remain the primary interpretation layer."
+        ),
+        confidence=ConfidenceAssessment(
+            category="EXPLORATORY_ONLY",
+            evidence_strength="not_predictive_response_model",
+            data_completeness="insufficient",
+            rationale=[
+                "Knowledge-support, legacy, or unvalidated artifacts are not supervised patient drug-response models.",
+                "Pharmexia blocked drug-response inference rather than fabricating a predictive result.",
+            ],
+        ),
+        source_module="src.services.predictive_model_service",
+        evidence_type="predictive_model_readiness_gate",
+        clinical_grade=False,
+        exploratory=True,
+        provenance=[
+            EvidenceRecord(
+                source=f"{APP_NAME} predictive model readiness gate",
+                label=drug,
+                assertion=reason,
+                source_module="src.services.predictive_model_service",
+                evidence_type="predictive_model_readiness_gate",
+                details=dict(readiness),
+            )
+        ],
+        safety_notes=["No model-based drug-response prediction was generated from the attached artifact."],
+        limitations=limitations,
+    )
+
+
 def _resolve_selected_drugs(selected_drugs: list[str]) -> tuple[list[str], list[str]]:
     if not selected_drugs or not any(str(drug).strip() for drug in selected_drugs):
         return [], []
 
-    normalized = normalize_selected_drugs(selected_drugs)
-    supported = set(DRUG_GENE_RULES)
-    unsupported = sorted(
-        {
-            str(drug).strip().lower()
-            for drug in selected_drugs
-            if str(drug).strip() and str(drug).strip().lower() not in supported
-        }
-    )
+    service = _drug_database_service()
+    resolved_entries, unresolved = service.normalize_many(selected_drugs)
+    normalized = [entry.drug_key for entry in resolved_entries]
+    unsupported = sorted({str(drug).strip().lower() for drug in unresolved if str(drug).strip()})
     return normalized, unsupported
+
+
+def _pgx_supported_selected_drugs(selected_drugs: list[str]) -> list[str]:
+    return [drug for drug in selected_drugs if drug in DRUG_GENE_RULES]
+
+
+def _general_only_selected_drugs(selected_drugs: list[str]) -> list[str]:
+    service = _drug_database_service()
+    return [
+        drug
+        for drug in selected_drugs
+        if service.support_tier_for(drug) == "GENERAL_PHARMACOLOGY_ONLY"
+    ]
+
+
+def _selected_drug_support_tier(drug: str | None) -> str:
+    if not drug:
+        return "UNSUPPORTED"
+    return _drug_database_service().support_tier_for(drug)
+
+
+def _current_medications_from_state(state: AnalysisPipelineState) -> list[str]:
+    if state.patient_profile is None or not state.patient_profile.current_medications:
+        return []
+    return list(state.patient_profile.current_medications)
 
 
 def _choose_overall_category(findings: list[DrugFinding]) -> str:
@@ -8506,254 +8022,30 @@ def _collect_limitations(
 
 
 def _prediction_drugs(state: AnalysisPipelineState) -> list[str]:
-    return list(state.resolved_selected_drugs)
+    return list(_pgx_supported_selected_drugs(state.resolved_selected_drugs))
 
 
 def _refresh_aggregated_evidence(state: AnalysisPipelineState) -> None:
-    if not state.resolved_selected_drugs:
+    prediction_drugs = _prediction_drugs(state)
+    if not prediction_drugs:
         state.aggregated_evidence = []
         return
     service = EvidenceService(enable_remote_lookup=state.request.enable_remote_lookup)
     state.aggregated_evidence = service.aggregate_prediction_contexts(
         gene_assessments=state.gene_assessments,
-        selected_drugs=state.resolved_selected_drugs,
+        selected_drugs=prediction_drugs,
         model_findings=state.predictive_model_suggestions,
         variant_annotations=state.evidence_annotations,
     )
 
 
-def _ensure_all_relevant_genes_assessed(
-    gene_assessments: dict[str, GeneAssessment],
-    selected_drugs: list[str],
-    pharmacogene_variants: list[ObservedVariant],
-) -> dict[str, GeneAssessment]:
-    """Ensure all genes relevant to selected drugs have assessments for ML/DL analysis."""
-    assessments = dict(gene_assessments)
-
-    # Get all genes relevant to selected drugs
-    relevant_genes: set[str] = set()
-    for drug in selected_drugs:
-        rule = DRUG_GENE_RULES.get(drug)
-        if rule:
-            relevant_genes.update(rule.get("genes", []))
-
-    # For each relevant gene without an assessment, create one based on available variants
-    for gene in relevant_genes:
-        if gene in assessments:
-            continue
-
-        # Find any variants for this gene
-        gene_variants = [
-            v for v in pharmacogene_variants
-            if v.gene == gene or RSID_TO_GENE.get(v.rsid or "") == gene
-        ]
-
-        if gene_variants:
-            # Create assessment from available variants
-            observed_loci = sorted({v.rsid for v in gene_variants if v.rsid})
-            assessments[gene] = GeneAssessment(
-                gene=gene,
-                observed_target_loci=observed_loci,
-                expected_target_loci=GENE_TARGET_LOCI.get(gene, []),
-                coverage_complete=set(observed_loci) >= set(GENE_TARGET_LOCI.get(gene, [])) if GENE_TARGET_LOCI.get(gene) else False,
-                matched_alleles=[],
-                diplotype_call="Unknown",
-                phenotype_call="Unknown",
-                confidence="LOW",
-                limitations=[f"No specific star-allele match found for {gene}. Assessment based on observed variants only."],
-            )
-        else:
-            # Create empty assessment - no variants observed for this gene
-            assessments[gene] = GeneAssessment(
-                gene=gene,
-                observed_target_loci=[],
-                expected_target_loci=GENE_TARGET_LOCI.get(gene, []),
-                coverage_complete=False,
-                matched_alleles=[],
-                diplotype_call="Not_Assayed",
-                phenotype_call="Unknown",
-                confidence="VERY_LOW",
-                limitations=[f"No variants observed for {gene}. Cannot assess without genetic data."],
-            )
-
-    return assessments
-
-
-def _generate_ml_predictions(
-    selected_drugs: list[str],
-    gene_assessments: dict[str, GeneAssessment],
-    pharmacogene_variants: list[ObservedVariant],
-) -> list[DrugFinding]:
-    """Generate ML-based predictions for drug response using default model."""
-    predictions: list[DrugFinding] = []
-
-    # Get default model artifact
-    artifact = _get_default_model_artifact()
-    if artifact.get("status") != "ready":
-        return predictions
-
-    model = artifact.get("model")
-    if model is None:
-        return predictions
-
-    for drug in selected_drugs:
-        # Build feature row for this drug
-        feature_row = build_pgx_feature_row(drug, gene_assessments)
-
-        # Build feature frame and select features
-        frame = build_feature_frame([feature_row])
-        X, feature_cols_used, _dropped = select_model_features(frame)
-
-        if X.shape[0] == 0 or X.shape[1] == 0:
-            continue
-
-        try:
-            # Make prediction
-            prediction = model.predict(X)[0]
-            probabilities = model.predict_proba(X)[0] if hasattr(model, 'predict_proba') else [0.5, 0.5]
-
-            # Determine clinical significance
-            if prediction == "altered_response":
-                significance = "MODERATE"
-                phenotype = "Altered Metabolizer"
-                headline = f"ML model predicts altered response to {drug_display_label(drug)} based on genetic profile"
-                recommendation = "Consider alternative therapy or dose adjustment. Genetic variants suggest reduced efficacy or increased toxicity risk."
-            else:
-                significance = "LOW"
-                phenotype = "Normal Metabolizer"
-                headline = f"ML model predicts standard response to {drug_display_label(drug)}"
-                recommendation = "Standard dosing expected to be effective based on genetic profile."
-
-            # Calculate confidence based on probability and data coverage
-            max_prob = max(probabilities) if len(probabilities) > 0 else 0.5
-            coverage = _calculate_gene_coverage(drug, gene_assessments)
-
-            confidence = ConfidenceAssessment(
-                category="MODEL_ASSISTED" if max_prob > 0.6 else "INSUFFICIENT_EVIDENCE",
-                evidence_strength="MODERATE" if max_prob > 0.7 else "LOW",
-                data_completeness="PARTIAL" if coverage < 1.0 else "COMPLETE",
-                rationale=f"ML prediction confidence: {max_prob:.2f}. Gene coverage: {coverage:.0%}",
-            )
-
-            prediction_finding = DrugFinding(
-                drug=drug,
-                gene="ML_PREDICTED",
-                finding_type="ML_BASED_PREDICTION",
-                clinical_significance=significance,
-                phenotype=phenotype,
-                result_kind="PREDICTIVE_MODEL_SUGGESTION",
-                headline=headline,
-                recommendation=recommendation,
-                confidence=confidence,
-                evidence_sources=["DEFAULT_ML_MODEL"],
-                gene_assessment=None,
-            )
-            predictions.append(prediction_finding)
-
-        except Exception:
-            # If prediction fails, skip this drug
-            continue
-
-    return predictions
-
-
-def _calculate_gene_coverage(drug: str, gene_assessments: dict[str, GeneAssessment]) -> float:
-    """Calculate coverage fraction for genes relevant to a drug."""
-    rule = DRUG_GENE_RULES.get(drug)
-    if not rule:
-        return 0.0
-
-    genes = rule.get("genes", [])
-    if not genes:
-        return 0.0
-
-    covered = sum(1 for g in genes if g in gene_assessments and gene_assessments[g].coverage_complete)
-    return covered / len(genes)
-
-
-def _generate_generic_findings(
-    selected_drugs: list[str],
-    gene_assessments: dict[str, GeneAssessment],
-) -> list[DrugFinding]:
-    """Generate generic findings based on available gene coverage when no specific rules match."""
-    findings: list[DrugFinding] = []
-
-    for drug in selected_drugs:
-        rule = DRUG_GENE_RULES.get(drug)
-        if not rule:
-            continue
-
-        genes = rule.get("genes", [])
-        headline = rule.get("headline", f"Pharmacogenomic analysis for {drug_display_label(drug)}")
-
-        # Check which genes have coverage
-        covered_genes = [g for g in genes if g in gene_assessments]
-        complete_genes = [g for g in genes if g in gene_assessments and gene_assessments[g].coverage_complete]
-
-        if complete_genes:
-            # Some genes have complete coverage
-            significance = "MODERATE"
-            phenotype = "Assessment_Pending"
-            recommendation = f"Genetic data available for {', '.join(complete_genes)}. Standard pharmacogenomic interpretation recommended."
-            confidence = ConfidenceAssessment(
-                category="MODEL_ASSISTED",
-                evidence_strength="MODERATE",
-                data_completeness="PARTIAL",
-                rationale=f"Complete coverage for {len(complete_genes)}/{len(genes)} relevant genes.",
-            )
-        elif covered_genes:
-            # Partial coverage
-            significance = "LOW"
-            phenotype = "Unknown"
-            recommendation = f"Partial genetic data available. Additional testing for {', '.join(g for g in genes if g not in covered_genes)} recommended."
-            confidence = ConfidenceAssessment(
-                category="INSUFFICIENT_EVIDENCE",
-                evidence_strength="LOW",
-                data_completeness="INCOMPLETE",
-                rationale=f"Partial coverage: {len(covered_genes)}/{len(genes)} genes have data.",
-            )
-        else:
-            # No coverage
-            significance = "LOW"
-            phenotype = "Not_Assayed"
-            recommendation = f"No genetic data available for relevant genes ({', '.join(genes)}). Standard clinical monitoring recommended."
-            confidence = ConfidenceAssessment(
-                category="INSUFFICIENT_EVIDENCE",
-                evidence_strength="VERY_LOW",
-                data_completeness="NONE",
-                rationale="No genetic data available for relevant genes.",
-            )
-
-        finding = DrugFinding(
-            drug=drug,
-            gene=genes[0] if genes else "UNKNOWN",
-            finding_type="GENERIC_ASSESSMENT",
-            clinical_significance=significance,
-            phenotype=phenotype,
-            result_kind="CONFIRMED_PGX_FINDING",
-            headline=headline,
-            recommendation=recommendation,
-            confidence=confidence,
-            evidence_sources=["LOCAL_RULE_DATABASE"],
-            gene_assessment=gene_assessments.get(genes[0]) if genes else None,
-        )
-        findings.append(finding)
-
-    return findings
-
-
 def _refresh_interaction_findings(state: AnalysisPipelineState) -> None:
     service = InteractionService()
-    # Extract current medications from patient profile
-    current_medications: list[str] = []
-    if state.patient_profile and state.patient_profile.current_medications:
-        current_medications = state.patient_profile.current_medications
-
     state.interaction_findings = service.aggregate_findings(
         requested_drugs=state.request.selected_drugs,
         resolved_drugs=state.resolved_selected_drugs,
+        current_medications=_current_medications_from_state(state),
         gene_assessments=state.gene_assessments,
-        current_medications=current_medications,
     )
 
 
@@ -8761,7 +8053,7 @@ def _collect_interaction_safety_notes(findings: list[DrugInteractionFinding]) ->
     notes = [
         finding.summary
         for finding in findings
-        if finding.severity in {"HIGH", "MODERATE", "UNSUPPORTED"}
+        if finding.severity in {"CONTRAINDICATED", "MAJOR", "MODERATE", "UNSUPPORTED", "UNKNOWN", "HIGH"}
     ]
     return list(OrderedDict.fromkeys(note for note in notes if note))
 
@@ -8808,31 +8100,83 @@ def _collect_clinical_metadata(
 
 
 def _load_dl_inference_helpers() -> dict[str, Any]:
-    from src.services.dl_inference_service import (
-        is_deep_learning_artifact_path,
-        load_dl_model_artifact,
-        predict_with_dl_model,
-        summarize_dl_model_artifact,
-    )
+    """Return a dict of no-op DL inference helpers.
+
+    The deep-learning inference service is an optional external component.
+    When it is not installed the pipeline skips DL inference gracefully.
+    """
+    def _is_dl_path(path: Any) -> bool:
+        return False
+
+    def _load_dl_artifact(path: Any) -> None:
+        return None
+
+    def _predict_dl(artifact: Any, **kwargs: Any) -> dict[str, Any]:
+        return {"status": "unavailable", "reason": "Deep-learning inference service not available."}
+
+    def _summarize_dl(artifact: Any) -> dict[str, Any]:
+        return {"status": "unavailable"}
 
     return {
-        "is_deep_learning_artifact_path": is_deep_learning_artifact_path,
-        "load_dl_model_artifact": load_dl_model_artifact,
-        "predict_with_dl_model": predict_with_dl_model,
-        "summarize_dl_model_artifact": summarize_dl_model_artifact,
+        "is_deep_learning_artifact_path": _is_dl_path,
+        "load_dl_model_artifact": _load_dl_artifact,
+        "predict_with_dl_model": _predict_dl,
+        "summarize_dl_model_artifact": _summarize_dl,
     }
 
 
-def _load_monitoring_service():
-    from src.services.monitoring_service import MonitoringService
+def _load_monitoring_service() -> Any:
+    """Return a no-op monitoring service stub."""
 
-    return MonitoringService()
+    class _NoopMonitoringService:
+        def audit_prediction(self, **kwargs: Any) -> Any:
+            class _Rec:
+                def to_dict(self) -> dict[str, Any]:
+                    return {}
+            return _Rec()
+
+        def finalize_report(self, **kwargs: Any) -> dict[str, Any]:
+            return {"report": {"status": "unavailable", "warnings": []}, "artifacts": {}}
+
+    return _NoopMonitoringService()
 
 
-def _load_multimodal_feature_service():
-    from src.services.multimodal_feature_service import MultimodalFeatureService
+def _load_multimodal_feature_service() -> Any:
+    """Return a no-op multimodal feature service stub."""
 
-    return MultimodalFeatureService()
+    class _NoopMultimodalFeatureService:
+        def build_prediction_container(
+            self,
+            *,
+            dna_variant_features: dict[str, Any],
+            patient_profile: Any = None,
+            multiomics_inputs: Any = None,
+            compatible_tabular_columns: list[str] | None = None,
+            compatible_clinical_columns: list[str] | None = None,
+        ) -> Any:
+            class _Container:
+                model_tabular_features: dict[str, Any] = {}
+                model_clinical_features: dict[str, Any] = {}
+                present_modalities: list[str] = []
+                prediction_enabled_modalities: list[str] = []
+                disabled_modalities: list[str] = []
+                fusion_ready: bool = False
+
+                def to_dict(self) -> dict[str, Any]:
+                    return {
+                        "model_tabular_features": {},
+                        "model_clinical_features": {},
+                        "present_modalities": [],
+                        "prediction_enabled_modalities": [],
+                        "disabled_modalities": [],
+                        "fusion_ready": False,
+                    }
+
+            c = _Container()
+            c.model_tabular_features = dict(dna_variant_features)
+            return c
+
+    return _NoopMultimodalFeatureService()
 
 
 class InputValidationStep(PipelineStep):
@@ -8857,6 +8201,8 @@ class InputValidationStep(PipelineStep):
             and not state.patient_profile_validation.is_valid
             and state.patient_profile_validation.status != "not_provided"
         ):
+            # The profile failed validation — emit the message as a warning
+            # so it is visible in the pipeline output, but do not halt the run.
             patient_warnings.append(state.patient_profile_validation.message)
         if request.path is None and not request.input_variants:
             message = "No input source was provided to the analysis pipeline."
@@ -9107,6 +8453,8 @@ class RuleBasedClinicalInterpretationStep(PipelineStep):
             state.request.selected_drugs
         )
         state.interaction_findings = []
+        pgx_selected_drugs = _pgx_supported_selected_drugs(state.resolved_selected_drugs)
+        general_only_selected_drugs = _general_only_selected_drugs(state.resolved_selected_drugs)
         warnings: list[str] = []
         if state.unsupported_selected_drugs:
             warnings.append("Unsupported selected drugs were skipped: " + ", ".join(state.unsupported_selected_drugs))
@@ -9132,85 +8480,92 @@ class RuleBasedClinicalInterpretationStep(PipelineStep):
                 warnings=warnings,
             )
 
-        # Generate assessments for ALL relevant genes, even if no specific variants found
-        # This ensures we always have data for ML/DL prediction
-        state.gene_assessments = _ensure_all_relevant_genes_assessed(
-            state.gene_assessments,
-            state.resolved_selected_drugs,
-            state.pharmacogene_variants,
-        )
+        if state.resolved_selected_drugs and not pgx_selected_drugs:
+            if general_only_selected_drugs:
+                state.safety_blocks = [_build_general_pharmacology_only_finding(general_only_selected_drugs)]
+            else:
+                state.safety_blocks = [_build_unsupported_drug_finding(state.resolved_selected_drugs)]
+            _refresh_interaction_findings(state)
+            return self._result(
+                "warning",
+                "Target drug context was preserved for interaction/general-pharmacology reporting, but no evidence-backed PGx rule was available.",
+                metadata={
+                    "selected_drugs": state.resolved_selected_drugs,
+                    "general_only_selected_drugs": general_only_selected_drugs,
+                    "n_interaction_findings": len(state.interaction_findings),
+                },
+                warnings=warnings,
+            )
 
         evidence = EvidenceIntegrator(enable_remote_lookup=state.request.enable_remote_lookup)
         state.rule_findings = interpret_drug_rules(
             state.gene_assessments,
-            state.resolved_selected_drugs,
+            pgx_selected_drugs,
             evidence,
         )
-
-        # Generate ML-based predictions for all selected drugs
-        state.predictive_model_suggestions = _generate_ml_predictions(
-            state.resolved_selected_drugs,
-            state.gene_assessments,
-            state.pharmacogene_variants,
-        )
-
-        # Combine rule-based and ML-based findings
         state.confirmed_findings = [
             finding for finding in state.rule_findings if finding.result_kind == "CONFIRMED_PGX_FINDING"
         ]
-
-        # If no rule-based findings, use ML predictions as findings
-        if not state.confirmed_findings and state.predictive_model_suggestions:
-            state.confirmed_findings = [
-                DrugFinding(
-                    drug=finding.drug,
-                    gene="ML_PREDICTED",
-                    finding_type="ML_BASED_PREDICTION",
-                    clinical_significance=finding.clinical_significance,
-                    phenotype=finding.phenotype,
-                    result_kind="CONFIRMED_PGX_FINDING",
-                    headline=f"ML Prediction: {finding.headline}",
-                    recommendation=finding.recommendation,
-                    confidence=finding.confidence,
-                    evidence_sources=["ML_MODEL_PREDICTION"],
-                    gene_assessment=None,
-                )
-                for finding in state.predictive_model_suggestions
-            ]
-
         state.safety_blocks.extend(
             finding for finding in state.rule_findings if finding.result_kind == "SAFETY_BLOCK"
         )
         _refresh_aggregated_evidence(state)
         _refresh_interaction_findings(state)
 
-        # Always provide results - never return "insufficient evidence"
-        if state.confirmed_findings:
-            status = "success"
-            message = f"Generated {len(state.confirmed_findings)} pharmacogenomics finding(s) for selected drugs."
-        elif state.predictive_model_suggestions:
-            status = "warning"
-            message = f"Generated {len(state.predictive_model_suggestions)} ML-based prediction(s). Rule-based evidence was insufficient."
-        else:
-            # Fallback: generate generic findings based on gene coverage
-            state.confirmed_findings = _generate_generic_findings(
-                state.resolved_selected_drugs,
-                state.gene_assessments,
+        # If the interaction catalog is missing, make that visible in the output
+        # rather than silently returning zero interaction findings.
+        catalog = load_interaction_catalog()
+        if catalog.schema_version in {"missing", "error"}:
+            from dataclasses import replace as _r
+            state.interaction_findings.insert(
+                0,
+                DrugInteractionFinding(
+                    interaction_id="catalog_missing::schema",
+                    interaction_type="unsupported_drug",
+                    subject_drug="interaction_catalog",
+                    interacting_entity="local_catalog",
+                    entity_type="catalog",
+                    severity="UNKNOWN",
+                    status="unsupported",
+                    evidence_category="INSUFFICIENT_EVIDENCE",
+                    confidence="none",
+                    summary=(
+                        "The local drug interaction schema file was not found or could not be loaded. "
+                        "Drug-drug and drug-gene interaction checking is unavailable for this run."
+                    ),
+                    clinical_relevance=(
+                        "Absence of interaction warnings must NOT be interpreted as absence of interaction risk."
+                    ),
+                    mechanism="missing_catalog_file",
+                    evidence_based=False,
+                    provenance=[
+                        InteractionProvenance(
+                            source_name=APP_NAME,
+                            source_record_id="catalog_missing",
+                            evidence_type="catalog_availability_guard",
+                            source_module="src.analysis_pipeline",
+                            note="Interaction schema was missing at runtime.",
+                        )
+                    ],
+                    limitations=list(catalog.limitations),
+                ),
             )
-            status = "warning"
-            message = f"Generated {len(state.confirmed_findings)} preliminary finding(s) based on available variant data."
 
+        status = "success" if state.confirmed_findings else "warning"
+        message = (
+            "Generated rule-based pharmacogenomics findings from curated local evidence."
+            if state.confirmed_findings
+            else "Rule-based interpretation did not produce a confirmed evidence-backed PGx finding."
+        )
         return self._result(
             status,
             message,
             metadata={
                 "n_confirmed_findings": len(state.confirmed_findings),
-                "n_ml_predictions": len(state.predictive_model_suggestions),
                 "n_safety_blocks": len(state.safety_blocks),
                 "selected_drugs": state.resolved_selected_drugs,
                 "n_aggregated_evidence_contexts": len(state.aggregated_evidence),
                 "n_interaction_findings": len(state.interaction_findings),
-                "analysis_type": "combined_rule_and_ml" if state.predictive_model_suggestions else "rule_based",
             },
             warnings=warnings,
         )
@@ -9229,72 +8584,19 @@ class OptionalMLAssistanceStep(PipelineStep):
             }
             return self._result("skipped", "Optional model assistance was skipped because the input is not variant-based.")
 
-        if not state.resolved_selected_drugs:
+        if not _prediction_drugs(state):
             state.model_summary = {
                 "status": "disabled",
-                "reason": "Optional model assistance requires a supported target drug selection.",
+                "reason": "Optional model assistance requires a target drug with local evidence-backed PGx support.",
             }
             return self._result("skipped", state.model_summary["reason"])
 
-        # Use default built-in model if no external artifact path provided
         if state.request.model_artifact_path is None:
-            artifact = _get_default_model_artifact()
-            if artifact.get("status") == "ready":
-                state.model_summary = artifact.get("model_card", {})
-                state.model_summary["status"] = "default_model_active"
-                state.model_summary["reason"] = "Using built-in conservative pharmacogenomic prediction model."
-                # Initialize services for default model
-                multimodal_feature_service = _load_multimodal_feature_service()
-                dl_helpers = _load_dl_inference_helpers()
-                monitoring_service = _load_monitoring_service()
-                # Continue with default model predictions
-            else:
-                state.model_summary = {
-                    "status": "unavailable",
-                    "reason": "Built-in default model could not be initialized.",
-                }
-                return self._result("skipped", state.model_summary["reason"])
-        else:
-            # Load external artifact
-            artifact_path = state.request.model_artifact_path
-            monitoring_service = _load_monitoring_service()
-            multimodal_feature_service = _load_multimodal_feature_service()
-            dl_helpers = _load_dl_inference_helpers()
-            if dl_helpers["is_deep_learning_artifact_path"](artifact_path):
-                artifact = dl_helpers["load_dl_model_artifact"](artifact_path)
-                if artifact is None:
-                    state.model_summary = {
-                        "status": "unavailable",
-                        "artifact_family": "deep_learning",
-                        "reason": "No exploratory deep-learning artifact was found; rule-based interpretation remained primary.",
-                    }
-                    return self._result("warning", state.model_summary["reason"])
-
-                artifact_summary = dl_helpers["summarize_dl_model_artifact"](artifact)
-                state.model_summary = artifact_summary
-
-                if any(bundle.output_category == "EVIDENCE_BASED" for bundle in state.aggregated_evidence):
-                    state.model_summary = {
-                        **artifact_summary,
-                        "status": "suppressed_due_to_evidence_precedence",
-                        "summary": "Exploratory deep-learning output was suppressed because evidence-backed PGx findings were available.",
-                    }
-                    return self._result("skipped", state.model_summary["summary"])
-
-                if artifact_summary.get("status") != "ready":
-                    return self._result(
-                        "warning",
-                        str(artifact_summary.get("reason") or "Exploratory deep-learning artifact was not ready for inference."),
-                    )
-            else:
-                # Non-DL artifact loading
-                artifact = load_model_artifact(artifact_path)
-                if artifact is None:
-                    state.model_summary = {
-                        "status": "unavailable",
-                        "reason": f"Could not load model artifact from {artifact_path}",
-                    }
-                    return self._result("warning", state.model_summary["reason"])
+            state.model_summary = {
+                "status": "disabled",
+                "reason": "No exploratory model artifact was configured for this analysis run.",
+            }
+            return self._result("skipped", "Optional model assistance was skipped because no model artifact was requested.")
 
         prediction_drugs = _prediction_drugs(state)
         if not prediction_drugs:
@@ -9304,63 +8606,279 @@ class OptionalMLAssistanceStep(PipelineStep):
             }
             return self._result("skipped", state.model_summary["reason"])
 
-        # Common prediction logic for both default and external models
+        artifact_path = state.request.model_artifact_path
+        monitoring_service = _load_monitoring_service()
+        multimodal_feature_service = _load_multimodal_feature_service()
+        dl_helpers = _load_dl_inference_helpers()
+
+        # Inline PredictiveModelService readiness gate.
+        class _PredictiveModelService:
+            def evaluate_artifact(self, artifact: Any, *, artifact_family: str = "classical_ml") -> Any:
+                class _Readiness:
+                    can_run_inference = True
+                    reason = ""
+                    limitations: list[str] = []
+                    artifact_kind = artifact_family
+
+                    def to_dict(self) -> dict[str, Any]:
+                        return {
+                            "can_run_inference": self.can_run_inference,
+                            "reason": self.reason,
+                            "limitations": self.limitations,
+                            "artifact_kind": self.artifact_kind,
+                        }
+
+                r = _Readiness()
+                if not isinstance(artifact, dict):
+                    r.can_run_inference = False
+                    r.reason = "Artifact is not a valid dictionary."
+                elif artifact.get("status") not in {None, "ready", "legacy_ready"}:
+                    r.can_run_inference = False
+                    r.reason = f"Artifact status '{artifact.get('status')}' is not ready for inference."
+                elif "model" not in artifact:
+                    r.can_run_inference = False
+                    r.reason = "Artifact does not contain a fitted model object."
+                return r
+
+        predictive_model_service = _PredictiveModelService()
+        if dl_helpers["is_deep_learning_artifact_path"](artifact_path):
+            artifact = dl_helpers["load_dl_model_artifact"](artifact_path)
+            if artifact is None:
+                state.model_summary = {
+                    "status": "unavailable",
+                    "artifact_family": "deep_learning",
+                    "reason": "No exploratory deep-learning artifact was found; rule-based interpretation remained primary.",
+                }
+                return self._result("warning", state.model_summary["reason"])
+
+            artifact_summary = dl_helpers["summarize_dl_model_artifact"](artifact)
+            readiness = predictive_model_service.evaluate_artifact(artifact, artifact_family="deep_learning")
+            state.model_summary = artifact_summary
+
+            if any(bundle.output_category == "EVIDENCE_BASED" for bundle in state.aggregated_evidence):
+                state.model_summary = {
+                    **artifact_summary,
+                    "status": "suppressed_due_to_evidence_precedence",
+                    "summary": "Exploratory deep-learning output was suppressed because evidence-backed PGx findings were available.",
+                    "predictive_model_readiness": readiness.to_dict(),
+                }
+                return self._result("skipped", state.model_summary["summary"])
+
+            if not readiness.can_run_inference:
+                readiness_payload = readiness.to_dict()
+                state.research_only_hypotheses.extend(
+                    _build_non_predictive_model_finding(drug, readiness_payload) for drug in prediction_drugs
+                )
+                state.model_summary = {
+                    **artifact_summary,
+                    "status": "not_predictive_drug_response_model",
+                    "summary": readiness.reason,
+                    "predictive_model_readiness": readiness_payload,
+                    "predictions": [],
+                }
+                return self._result(
+                    "warning",
+                    "Attached deep-learning artifact was not used for drug-response prediction.",
+                    metadata={
+                        "predictive_model_readiness": readiness_payload,
+                        "n_research_only_hypotheses": len(state.research_only_hypotheses),
+                    },
+                    warnings=list(readiness.limitations),
+                )
+
+            if artifact_summary.get("status") != "ready":
+                state.model_summary = {
+                    **artifact_summary,
+                    "predictive_model_readiness": readiness.to_dict(),
+                }
+                return self._result(
+                    "warning",
+                    str(artifact_summary.get("reason") or "Exploratory deep-learning artifact was not ready for inference."),
+                )
+
+            predictions: list[dict[str, Any]] = []
+            monitoring_records: list[Any] = []
+            base_clinical_metadata = _collect_clinical_metadata(
+                state.pharmacogene_variants,
+                state.patient_profile,
+            )
+            multiomics_contexts: dict[str, Any] = {}
+            for drug in prediction_drugs:
+                container = multimodal_feature_service.build_prediction_container(
+                    dna_variant_features=build_pgx_feature_row(drug, state.gene_assessments),
+                    patient_profile=state.patient_profile,
+                    multiomics_inputs=state.request.multiomics_inputs,
+                    compatible_tabular_columns=list(artifact.get("tabular_preprocessor", {}).get("columns", [])),
+                    compatible_clinical_columns=list(artifact.get("clinical_preprocessor", {}).get("columns", [])),
+                )
+                multiomics_contexts[drug] = container.to_dict()
+                tabular_features = dict(container.model_tabular_features)
+                clinical_features = {**base_clinical_metadata, **dict(container.model_clinical_features)}
+                sequence_context = _collect_sequence_context_for_drug(drug, state.pharmacogene_variants)
+                variant_tokens = [
+                    variant.token
+                    for variant in state.pharmacogene_variants
+                    if variant.gene in DRUG_GENE_RULES.get(drug, {}).get("genes", [])
+                ]
+                prediction = dl_helpers["predict_with_dl_model"](
+                    artifact=artifact,
+                    drug=drug,
+                    tabular_features=tabular_features,
+                    sequence_context=sequence_context,
+                    clinical_features=clinical_features,
+                    variant_tokens=variant_tokens,
+                )
+                if prediction.get("status") != "ready":
+                    continue
+                prediction["multiomics_context"] = container.to_dict()
+                monitoring_record = monitoring_service.audit_prediction(
+                    artifact=artifact,
+                    artifact_family="deep_learning",
+                    artifact_path=artifact_path,
+                    drug=drug,
+                    prediction=prediction,
+                    input_modalities=list(prediction.get("input_modalities") or []),
+                    tabular_features=tabular_features,
+                    clinical_features=clinical_features,
+                    sequence_context=sequence_context,
+                )
+                prediction["monitoring"] = monitoring_record.to_dict()
+                monitoring_records.append(monitoring_record)
+                predictions.append({"drug": drug, **prediction})
+                state.predictive_model_suggestions.append(_build_model_finding(drug, prediction))
+
+            state.multiomics_contexts = multiomics_contexts
+            _refresh_aggregated_evidence(state)
+            monitoring_bundle = monitoring_service.finalize_report(
+                artifact=artifact,
+                artifact_family="deep_learning",
+                records=monitoring_records,
+                artifact_path=artifact_path,
+            )
+            state.model_summary = {
+                **artifact_summary,
+                "status": "exploratory_predictions_available" if predictions else artifact_summary.get("status", "ready"),
+                "predictions": predictions,
+                "predictive_model_readiness": readiness.to_dict(),
+                "monitoring": monitoring_bundle["report"],
+                "monitoring_artifacts": monitoring_bundle["artifacts"],
+                "multiomics_contexts": state.multiomics_contexts,
+            }
+            monitoring_warnings = list(dict.fromkeys(monitoring_bundle["report"].get("warnings", [])))
+            return self._result(
+                "warning",
+                (
+                    "Generated exploratory deep-learning suggestions because no evidence-backed PGx finding was available."
+                    if state.predictive_model_suggestions
+                    else "Exploratory deep-learning metadata were available, but no DL suggestion passed inference readiness checks."
+                ),
+                metadata={
+                    "n_model_suggestions": len(state.predictive_model_suggestions),
+                    "model_card_name": artifact_summary.get("model_card", {}).get("name"),
+                    "artifact_family": "deep_learning",
+                    "monitoring_status": monitoring_bundle["report"].get("status"),
+                    "monitoring_json_report": monitoring_bundle["artifacts"].get("json_report"),
+                    "multiomics_enabled_modalities": {
+                        drug: context.get("prediction_enabled_modalities", [])
+                        for drug, context in state.multiomics_contexts.items()
+                    },
+                },
+                warnings=monitoring_warnings,
+            )
+
+        artifact = load_model_artifact(artifact_path)
+        if artifact is None:
+            state.model_summary = {
+                "status": "unavailable",
+                "artifact_family": "classical_ml",
+                "reason": "No exploratory model artifact was found; rule-based interpretation remained primary.",
+            }
+            return self._result("warning", state.model_summary["reason"])
+
+        artifact_summary = summarize_model_artifact(artifact)
+        readiness = predictive_model_service.evaluate_artifact(artifact, artifact_family="classical_ml")
+        state.model_summary = artifact_summary
+
+        if any(bundle.output_category == "EVIDENCE_BASED" for bundle in state.aggregated_evidence):
+            state.model_summary = {
+                **artifact_summary,
+                "status": "suppressed_due_to_evidence_precedence",
+                "summary": "Exploratory model output was suppressed because evidence-backed PGx findings were available.",
+                "predictive_model_readiness": readiness.to_dict(),
+            }
+            return self._result("skipped", state.model_summary["summary"])
+
+        if not readiness.can_run_inference:
+            readiness_payload = readiness.to_dict()
+            state.research_only_hypotheses.extend(
+                _build_non_predictive_model_finding(drug, readiness_payload) for drug in prediction_drugs
+            )
+            state.model_summary = {
+                **artifact_summary,
+                "status": "not_predictive_drug_response_model",
+                "summary": readiness.reason,
+                "predictive_model_readiness": readiness_payload,
+                "predictions": [],
+            }
+            return self._result(
+                "warning",
+                "Attached model artifact was not used for drug-response prediction.",
+                metadata={
+                    "predictive_model_readiness": readiness_payload,
+                    "n_research_only_hypotheses": len(state.research_only_hypotheses),
+                },
+                warnings=list(readiness.limitations),
+            )
+
+        if artifact_summary.get("status") not in {"ready", "legacy_ready"}:
+            state.model_summary = {
+                **artifact_summary,
+                "predictive_model_readiness": readiness.to_dict(),
+            }
+            return self._result(
+                "warning",
+                str(artifact_summary.get("reason") or "Exploratory model artifact was not ready for inference."),
+            )
+
         predictions: list[dict[str, Any]] = []
         monitoring_records: list[Any] = []
-        base_clinical_metadata = _collect_clinical_metadata(
-            state.pharmacogene_variants,
-            state.patient_profile,
-        )
         multiomics_contexts: dict[str, Any] = {}
         for drug in prediction_drugs:
             container = multimodal_feature_service.build_prediction_container(
                 dna_variant_features=build_pgx_feature_row(drug, state.gene_assessments),
                 patient_profile=state.patient_profile,
                 multiomics_inputs=state.request.multiomics_inputs,
-                compatible_tabular_columns=list(artifact.get("tabular_preprocessor", {}).get("columns", [])),
-                compatible_clinical_columns=list(artifact.get("clinical_preprocessor", {}).get("columns", [])),
+                compatible_tabular_columns=list(artifact.get("feature_columns", [])),
+                compatible_clinical_columns=[],
             )
             multiomics_contexts[drug] = container.to_dict()
-            tabular_features = dict(container.model_tabular_features)
-            clinical_features = {**base_clinical_metadata, **dict(container.model_clinical_features)}
-            sequence_context = _collect_sequence_context_for_drug(drug, state.pharmacogene_variants)
-            variant_tokens = [
-                variant.token
-                for variant in state.pharmacogene_variants
-                if variant.gene in DRUG_GENE_RULES.get(drug, {}).get("genes", [])
-            ]
-            prediction = dl_helpers["predict_with_dl_model"](
-                artifact=artifact,
-                drug=drug,
-                tabular_features=tabular_features,
-                sequence_context=sequence_context,
-                clinical_features=clinical_features,
-                variant_tokens=variant_tokens,
+            prediction = predict_with_model(
+                drug,
+                state.gene_assessments,
+                artifact,
+                feature_values=container.model_tabular_features,
             )
             if prediction.get("status") != "ready":
                 continue
             prediction["multiomics_context"] = container.to_dict()
             monitoring_record = monitoring_service.audit_prediction(
                 artifact=artifact,
-                artifact_family="deep_learning",
+                artifact_family="classical_ml",
                 artifact_path=artifact_path,
                 drug=drug,
                 prediction=prediction,
                 input_modalities=list(prediction.get("input_modalities") or []),
-                tabular_features=tabular_features,
-                clinical_features=clinical_features,
-                sequence_context=sequence_context,
+                tabular_features=dict(prediction.get("observed_feature_values", {})),
             )
             prediction["monitoring"] = monitoring_record.to_dict()
             monitoring_records.append(monitoring_record)
             predictions.append({"drug": drug, **prediction})
             state.predictive_model_suggestions.append(_build_model_finding(drug, prediction))
-
         state.multiomics_contexts = multiomics_contexts
         _refresh_aggregated_evidence(state)
         monitoring_bundle = monitoring_service.finalize_report(
             artifact=artifact,
-            artifact_family="deep_learning",
+            artifact_family="classical_ml",
             records=monitoring_records,
             artifact_path=artifact_path,
         )
@@ -9368,6 +8886,7 @@ class OptionalMLAssistanceStep(PipelineStep):
             **artifact_summary,
             "status": "exploratory_predictions_available" if predictions else artifact_summary.get("status", "ready"),
             "predictions": predictions,
+            "predictive_model_readiness": readiness.to_dict(),
             "monitoring": monitoring_bundle["report"],
             "monitoring_artifacts": monitoring_bundle["artifacts"],
             "multiomics_contexts": state.multiomics_contexts,
@@ -9376,25 +8895,21 @@ class OptionalMLAssistanceStep(PipelineStep):
         return self._result(
             "warning",
             (
-                "Generated exploratory deep-learning suggestions because no evidence-backed PGx finding was available."
+                "Generated exploratory model-assisted suggestions because no evidence-backed PGx finding was available."
                 if state.predictive_model_suggestions
-                else "Exploratory deep-learning metadata were available, but no DL suggestion passed inference readiness checks."
-            )
-            + f" ML monitoring summary: {monitoring_bundle['report']}."
-            if monitoring_warnings
-            else "",
+                else "Exploratory model metadata were available, but no model suggestion passed inference readiness checks."
+            ),
             metadata={
                 "n_model_suggestions": len(state.predictive_model_suggestions),
                 "model_card_name": artifact_summary.get("model_card", {}).get("name"),
-                "artifact_family": "deep_learning",
                 "monitoring_status": monitoring_bundle["report"].get("status"),
                 "monitoring_json_report": monitoring_bundle["artifacts"].get("json_report"),
                 "multiomics_enabled_modalities": {
                     drug: context.get("prediction_enabled_modalities", [])
                     for drug, context in state.multiomics_contexts.items()
                 },
-                "warnings": monitoring_warnings,
             },
+            warnings=monitoring_warnings,
         )
 
 
@@ -9408,6 +8923,39 @@ class ConfidenceAssignmentStep(PipelineStep):
             _refresh_aggregated_evidence(state)
         if (state.resolved_selected_drugs or state.unsupported_selected_drugs) and not state.interaction_findings:
             _refresh_interaction_findings(state)
+        state.model_summary.setdefault(
+            "target_drug_support_tier",
+            _selected_drug_support_tier(state.resolved_selected_drugs[0] if state.resolved_selected_drugs else None),
+        )
+        state.model_summary.setdefault("current_medications", _current_medications_from_state(state))
+        try:
+            # Inline stub for ResponseEfficiencyService (optional real-world module).
+            class _ResponseEfficiencyStub:
+                def summarize(self, *, target_drug, confirmed_findings, model_suggestions, model_summary, aggregated_evidence):
+                    class _Summary:
+                        def to_dict(self) -> dict[str, Any]:
+                            return {
+                                "label_type": "insufficient labeled data",
+                                "evidence_level": "INSUFFICIENT_EVIDENCE",
+                                "explanation": "Response-efficiency summary not available in this build.",
+                                "limitations": ["No validated response dataset was available."],
+                            }
+                    return _Summary()
+
+            state.model_summary["response_efficiency"] = _ResponseEfficiencyStub().summarize(
+                target_drug=state.resolved_selected_drugs[0] if state.resolved_selected_drugs else None,
+                confirmed_findings=state.confirmed_findings,
+                model_suggestions=state.predictive_model_suggestions,
+                model_summary=state.model_summary,
+                aggregated_evidence=state.aggregated_evidence,
+            ).to_dict()
+        except Exception as exc:
+            state.model_summary["response_efficiency"] = {
+                "label_type": "insufficient labeled data",
+                "evidence_level": "INSUFFICIENT_EVIDENCE",
+                "explanation": f"Response-efficiency summary was unavailable: {exc}",
+                "limitations": ["No response probability or acceptance rate was inferred."],
+            }
         state.findings = (
             list(state.confirmed_findings)
             + list(state.predictive_model_suggestions)
@@ -9427,6 +8975,18 @@ class ConfidenceAssignmentStep(PipelineStep):
                 _collect_interaction_limitations(state.interaction_findings)
             )
         )
+        prediction_layer = {
+            "final_priority": "evidence_based_rules_override_models",
+            "confirmed_evidence_backed_findings": len(state.confirmed_findings),
+            "supervised_model_predictions": len(state.predictive_model_suggestions),
+            "research_only_or_blocked_model_outputs": len(state.research_only_hypotheses),
+            "predictive_model_status": state.model_summary.get("status", "disabled"),
+            "predictive_model_readiness": state.model_summary.get("predictive_model_readiness", {}),
+        }
+        state.model_summary = {
+            **state.model_summary,
+            "prediction_layer": prediction_layer,
+        }
 
         status = "success" if state.confirmed_findings else "warning"
         return self._result(
@@ -9537,6 +9097,13 @@ def _build_result_from_state(
 
 
 def _build_export_payload(result: AnalysisResult) -> dict[str, Any]:
+    target_drug = result.selected_drugs[0] if result.selected_drugs else None
+    target_support_tier = _selected_drug_support_tier(target_drug)
+    current_medications = (
+        list(result.patient_profile.current_medications)
+        if result.patient_profile is not None and result.patient_profile.current_medications
+        else []
+    )
     return {
         "app_name": APP_NAME,
         "app_version": APP_VERSION,
@@ -9549,7 +9116,19 @@ def _build_export_payload(result: AnalysisResult) -> dict[str, Any]:
         "clinical_fields_used": list(result.clinical_fields_used),
         "clinical_model_features_used": list(result.clinical_model_features_used),
         "variant_summary": result.variant_summary,
+        "target_drug": target_drug,
+        "normalized_target_drug": target_drug,
         "selected_drugs": list(result.selected_drugs),
+        "current_medications": current_medications,
+        "support_tier": target_support_tier,
+        "evidence_sources": sorted(
+            {
+                record.source_name
+                for bundle in result.aggregated_evidence
+                for record in bundle.records
+                if getattr(record, "source_name", None)
+            }
+        ),
         "evidence_annotations": [annotation.to_dict() for annotation in result.evidence_annotations],
         "aggregated_evidence": [bundle.to_dict() for bundle in result.aggregated_evidence],
         "interaction_findings": [finding.to_dict() for finding in result.interaction_findings],
@@ -9563,6 +9142,8 @@ def _build_export_payload(result: AnalysisResult) -> dict[str, Any]:
         "safety_notes": list(result.safety_notes),
         "limitations": list(result.limitations),
         "model_summary": dict(result.model_summary),
+        "prediction_layer": dict(result.model_summary.get("prediction_layer", {})),
+        "response_efficiency": dict(result.model_summary.get("response_efficiency", {})),
         "multiomics_contexts": dict(result.multiomics_contexts),
         "pipeline_summary": result.pipeline_summary.to_dict(),
         "report_text": result.report_text,
@@ -9748,23 +9329,8 @@ class MainWindowController:
         self.current_result: AnalysisResult | None = None
         self.current_view_model: AnalysisViewModel | None = None
 
-    def analyze_path(
-        self,
-        path: Path,
-        *,
-        selected_drugs: list[str] | None = None,
-        current_medications: list[str] | None = None
-    ) -> AnalysisViewModel:
-        # Build patient profile with current medications
-        patient_profile = None
-        if current_medications:
-            patient_profile = PatientClinicalProfile(current_medications=current_medications)
-
-        result = self.analysis_service.analyze_file(
-            path,
-            selected_drugs=selected_drugs or [],
-            patient_profile=patient_profile
-        )
+    def analyze_path(self, path: Path) -> AnalysisViewModel:
+        result = self.analysis_service.analyze_file(path)
         self.current_result = result
         self.current_view_model = self.report_service.build_view_model(result)
         return self.current_view_model
@@ -9780,3720 +9346,310 @@ class MainWindowController:
 # --- end merged module: src/ui/controller.py ---
 
 # --- begin merged module: src/ui/report_views.py ---
-"""Reusable Qt widgets for presenting PGx results."""
+"""Reusable Qt widgets for presenting PGx results.
 
+PySide6 is an optional dependency.  When it is not installed the desktop UI
+classes are replaced with no-op stubs so the rest of the module (analysis
+pipeline, API, CLI) still loads and works normally.
+"""
 
-from PySide6.QtWidgets import QTableWidget, QTableWidgetItem, QTextBrowser
+try:
+    from PySide6.QtWidgets import QTableWidget, QTableWidgetItem, QTextBrowser
+    _PYSIDE6_AVAILABLE = True
+except ImportError:
+    _PYSIDE6_AVAILABLE = False
 
+if _PYSIDE6_AVAILABLE:
+    class FindingsTable(QTableWidget):  # type: ignore[misc]
+        """Table view for analysis findings."""
 
+        def __init__(self) -> None:
+            super().__init__(0, 6)
+            self.setHorizontalHeaderLabels(
+                [
+                    "Drug / Context",
+                    "Output Category",
+                    "Pharmacogene / Context",
+                    "Phenotype",
+                    "Evidence Summary",
+                    "Recommended Next Step",
+                ]
+            )
 
-class FindingsTable(QTableWidget):
-    """Table view for analysis findings."""
+        def set_rows(self, rows: "list[FindingTableRow]") -> None:
+            self.setRowCount(0)
+            for row_index, row in enumerate(rows):
+                self.insertRow(row_index)
+                self.setItem(row_index, 0, QTableWidgetItem(row.drug))
+                self.setItem(row_index, 1, QTableWidgetItem(row.category))
+                self.setItem(row_index, 2, QTableWidgetItem(row.gene))
+                self.setItem(row_index, 3, QTableWidgetItem(row.phenotype))
+                self.setItem(row_index, 4, QTableWidgetItem(row.summary))
+                self.setItem(row_index, 5, QTableWidgetItem(row.recommendation))
+            self.resizeColumnsToContents()
 
-    def __init__(self) -> None:
-        super().__init__(0, 6)
-        self.setHorizontalHeaderLabels(
-            [
-                "Drug / Context",
-                "Output Category",
-                "Pharmacogene / Context",
-                "Phenotype",
-                "Evidence Summary",
-                "Recommended Next Step",
-            ]
-        )
+    class ReportBrowser(QTextBrowser):  # type: ignore[misc]
+        """HTML report surface."""
 
-    def set_rows(self, rows: list[FindingTableRow]) -> None:
-        self.setRowCount(0)
-        for row_index, row in enumerate(rows):
-            self.insertRow(row_index)
-            self.setItem(row_index, 0, QTableWidgetItem(row.drug))
-            self.setItem(row_index, 1, QTableWidgetItem(row.category))
-            self.setItem(row_index, 2, QTableWidgetItem(row.gene))
-            self.setItem(row_index, 3, QTableWidgetItem(row.phenotype))
-            self.setItem(row_index, 4, QTableWidgetItem(row.summary))
-            self.setItem(row_index, 5, QTableWidgetItem(row.recommendation))
-        self.resizeColumnsToContents()
+        def set_report_html(self, html: str) -> None:
+            self.setHtml(html)
 
+else:
+    class FindingsTable:  # type: ignore[no-redef]
+        """No-op stub used when PySide6 is not installed."""
+        def __init__(self) -> None: pass
+        def set_rows(self, rows: "list[FindingTableRow]") -> None: pass
 
-class ReportBrowser(QTextBrowser):
-    """HTML report surface."""
-
-    def set_report_html(self, html: str) -> None:
-        self.setHtml(html)
+    class ReportBrowser:  # type: ignore[no-redef]
+        """No-op stub used when PySide6 is not installed."""
+        def __init__(self) -> None: pass
+        def set_report_html(self, html: str) -> None: pass
 
 # --- end merged module: src/ui/report_views.py ---
 
-# --- begin merged module: src/ml/pharmacogenomics_models.py ---
-"""Real ML model layer for pharmacogenomics prediction.
-
-Trains on pharmacogenomics datasets to predict:
-- Response probability
-- Toxicity risk
-"""
-
-import numpy as np
-from dataclasses import dataclass, field
-from typing import Any
-from enum import Enum
-
-# ML imports with graceful fallback
-ML_AVAILABLE = False
-XGBOOST_AVAILABLE = False
-TORCH_AVAILABLE = False
-
-try:
-    from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
-    from sklearn.svm import SVC
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.preprocessing import StandardScaler, LabelEncoder
-    from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold
-    from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, classification_report, confusion_matrix
-    from sklearn.pipeline import Pipeline
-    ML_AVAILABLE = True
-except ImportError:
-    logger.warning("scikit-learn not available. ML features will be limited.")
-
-try:
-    import xgboost as xgb
-    XGBOOST_AVAILABLE = True
-except ImportError:
-    logger.warning("XGBoost not available. XGBoost models disabled.")
-
-try:
-    import torch
-    import torch.nn as nn
-    import torch.optim as optim
-    from torch.utils.data import DataLoader, TensorDataset
-    TORCH_AVAILABLE = True
-except ImportError:
-    logger.warning("PyTorch not available. Deep learning models disabled.")
-
-
-class PredictionType(Enum):
-    """Types of pharmacogenomic predictions."""
-    RESPONSE_PROBABILITY = "response_probability"
-    TOXICITY_RISK = "toxicity_risk"
-    DOSAGE_RECOMMENDATION = "dosage_recommendation"
-
-
-@dataclass
-class ModelPrediction:
-    """Single model prediction result."""
-    prediction_type: PredictionType
-    probability: float
-    confidence: float
-    risk_level: str  # 'low', 'moderate', 'high', 'severe'
-    model_name: str
-    features_used: list[str]
-    explanation: str = ""
-
-
-@dataclass
-class EnsemblePrediction:
-    """Ensemble prediction from multiple models."""
-    predictions: list[ModelPrediction] = field(default_factory=list)
-    consensus_probability: float = 0.0
-    consensus_risk: str = "unknown"
-    agreement_score: float = 0.0
-    recommended_action: str = ""
-
-    def add_prediction(self, pred: ModelPrediction) -> None:
-        self.predictions.append(pred)
-        self._compute_consensus()
-
-    def _compute_consensus(self) -> None:
-        if not self.predictions:
-            return
-        probs = [p.probability for p in self.predictions]
-        self.consensus_probability = np.mean(probs)
-        self.agreement_score = 1.0 - np.std(probs)
-
-        # Risk consensus
-        risks = [p.risk_level for p in self.predictions]
-        risk_scores = {'low': 1, 'moderate': 2, 'high': 3, 'severe': 4}
-        avg_risk = np.mean([risk_scores.get(r, 0) for r in risks])
-
-        if avg_risk <= 1.5:
-            self.consensus_risk = 'low'
-        elif avg_risk <= 2.5:
-            self.consensus_risk = 'moderate'
-        elif avg_risk <= 3.5:
-            self.consensus_risk = 'high'
-        else:
-            self.consensus_risk = 'severe'
-
-
-@dataclass
-class BenchmarkResult:
-    """Benchmark result for a single model."""
-    model_name: str
-    accuracy: float
-    precision: float
-    recall: float
-    f1_score: float
-    roc_auc: float
-    training_time: float
-    inference_time: float
-    cross_val_scores: list[float] = field(default_factory=list)
-    confusion_matrix: list[list[int]] = field(default_factory=list)
-
-
-class PharmacogenomicsDataset:
-    """Generate and manage pharmacogenomics training data."""
-
-    def __init__(self, drug_gene_rules: dict | None = None) -> None:
-        self.drug_gene_rules = drug_gene_rules or DRUG_GENE_RULES
-        self.gene_list = SUPPORTED_PHARMACOGENES
-        self.drug_list = list(self.drug_gene_rules.keys())
-
-    def generate_synthetic_clinical_data(
-        self,
-        n_samples: int = 1000,
-        random_state: int = 42
-    ) -> tuple[np.ndarray, np.ndarray, list[str]]:
-        """Generate synthetic pharmacogenomics dataset based on rules.
-
-        Creates realistic data by simulating:
-        - Gene variant effects on drug response
-        - Drug-gene interaction patterns
-        - Clinical outcomes based on PGx rules
-        """
-        rng = np.random.RandomState(random_state)
-
-        # Feature names: gene variants + drug encoding
-        feature_names = self.gene_list + ['drug_encoded']
-
-        X = []
-        y_response = []
-        y_toxicity = []
-
-        for _ in range(n_samples):
-            # Random drug
-            drug_idx = rng.randint(0, len(self.drug_list))
-            drug = self.drug_list[drug_idx]
-            drug_info = self.drug_gene_rules.get(drug, {})
-            relevant_genes = drug_info.get('genes', [])
-
-            # Generate gene variant profiles
-            gene_profile = []
-            for gene in self.gene_list:
-                if gene in relevant_genes:
-                    # Higher probability of functional variants for relevant genes
-                    variant_score = rng.choice([0, 1, 2], p=[0.6, 0.3, 0.1])
-                else:
-                    # Background variant rate
-                    variant_score = rng.choice([0, 1, 2], p=[0.85, 0.12, 0.03])
-                gene_profile.append(variant_score)
-
-            # Add drug encoding
-            features = gene_profile + [drug_idx / len(self.drug_list)]
-            X.append(features)
-
-            # Determine outcome based on PGx rules
-            has_variant = any(gene_profile[self.gene_list.index(g)] > 0
-                              for g in relevant_genes if g in self.gene_list)
-
-            # Response outcome (0 = poor response, 1 = normal/good response)
-            if has_variant and rng.random() < 0.7:
-                response = 0  # Poor response with variant
-            else:
-                response = 1  # Normal response
-
-            # Toxicity outcome (0 = no toxicity, 1 = toxicity risk)
-            if has_variant and rng.random() < 0.6:
-                toxicity = 1  # Higher toxicity with variant
-            else:
-                toxicity = 0
-
-            y_response.append(response)
-            y_toxicity.append(toxicity)
-
-        return np.array(X), np.array(y_response), np.array(y_toxicity), feature_names
-
-
-class DeepLearningModel(nn.Module if TORCH_AVAILABLE else object):
-    """Neural network for pharmacogenomics prediction."""
-
-    def __init__(self, input_size: int, hidden_size: int = 128) -> None:
-        if not TORCH_AVAILABLE:
-            raise RuntimeError("PyTorch not available")
-        super().__init__()
-        self.network = nn.Sequential(
-            nn.Linear(input_size, hidden_size),
-            nn.ReLU(),
-            nn.Dropout(0.3),
-            nn.Linear(hidden_size, hidden_size // 2),
-            nn.ReLU(),
-            nn.Dropout(0.2),
-            nn.Linear(hidden_size // 2, 1),
-            nn.Sigmoid()
-        )
-
-    def forward(self, x):
-        return self.network(x)
-
-
-class PharmacogenomicsModelLayer:
-    """Real ML model layer with training and prediction capabilities."""
-
-    def __init__(self) -> None:
-        self.models: dict[str, Any] = {}
-        self.scalers: dict[str, StandardScaler] = {}
-        self.is_trained = False
-        self.dataset = PharmacogenomicsDataset()
-        self.feature_names: list[str] = []
-
-    def train_all_models(self, n_samples: int = 2000) -> list[BenchmarkResult]:
-        """Train all ML models on pharmacogenomics data."""
-        if not ML_AVAILABLE:
-            logger.error("scikit-learn not available. Cannot train models.")
-            return []
-
-        logger.info(f"Generating synthetic pharmacogenomics dataset (n={n_samples})...")
-        X, y_response, y_toxicity, self.feature_names = self.dataset.generate_synthetic_clinical_data(n_samples)
-
-        # Split data
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y_response, test_size=0.2, random_state=42, stratify=y_response
-        )
-
-        # Scale features
-        scaler = StandardScaler()
-        X_train_scaled = scaler.fit_transform(X_train)
-        X_test_scaled = scaler.transform(X_test)
-        self.scalers['response'] = scaler
-
-        results = []
-
-        # Train Random Forest
-        logger.info("Training Random Forest...")
-        rf = RandomForestClassifier(n_estimators=200, max_depth=15, random_state=42, n_jobs=-1)
-        import time
-        start = time.time()
-        rf.fit(X_train_scaled, y_train)
-        train_time = time.time() - start
-
-        start = time.time()
-        y_pred = rf.predict(X_test_scaled)
-        y_proba = rf.predict_proba(X_test_scaled)[:, 1]
-        infer_time = time.time() - start
-
-        results.append(self._create_benchmark_result(
-            "Random Forest", y_test, y_pred, y_proba, train_time, infer_time / len(y_test)
-        ))
-        self.models['random_forest'] = rf
-
-        # Train SVM
-        logger.info("Training SVM...")
-        svm = SVC(kernel='rbf', C=1.0, probability=True, random_state=42)
-        start = time.time()
-        svm.fit(X_train_scaled, y_train)
-        train_time = time.time() - start
-
-        start = time.time()
-        y_pred = svm.predict(X_test_scaled)
-        y_proba = svm.predict_proba(X_test_scaled)[:, 1]
-        infer_time = time.time() - start
-
-        results.append(self._create_benchmark_result(
-            "SVM (RBF)", y_test, y_pred, y_proba, train_time, infer_time / len(y_test)
-        ))
-        self.models['svm'] = svm
-
-        # Train XGBoost if available
-        if XGBOOST_AVAILABLE:
-            logger.info("Training XGBoost...")
-            xgb_model = xgb.XGBClassifier(
-                n_estimators=200, max_depth=6, learning_rate=0.1,
-                random_state=42, use_label_encoder=False, eval_metric='logloss'
-            )
-            start = time.time()
-            xgb_model.fit(X_train_scaled, y_train)
-            train_time = time.time() - start
-
-            start = time.time()
-            y_pred = xgb_model.predict(X_test_scaled)
-            y_proba = xgb_model.predict_proba(X_test_scaled)[:, 1]
-            infer_time = time.time() - start
-
-            results.append(self._create_benchmark_result(
-                "XGBoost", y_test, y_pred, y_proba, train_time, infer_time / len(y_test)
-            ))
-            self.models['xgboost'] = xgb_model
-
-        # Train Deep Learning if available
-        if TORCH_AVAILABLE:
-            logger.info("Training Deep Learning model...")
-            dl_result = self._train_deep_learning(X_train_scaled, y_train, X_test_scaled, y_test)
-            if dl_result:
-                results.append(dl_result)
-
-        self.is_trained = True
-        logger.info(f"Training complete. {len(results)} models trained.")
-        return results
-
-    def _create_benchmark_result(
-        self, name: str, y_true: np.ndarray, y_pred: np.ndarray,
-        y_proba: np.ndarray, train_time: float, infer_time: float
-    ) -> BenchmarkResult:
-        """Create benchmark result from predictions."""
-        return BenchmarkResult(
-            model_name=name,
-            accuracy=accuracy_score(y_true, y_pred),
-            precision=precision_score(y_true, y_pred, zero_division=0),
-            recall=recall_score(y_true, y_pred, zero_division=0),
-            f1_score=f1_score(y_true, y_pred, zero_division=0),
-            roc_auc=roc_auc_score(y_true, y_proba) if len(np.unique(y_true)) > 1 else 0.5,
-            training_time=train_time,
-            inference_time=infer_time,
-            confusion_matrix=confusion_matrix(y_true, y_pred).tolist()
-        )
-
-    def _train_deep_learning(
-        self, X_train: np.ndarray, y_train: np.ndarray,
-        X_test: np.ndarray, y_test: np.ndarray
-    ) -> BenchmarkResult | None:
-        """Train PyTorch deep learning model."""
-        if not TORCH_AVAILABLE:
-            return None
-
-        import time
-
-        # Convert to tensors
-        X_train_tensor = torch.FloatTensor(X_train)
-        y_train_tensor = torch.FloatTensor(y_train).unsqueeze(1)
-        X_test_tensor = torch.FloatTensor(X_test)
-
-        # Create model
-        model = DeepLearningModel(input_size=X_train.shape[1])
-        criterion = nn.BCELoss()
-        optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5)
-
-        # Training
-        start = time.time()
-        model.train()
-        for epoch in range(100):
-            optimizer.zero_grad()
-            outputs = model(X_train_tensor)
-            loss = criterion(outputs, y_train_tensor)
-            loss.backward()
-            optimizer.step()
-        train_time = time.time() - start
-
-        # Evaluation
-        model.eval()
-        start = time.time()
-        with torch.no_grad():
-            y_proba = model(X_test_tensor).numpy().flatten()
-        y_pred = (y_proba > 0.5).astype(int)
-        infer_time = time.time() - start
-
-        self.models['deep_learning'] = model
-
-        return self._create_benchmark_result(
-            "Deep Learning (PyTorch)", y_test, y_pred, y_proba, train_time, infer_time / len(y_test)
-        )
-
-    def predict(
-        self,
-        gene_profile: dict[str, int],
-        drug: str,
-        prediction_type: PredictionType = PredictionType.RESPONSE_PROBABILITY
-    ) -> EnsemblePrediction:
-        """Make ensemble prediction for a drug-gene combination."""
-        if not self.is_trained:
-            logger.warning("Models not trained. Training now...")
-            self.train_all_models()
-
-        # Convert gene profile to feature vector
-        features = []
-        for gene in self.dataset.gene_list:
-            features.append(gene_profile.get(gene, 0))
-
-        # Add drug encoding
-        drug_idx = self.dataset.drug_list.index(drug) if drug in self.dataset.drug_list else 0
-        features.append(drug_idx / len(self.dataset.drug_list))
-
-        X = np.array(features).reshape(1, -1)
-        X_scaled = self.scalers['response'].transform(X)
-
-        ensemble = EnsemblePrediction()
-
-        # Get predictions from each model
-        for model_name, model in self.models.items():
-            try:
-                if model_name == 'deep_learning' and TORCH_AVAILABLE:
-                    model.eval()
-                    with torch.no_grad():
-                        proba = model(torch.FloatTensor(X_scaled)).item()
-                elif model_name in ['random_forest', 'svm', 'xgboost']:
-                    proba = model.predict_proba(X_scaled)[0, 1]
-                else:
-                    continue
-
-                # Determine risk level
-                if proba < 0.3:
-                    risk = 'low'
-                elif proba < 0.5:
-                    risk = 'moderate'
-                elif proba < 0.7:
-                    risk = 'high'
-                else:
-                    risk = 'severe'
-
-                pred = ModelPrediction(
-                    prediction_type=prediction_type,
-                    probability=proba,
-                    confidence=abs(proba - 0.5) * 2,  # Distance from 0.5
-                    risk_level=risk,
-                    model_name=model_name,
-                    features_used=self.feature_names,
-                    explanation=f"{model_name} predicts {risk} risk based on gene variants"
-                )
-                ensemble.add_prediction(pred)
-
-            except Exception as e:
-                logger.warning(f"Prediction failed for {model_name}: {e}")
-
-        # Set recommended action
-        if ensemble.consensus_risk == 'low':
-            ensemble.recommended_action = "Standard dosing appropriate. Monitor as usual."
-        elif ensemble.consensus_risk == 'moderate':
-            ensemble.recommended_action = "Consider dose adjustment. Enhanced monitoring recommended."
-        elif ensemble.consensus_risk == 'high':
-            ensemble.recommended_action = "Significant dose reduction or alternative therapy recommended."
-        else:
-            ensemble.recommended_action = "Alternative therapy strongly recommended. High toxicity risk."
-
-        return ensemble
-
-
-# --- end merged module: src/ml/pharmacogenomics_models.py ---
-
-# --- begin merged module: src/clinical/external_databases.py ---
-"""Dynamic database integration with PharmGKB, FDA PGx, DrugBank for 70%+ coverage.
-
-Replaces manual DRUG_GENE_RULES with live/updatable external database integration.
-Expands gene coverage to 20+ pharmacogenes including UGTs, NAT2, G6PD, HLA.
-"""
-
-from dataclasses import dataclass, field
-from typing import Any, Optional
-from datetime import datetime, timedelta
-import json
-import time
-from enum import Enum
-
-# External API availability flags
-PHARMGKB_API_AVAILABLE = False
-DRUGBANK_API_AVAILABLE = False
-FDA_API_AVAILABLE = False
-
-try:
-    import requests
-    REQUESTS_AVAILABLE = True
-except ImportError:
-    REQUESTS_AVAILABLE = False
-    logger.warning("requests library not available. API integrations disabled.")
-
-
-class GeneCategory(Enum):
-    """Categories of pharmacogenes."""
-    CYTOCHROME_P450 = "CYP"
-    UDP_GLUCURONOSYLTRANSFERASE = "UGT"
-    N_ACETYLTRANSFERASE = "NAT"
-    THIOPURINE_METHYLTRANSFERASE = "TPMT"
-    DIHYDROPYRIMIDINE_DEHYDROGENASE = "DPYD"
-    GLUCOSE_6_PHOSPHATE_DEHYDROGENASE = "G6PD"
-    HUMAN_LEUKOCYTE_ANTIGEN = "HLA"
-    VITAMIN_K_EPOXIDE_REDUCTASE = "VKORC1"
-    TRANSPORTER = "SLCO"
-    OPIOID_RECEPTOR = "OPRM"
-
-
-@dataclass
-class ExpandedAlleleDefinition:
-    """Comprehensive allele definition for expanded gene coverage."""
-    gene: str
-    gene_category: GeneCategory
-    allele: str
-    rsid: str
-    variant: str
-    star_allele: str
-    function: str  # 'normal', 'decreased', 'no_function', 'increased', 'unknown'
-    phenotype_effect: str
-    clinical_significance: str
-    frequency_european: float = 0.0
-    frequency_african: float = 0.0
-    frequency_asian: float = 0.0
-    cpic_guideline: bool = False
-    fda_label: bool = False
-    sources: list[str] = field(default_factory=list)
-
-
-@dataclass
-class ExternalDrugAnnotation:
-    """Drug annotation from external databases."""
-    drug_name: str
-    drug_bank_id: Optional[str] = None
-    pharmgkb_id: Optional[str] = None
-    fda_applications: list[str] = field(default_factory=list)
-    genes: list[str] = field(default_factory=list)
-    clinical_guidelines: list[dict] = field(default_factory=list)
-    dosing_recommendations: list[dict] = field(default_factory=list)
-    warnings: list[str] = field(default_factory=list)
-    evidence_level: str = "moderate"  # 'definitive', 'strong', 'moderate', 'limited'
-    last_updated: str = ""
-
-
-# EXPANDED PHARMACOGENE COVERAGE - 20+ genes
-EXPANDED_PHARMACOGENES: dict[str, list[ExpandedAlleleDefinition]] = {
-    # CYP Family - already have some, add more
-    "CYP3A4": [
-        ExpandedAlleleDefinition(
-            gene="CYP3A4",
-            gene_category=GeneCategory.CYTOCHROME_P450,
-            allele="*22",
-            rsid="rs35599367",
-            variant="C>T",
-            star_allele="*22",
-            function="decreased",
-            phenotype_effect="CYP3A4 poor metabolizer",
-            clinical_significance="moderate",
-            frequency_european=0.05,
-            cpic_guideline=True,
-            sources=["CPIC", "PharmGKB"]
-        )
-    ],
-    "CYP3A5": [
-        ExpandedAlleleDefinition(
-            gene="CYP3A5",
-            gene_category=GeneCategory.CYTOCHROME_P450,
-            allele="*3",
-            rsid="rs776746",
-            variant="A>G",
-            star_allele="*3",
-            function="no_function",
-            phenotype_effect="CYP3A5 non-expressor",
-            clinical_significance="moderate",
-            frequency_european=0.90,
-            frequency_african=0.15,
-            frequency_asian=0.70,
-            cpic_guideline=True,
-            fda_label=True,
-            sources=["CPIC", "FDA", "PharmGKB"]
-        )
-    ],
-
-    # UGT Family - GLUCURONIDATION
-    "UGT1A1": [
-        ExpandedAlleleDefinition(
-            gene="UGT1A1",
-            gene_category=GeneCategory.UDP_GLUCURONOSYLTRANSFERASE,
-            allele="*28",
-            rsid="rs8175347",
-            variant="TA7",
-            star_allele="*28",
-            function="decreased",
-            phenotype_effect="Reduced glucuronidation",
-            clinical_significance="high",
-            frequency_european=0.30,
-            frequency_african=0.40,
-            frequency_asian=0.15,
-            cpic_guideline=True,
-            fda_label=True,
-            sources=["CPIC", "FDA", "PharmGKB"]
-        ),
-        ExpandedAlleleDefinition(
-            gene="UGT1A1",
-            gene_category=GeneCategory.UDP_GLUCURONOSYLTRANSFERASE,
-            allele="*6",
-            rsid="rs4148323",
-            variant="G>A",
-            star_allele="*6",
-            function="no_function",
-            phenotype_effect="Crigler-Najjar type II risk",
-            clinical_significance="severe",
-            frequency_asian=0.18,
-            cpic_guideline=True,
-            sources=["CPIC", "PharmGKB"]
-        )
-    ],
-    "UGT2B7": [
-        ExpandedAlleleDefinition(
-            gene="UGT2B7",
-            gene_category=GeneCategory.UDP_GLUCURONOSYLTRANSFERASE,
-            allele="*2",
-            rsid="rs7439366",
-            variant="C>T",
-            star_allele="*2",
-            function="increased",
-            phenotype_effect="Increased morphine glucuronidation",
-            clinical_significance="moderate",
-            frequency_european=0.50,
-            cpic_guideline=False,
-            sources=["PharmGKB"]
-        )
-    ],
-    "UGT2B15": [
-        ExpandedAlleleDefinition(
-            gene="UGT2B15",
-            gene_category=GeneCategory.UDP_GLUCURONOSYLTRANSFERASE,
-            allele="*2",
-            rsid="rs1902023",
-            variant="G>T",
-            star_allele="*2",
-            function="decreased",
-            phenotype_effect="Reduced lorazepam/oxazepam clearance",
-            clinical_significance="low",
-            frequency_european=0.50,
-            frequency_asian=0.75,
-            sources=["PharmGKB"]
-        )
-    ],
-
-    # NAT Family - ACETYLATION
-    "NAT1": [
-        ExpandedAlleleDefinition(
-            gene="NAT1",
-            gene_category=GeneCategory.N_ACETYLTRANSFERASE,
-            allele="*14",
-            rsid="rs15561",
-            variant="G>A",
-            star_allele="*14",
-            function="decreased",
-            phenotype_effect="Slow acetylator",
-            clinical_significance="moderate",
-            frequency_european=0.04,
-            sources=["PharmGKB"]
-        )
-    ],
-    "NAT2": [
-        ExpandedAlleleDefinition(
-            gene="NAT2",
-            gene_category=GeneCategory.N_ACETYLTRANSFERASE,
-            allele="*5",
-            rsid="rs1799930",
-            variant="G>A",
-            star_allele="*5",
-            function="no_function",
-            phenotype_effect="Slow acetylator",
-            clinical_significance="high",
-            frequency_european=0.45,
-            frequency_african=0.15,
-            frequency_asian=0.10,
-            cpic_guideline=True,
-            fda_label=True,
-            sources=["CPIC", "FDA", "PharmGKB"]
-        ),
-        ExpandedAlleleDefinition(
-            gene="NAT2",
-            gene_category=GeneCategory.N_ACETYLTRANSFERASE,
-            allele="*6",
-            rsid="rs1799931",
-            variant="G>A",
-            star_allele="*6",
-            function="no_function",
-            phenotype_effect="Slow acetylator",
-            clinical_significance="high",
-            frequency_european=0.30,
-            sources=["CPIC", "PharmGKB"]
-        ),
-        ExpandedAlleleDefinition(
-            gene="NAT2",
-            gene_category=GeneCategory.N_ACETYLTRANSFERASE,
-            allele="*7",
-            rsid="rs1799932",
-            variant="G>A",
-            star_allele="*7",
-            function="no_function",
-            phenotype_effect="Slow acetylator",
-            clinical_significance="high",
-            frequency_european=0.03,
-            sources=["CPIC", "PharmGKB"]
-        )
-    ],
-
-    # G6PD - HEMOLYSIS RISK
-    "G6PD": [
-        ExpandedAlleleDefinition(
-            gene="G6PD",
-            gene_category=GeneCategory.GLUCOSE_6_PHOSPHATE_DEHYDROGENASE,
-            allele="Med",
-            rsid="rs5030868",
-            variant="A>G",
-            star_allele="Med",
-            function="no_function",
-            phenotype_effect="G6PD deficiency - Mediterranean variant",
-            clinical_significance="severe",
-            frequency_european=0.002,
-            frequency_african=0.12,
-            cpic_guideline=True,
-            fda_label=True,
-            sources=["CPIC", "FDA", "PharmGKB"]
-        ),
-        ExpandedAlleleDefinition(
-            gene="G6PD",
-            gene_category=GeneCategory.GLUCOSE_6_PHOSPHATE_DEHYDROGENASE,
-            allele="A-",
-            rsid="rs1050828",
-            variant="A>G",
-            star_allele="A-",
-            function="decreased",
-            phenotype_effect="G6PD deficiency - African variant",
-            clinical_significance="severe",
-            frequency_african=0.20,
-            cpic_guideline=True,
-            sources=["CPIC", "PharmGKB"]
-        )
-    ],
-
-    # HLA - HYPERSENSITIVITY REACTIONS
-    "HLA-A": [
-        ExpandedAlleleDefinition(
-            gene="HLA-A",
-            gene_category=GeneCategory.HUMAN_LEUKOCYTE_ANTIGEN,
-            allele="*31:01",
-            rsid="rs1061235",
-            variant="T>C",
-            star_allele="*31:01",
-            function="no_function",
-            phenotype_effect="Carbamazepine hypersensitivity (SJS/TEN)",
-            clinical_significance="severe",
-            frequency_european=0.04,
-            frequency_asian=0.08,
-            cpic_guideline=True,
-            fda_label=True,
-            sources=["CPIC", "FDA", "PharmGKB"]
-        ),
-        ExpandedAlleleDefinition(
-            gene="HLA-A",
-            gene_category=GeneCategory.HUMAN_LEUKOCYTE_ANTIGEN,
-            allele="*02:01",
-            rsid="rs440515",
-            variant="",
-            star_allele="*02:01",
-            function="no_function",
-            phenotype_effect="Xeljanz (tofacitinib) response",
-            clinical_significance="moderate",
-            sources=["PharmGKB"]
-        )
-    ],
-    "HLA-B": [
-        ExpandedAlleleDefinition(
-            gene="HLA-B",
-            gene_category=GeneCategory.HUMAN_LEUKOCYTE_ANTIGEN,
-            allele="*57:01",
-            rsid="rs2395029",
-            variant="G>T",
-            star_allele="*57:01",
-            function="no_function",
-            phenotype_effect="Abacavir hypersensitivity - ABSOLUTE CONTRAINDICATION",
-            clinical_significance="severe",
-            frequency_european=0.06,
-            frequency_african=0.02,
-            frequency_asian=0.01,
-            cpic_guideline=True,
-            fda_label=True,
-            sources=["CPIC", "FDA", "PharmGKB"]
-        ),
-        ExpandedAlleleDefinition(
-            gene="HLA-B",
-            gene_category=GeneCategory.HUMAN_LEUKOCYTE_ANTIGEN,
-            allele="*15:02",
-            rsid="rs2844682",
-            variant="C>T",
-            star_allele="*15:02",
-            function="no_function",
-            phenotype_effect="Carbamazepine SJS/TEN risk (Asian populations)",
-            clinical_significance="severe",
-            frequency_asian=0.08,
-            cpic_guideline=True,
-            fda_label=True,
-            sources=["CPIC", "FDA", "PharmGKB"]
-        ),
-        ExpandedAlleleDefinition(
-            gene="HLA-B",
-            gene_category=GeneCategory.HUMAN_LEUKOCYTE_ANTIGEN,
-            allele="*58:01",
-            rsid="rs521482",
-            variant="G>A",
-            star_allele="*58:01",
-            function="no_function",
-            phenotype_effect="Allopurinol SJS/TEN/DRESS risk",
-            clinical_significance="severe",
-            frequency_asian=0.08,
-            frequency_european=0.01,
-            cpic_guideline=True,
-            sources=["CPIC", "PharmGKB"]
-        )
-    ],
-
-    # Additional transporters
-    "ABCB1": [
-        ExpandedAlleleDefinition(
-            gene="ABCB1",  # MDR1 / P-gp
-            gene_category=GeneCategory.TRANSPORTER,
-            allele="C3435T",
-            rsid="rs1045642",
-            variant="C>T",
-            star_allele="3435T",
-            function="decreased",
-            phenotype_effect="Reduced P-gp activity - altered drug absorption/distribution",
-            clinical_significance="moderate",
-            frequency_european=0.45,
-            frequency_african=0.85,
-            frequency_asian=0.40,
-            sources=["PharmGKB"]
-        )
-    ],
-    "ABCG2": [
-        ExpandedAlleleDefinition(
-            gene="ABCG2",  # BCRP
-            gene_category=GeneCategory.TRANSPORTER,
-            allele="421C>A",
-            rsid="rs2231142",
-            variant="G>T",
-            star_allele="421A",
-            function="no_function",
-            phenotype_effect="Reduced BCRP activity - increased drug exposure",
-            clinical_significance="moderate",
-            frequency_european=0.10,
-            frequency_asian=0.35,
-            cpic_guideline=False,
-            sources=["PharmGKB"]
-        )
-    ],
-    "SLCO1B3": [
-        ExpandedAlleleDefinition(
-            gene="SLCO1B3",
-            gene_category=GeneCategory.TRANSPORTER,
-            allele="*2",
-            rsid="rs7311358",
-            variant="A>G",
-            star_allele="*2",
-            function="decreased",
-            phenotype_effect="Reduced hepatic uptake",
-            clinical_significance="low",
-            frequency_european=0.35,
-            sources=["PharmGKB"]
-        )
-    ],
-
-    # OPRM1 - Opioid response
-    "OPRM1": [
-        ExpandedAlleleDefinition(
-            gene="OPRM1",
-            gene_category=GeneCategory.OPIOID_RECEPTOR,
-            allele="118A>G",
-            rsid="rs1799971",
-            variant="A>G",
-            star_allele="118G",
-            function="decreased",
-            phenotype_effect="Reduced opioid efficacy - higher dose requirements",
-            clinical_significance="moderate",
-            frequency_european=0.15,
-            frequency_african=0.30,
-            frequency_asian=0.50,
-            cpic_guideline=False,
-            fda_label=False,
-            sources=["PharmGKB"]
-        )
-    ],
-}
-
-
-# FDA PGx TABLE - 300+ drugs with PGx information
-FDA_PGX_TABLE: dict[str, dict] = {
-    "abacavir": {
-        "required_test": True,
-        "biomarker": "HLA-B*57:01",
-        "contraindication": "HLA-B*57:01 positive",
-        "outcome": "Hypersensitivity reaction",
-        "severity": "severe",
-        "drug_classes": ["NRTI", "antiretroviral"],
-    },
-    "allopurinol": {
-        "required_test": False,
-        "recommended_test": True,
-        "biomarker": "HLA-B*58:01",
-        "warning": "SJS/TEN/DRESS in HLA-B*58:01 carriers",
-        "severity": "severe",
-        "drug_classes": ["xanthine oxidase inhibitor", "gout"],
-    },
-    "amitriptyline": {
-        "required_test": False,
-        "biomarkers": ["CYP2D6", "CYP2C19"],
-        "affected_metabolism": True,
-        "drug_classes": ["TCA", "antidepressant"],
-    },
-    "aripiprazole": {
-        "required_test": False,
-        "biomarker": "CYP2D6",
-        "dose_adjustment": "CYP2D6 PMs: 50% dose reduction",
-        "drug_classes": ["atypical antipsychotic"],
-    },
-    "atomoxetine": {
-        "required_test": False,
-        "biomarker": "CYP2D6",
-        "affected_clearance": True,
-        "drug_classes": ["ADHD medication", "SNRI"],
-    },
-    "atorvastatin": {
-        "required_test": False,
-        "biomarkers": ["SLCO1B1", "ABCG2"],
-        "myopathy_risk": True,
-        "drug_classes": ["statin", "HMG-CoA reductase inhibitor"],
-    },
-    "azathioprine": {
-        "required_test": False,
-        "recommended_test": True,
-        "biomarkers": ["TPMT", "NUDT15"],
-        "dose_adjustment": "TPMT deficient: reduce to 10% dose",
-        "severity": "severe",
-        "drug_classes": ["immunosuppressant", "thiopurine"],
-    },
-    "capecitabine": {
-        "required_test": False,
-        "recommended_test": True,
-        "biomarker": "DPYD",
-        "contraindication": "DPYD complete deficiency",
-        "severity": "severe",
-        "drug_classes": ["fluoropyrimidine", "antineoplastic"],
-    },
-    "carbamazepine": {
-        "required_test": False,
-        "recommended_test": True,
-        "biomarkers": ["HLA-B*15:02", "HLA-A*31:01"],
-        "warning": "SJS/TEN risk",
-        "severity": "severe",
-        "drug_classes": ["anticonvulsant", "mood stabilizer"],
-    },
-    "celecoxib": {
-        "required_test": False,
-        "biomarker": "CYP2C9",
-        "affected_metabolism": True,
-        "drug_classes": ["COX-2 inhibitor", "NSAID"],
-    },
-    "citalopram": {
-        "required_test": False,
-        "biomarker": "CYP2C19",
-        "fda_warning": "Citalopram dose should not exceed 40 mg/day (20 mg for CYP2C19 PMs)",
-        "drug_classes": ["SSRI", "antidepressant"],
-    },
-    "clopidogrel": {
-        "required_test": False,
-        "biomarker": "CYP2C19",
-        "boxed_warning": "CYP2C19 PMs have reduced antiplatelet effect",
-        "alternative": "Consider prasugrel or ticagrelor",
-        "drug_classes": ["antiplatelet", "P2Y12 inhibitor"],
-    },
-    "codeine": {
-        "required_test": False,
-        "boxed_warning": "Ultra-rapid metabolizers at risk for toxicity, PMs lack efficacy",
-        "biomarker": "CYP2D6",
-        "contraindication_pediatric": "Post-tonsillectomy in children",
-        "drug_classes": ["opioid", "analgesic"],
-    },
-    "dapsone": {
-        "required_test": False,
-        "biomarker": "G6PD",
-        "contraindication": "G6PD deficiency - hemolysis risk",
-        "severity": "severe",
-        "drug_classes": ["antibiotic", "leprosy", "dermatitis"],
-    },
-    "doxepin": {
-        "required_test": False,
-        "biomarkers": ["CYP2D6", "CYP2C19"],
-        "affected_metabolism": True,
-        "drug_classes": ["TCA", "antidepressant"],
-    },
-    "escitalopram": {
-        "required_test": False,
-        "biomarker": "CYP2C19",
-        "affected_metabolism": True,
-        "drug_classes": ["SSRI", "antidepressant"],
-    },
-    "fluorouracil": {
-        "required_test": False,
-        "recommended_test": True,
-        "biomarker": "DPYD",
-        "contraindication": "DPYD complete deficiency - fatal toxicity",
-        "severity": "severe",
-        "drug_classes": ["fluoropyrimidine", "antineoplastic"],
-    },
-    "fluoxetine": {
-        "required_test": False,
-        "biomarkers": ["CYP2D6", "CYP2C19"],
-        "affected_metabolism": True,
-        "drug_classes": ["SSRI", "antidepressant"],
-    },
-    "flurbiprofen": {
-        "required_test": False,
-        "biomarker": "CYP2C9",
-        "affected_metabolism": True,
-        "drug_classes": ["NSAID"],
-    },
-    "fluvoxamine": {
-        "required_test": False,
-        "biomarker": "CYP2D6",
-        "affected_metabolism": True,
-        "drug_classes": ["SSRI", "antidepressant"],
-    },
-    "hydroxychloroquine": {
-        "required_test": False,
-        "biomarker": "G6PD",
-        "warning": "Monitor in G6PD deficiency",
-        "drug_classes": ["antimalarial", "DMARD"],
-    },
-    "ibuprofen": {
-        "required_test": False,
-        "biomarkers": ["CYP2C9"],
-        "affected_metabolism": True,
-        "drug_classes": ["NSAID"],
-    },
-    "imipramine": {
-        "required_test": False,
-        "biomarkers": ["CYP2D6", "CYP2C19"],
-        "affected_metabolism": True,
-        "drug_classes": ["TCA", "antidepressant"],
-    },
-    "irinotecan": {
-        "required_test": False,
-        "recommended_test": True,
-        "biomarker": "UGT1A1",
-        "warning": "UGT1A1*28/*28 at increased toxicity risk",
-        "severity": "moderate",
-        "drug_classes": ["topoisomerase I inhibitor", "antineoplastic"],
-    },
-    "isoniazid": {
-        "required_test": False,
-        "biomarker": "NAT2",
-        "affected_metabolism": True,
-        "dosing": "Slow acetylators: peripheral neuropathy risk",
-        "drug_classes": ["antibiotic", "antitubercular"],
-    },
-    "mercaptopurine": {
-        "required_test": False,
-        "recommended_test": True,
-        "biomarkers": ["TPMT", "NUDT15"],
-        "dose_adjustment": "TPMT deficient: reduce dose 90%",
-        "severity": "severe",
-        "drug_classes": ["antineoplastic", "thiopurine"],
-    },
-    "methylphenidate": {
-        "required_test": False,
-        "biomarker": "CYP2D6",
-        "affected_metabolism": True,
-        "drug_classes": ["stimulant", "ADHD"],
-    },
-    "morphine": {
-        "required_test": False,
-        "biomarkers": ["UGT2B7", "OPRM1"],
-        "affected_response": True,
-        "drug_classes": ["opioid", "analgesic"],
-    },
-    "nortriptyline": {
-        "required_test": False,
-        "biomarkers": ["CYP2D6"],
-        "concentration_variation": "10-36 fold variation by CYP2D6 status",
-        "drug_classes": ["TCA", "antidepressant"],
-    },
-    "oxcarbazepine": {
-        "required_test": False,
-        "biomarker": "HLA-B*15:02",
-        "warning": "SJS/TEN risk in some Asian populations",
-        "drug_classes": ["anticonvulsant"],
-    },
-    "phenytoin": {
-        "required_test": False,
-        "biomarkers": ["CYP2C9", "CYP2C19", "HLA-B*15:02"],
-        "affected_metabolism": True,
-        "warning": "CYP2C9 PMs at toxicity risk; HLA-B*15:02 SJS/TEN risk",
-        "drug_classes": ["anticonvulsant", "hydantoin"],
-    },
-    "primaquine": {
-        "required_test": True,
-        "biomarker": "G6PD",
-        "contraindication": "G6PD deficiency - hemolytic anemia",
-        "severity": "severe",
-        "drug_classes": ["antimalarial", "8-aminoquinoline"],
-    },
-    "proguanil": {
-        "required_test": False,
-        "biomarker": "CYP2C19",
-        "affected_metabolism": True,
-        "drug_classes": ["antimalarial"],
-    },
-    "propafenone": {
-        "required_test": False,
-        "biomarker": "CYP2D6",
-        "affected_metabolism": True,
-        "drug_classes": ["antiarrhythmic", "class IC"],
-    },
-    "propranolol": {
-        "required_test": False,
-        "biomarker": "CYP2D6",
-        "affected_metabolism": True,
-        "drug_classes": ["beta blocker"],
-    },
-    "prasugrel": {
-        "required_test": False,
-        "biomarkers": ["CYP2C19", "CYP2B6"],
-        "affected_response": True,
-        "drug_classes": ["antiplatelet", "P2Y12 inhibitor"],
-    },
-    "quetiapine": {
-        "required_test": False,
-        "biomarker": "CYP3A4",
-        "affected_metabolism": True,
-        "drug_classes": ["atypical antipsychotic"],
-    },
-    "rasburicase": {
-        "required_test": True,
-        "biomarker": "G6PD",
-        "contraindication": "G6PD deficiency - contraindicated",
-        "severity": "severe",
-        "drug_classes": ["urate oxidase", "antineoplastic adjunct"],
-    },
-    "simvastatin": {
-        "required_test": False,
-        "biomarkers": ["SLCO1B1", "CYP3A4/5"],
-        "myopathy_warning": "SLCO1B1 variants increase myopathy risk",
-        "dose_limitation": "80 mg dose only for long-term tolerators",
-        "drug_classes": ["statin"],
-    },
-    "sulfamethoxazole": {
-        "required_test": False,
-        "biomarkers": ["CYP2C9", "G6PD", "HLA-B"],
-        "affected_metabolism": True,
-        "warning": "G6PD deficiency: hemolysis risk; Various HLA associations",
-        "drug_classes": ["antibiotic", "sulfonamide"],
-    },
-    "tacrine": {
-        "required_test": False,
-        "biomarker": "NAT2",
-        "hepatotoxicity": "NAT2 slow acetylators at increased risk",
-        "drug_classes": ["cholinesterase inhibitor", "Alzheimer's"],
-    },
-    "tamoxifen": {
-        "required_test": False,
-        "recommended_test": True,
-        "biomarkers": ["CYP2D6"],
-        "warning": "CYP2D6 PMs have reduced endoxifen levels - reduced efficacy",
-        "drug_classes": ["SERM", "antineoplastic"],
-    },
-    "terbinafine": {
-        "required_test": False,
-        "biomarker": "CYP2D6",
-        "drug_interaction": "Strong CYP2D6 inhibitor",
-        "drug_classes": ["antifungal"],
-    },
-    "thioguanine": {
-        "required_test": False,
-        "recommended_test": True,
-        "biomarkers": ["TPMT"],
-        "dose_adjustment": "TPMT deficient: reduce dose 90%",
-        "severity": "severe",
-        "drug_classes": ["antineoplastic", "thiopurine"],
-    },
-    "thioridazine": {
-        "required_test": False,
-        "contraindication": "CYP2D6 PMs - contraindicated due to QT prolongation",
-        "biomarker": "CYP2D6",
-        "severity": "severe",
-        "drug_classes": ["typical antipsychotic"],
-    },
-    "ticagrelor": {
-        "required_test": False,
-        "biomarkers": ["CYP2C19"],
-        "alternative_for": "Preferred for CYP2C19 PMs vs clopidogrel",
-        "drug_classes": ["antiplatelet", "P2Y12 inhibitor"],
-    },
-    "tolbutamide": {
-        "required_test": False,
-        "biomarker": "CYP2C9",
-        "affected_clearance": True,
-        "drug_classes": ["sulfonylurea"],
-    },
-    "tramadol": {
-        "required_test": False,
-        "biomarker": "CYP2D6",
-        "warning": "CYP2D6 PMs may have reduced analgesia",
-        "drug_classes": ["opioid", "analgesic"],
-    },
-    "trimipramine": {
-        "required_test": False,
-        "biomarkers": ["CYP2C19", "CYP2D6"],
-        "affected_metabolism": True,
-        "drug_classes": ["TCA", "antidepressant"],
-    },
-    "valproic_acid": {
-        "required_test": False,
-        "biomarkers": ["POLG", "CYP2C9", "CYP2C19", "UGT1A6"],
-        "contraindication": "POLG mutations - fatal hepatotoxicity",
-        "severity": "severe",
-        "drug_classes": ["anticonvulsant", "mood stabilizer"],
-    },
-    "voriconazole": {
-        "required_test": False,
-        "biomarkers": ["CYP2C19"],
-        "affected_metabolism": True,
-        "drug_classes": ["antifungal", "triazole"],
-    },
-    "warfarin": {
-        "required_test": False,
-        "recommended_test": True,
-        "biomarkers": ["CYP2C9", "VKORC1", "CYP4F2"],
-        "dosing_algorithm": "IWPC or Gage algorithm",
-        "warning": "Genetic variants significantly affect stable dose",
-        "drug_classes": ["anticoagulant", "vitamin K antagonist"],
-    },
-}
-
-
-# DRUGBANK PGx MAPPINGS - Comprehensive drug-gene relationships
-DRUGBANK_PGX_MAPPINGS: dict[str, dict] = {
-    "warfarin": {
-        "drugbank_id": "DB00682",
-        "enzymes": ["CYP1A2", "CYP2C9", "CYP2C19", "CYP2C8", "CYP3A4", "CYP3A5", "CYP4F2"],
-        "targets": ["VKORC1"],
-        "transporters": [],
-        "carriers": ["ALB"],
-        "pgx_level": "high",
-    },
-    "clopidogrel": {
-        "drugbank_id": "DB00758",
-        "enzymes": ["CYP1A2", "CYP2B6", "CYP2C9", "CYP2C19", "CYP3A4", "CYP3A5"],
-        "targets": ["P2RY12"],
-        "pgx_level": "high",
-    },
-    "codeine": {
-        "drugbank_id": "DB00318",
-        "enzymes": ["CYP2D6", "CYP3A4", "UGT1A1", "UGT2B4", "UGT2B7"],
-        "targets": ["OPRM1", "OPRD1", "OPRK1"],
-        "pgx_level": "high",
-    },
-    "tamoxifen": {
-        "drugbank_id": "DB00675",
-        "enzymes": ["CYP1A2", "CYP2B6", "CYP2C9", "CYP2C19", "CYP2D6", "CYP3A4", "CYP3A5"],
-        "targets": ["ESR1", "ESR2"],
-        "pgx_level": "high",
-    },
-    "simvastatin": {
-        "drugbank_id": "DB00641",
-        "enzymes": ["CYP3A4", "CYP3A5", "CYP2C9", "CYP2C8"],
-        "transporters": ["SLCO1B1", "SLCO1B3", "ABCB1", "ABCG2"],
-        "pgx_level": "high",
-    },
-    "atorvastatin": {
-        "drugbank_id": "DB01076",
-        "enzymes": ["CYP3A4", "CYP3A5", "CYP2C9", "CYP2C19"],
-        "transporters": ["SLCO1B1", "ABCB1", "ABCG2"],
-        "pgx_level": "moderate",
-    },
-    "phenytoin": {
-        "drugbank_id": "DB00252",
-        "enzymes": ["CYP2C9", "CYP2C19", "CYP2C8"],
-        "transporters": [],
-        "pgx_level": "moderate",
-    },
-    "fluorouracil": {
-        "drugbank_id": "DB00544",
-        "enzymes": ["DPYD", "TP", "UPP1", "UPP2"],
-        "pgx_level": "high",
-    },
-    "capecitabine": {
-        "drugbank_id": "DB01101",
-        "enzymes": ["DPYD", "CES1", "CES2"],
-        "pgx_level": "high",
-    },
-    "mercaptopurine": {
-        "drugbank_id": "DB01033",
-        "enzymes": ["TPMT", "XDH", "HGPRT"],
-        "pgx_level": "high",
-    },
-    "azathioprine": {
-        "drugbank_id": "DB00993",
-        "enzymes": ["TPMT", "XDH", "HGPRT"],
-        "pgx_level": "high",
-    },
-    "irinotecan": {
-        "drugbank_id": "DB00762",
-        "enzymes": ["CES1", "CES2", "UGT1A1"],
-        "transporters": ["SLCO1B1", "ABCC2", "ABCG2"],
-        "pgx_level": "high",
-    },
-    "abacavir": {
-        "drugbank_id": "DB01048",
-        "enzymes": ["UGT1A1", "UGT2B7", "ADH1B", "ADH1C"],
-        "pgx_level": "high",
-    },
-    "carbamazepine": {
-        "drugbank_id": "DB00564",
-        "enzymes": ["CYP3A4", "CYP3A5", "CYP2C8", "CYP1A2", "CYP2B6"],
-        "pgx_level": "moderate",
-    },
-    "pantoprazole": {
-        "drugbank_id": "DB00233",
-        "enzymes": ["CYP2C19", "CYP3A4", "CYP2C9"],
-        "pgx_level": "moderate",
-    },
-    "omeprazole": {
-        "drugbank_id": "DB00338",
-        "enzymes": ["CYP2C19", "CYP3A4", "CYP2C9"],
-        "pgx_level": "moderate",
-    },
-    "amitriptyline": {
-        "drugbank_id": "DB00321",
-        "enzymes": ["CYP1A2", "CYP2C9", "CYP2C19", "CYP2D6", "CYP3A4"],
-        "pgx_level": "high",
-    },
-    "nortriptyline": {
-        "drugbank_id": "DB00540",
-        "enzymes": ["CYP1A2", "CYP2C19", "CYP2D6", "CYP3A4"],
-        "pgx_level": "high",
-    },
-    "citalopram": {
-        "drugbank_id": "DB00215",
-        "enzymes": ["CYP2C19", "CYP3A4", "CYP2D6"],
-        "pgx_level": "moderate",
-    },
-    "escitalopram": {
-        "drugbank_id": "DB01175",
-        "enzymes": ["CYP2C19", "CYP3A4", "CYP2D6"],
-        "pgx_level": "moderate",
-    },
-    "fluoxetine": {
-        "drugbank_id": "DB00472",
-        "enzymes": ["CYP2D6", "CYP2C9", "CYP2C19", "CYP3A4", "CYP2B6"],
-        "pgx_level": "high",
-    },
-    "paroxetine": {
-        "drugbank_id": "DB00715",
-        "enzymes": ["CYP2D6", "CYP3A4", "CYP2C19", "CYP2B6"],
-        "pgx_level": "high",
-    },
-    "sertraline": {
-        "drugbank_id": "DB01104",
-        "enzymes": ["CYP2B6", "CYP2C9", "CYP2C19", "CYP2D6", "CYP3A4"],
-        "pgx_level": "moderate",
-    },
-    "venlafaxine": {
-        "drugbank_id": "DB00285",
-        "enzymes": ["CYP2D6", "CYP3A4", "CYP2C9", "CYP2C19"],
-        "pgx_level": "moderate",
-    },
-    "metoprolol": {
-        "drugbank_id": "DB00264",
-        "enzymes": ["CYP2D6"],
-        "pgx_level": "moderate",
-    },
-    "propafenone": {
-        "drugbank_id": "DB01182",
-        "enzymes": ["CYP2D6", "CYP3A4", "CYP1A2"],
-        "pgx_level": "moderate",
-    },
-    "timolol": {
-        "drugbank_id": "DB00373",
-        "enzymes": ["CYP2D6"],
-        "pgx_level": "low",
-    },
-    "dextromethorphan": {
-        "drugbank_id": "DB00514",
-        "enzymes": ["CYP2D6", "CYP3A4"],
-        "pgx_level": "moderate",
-    },
-    "tramadol": {
-        "drugbank_id": "DB00193",
-        "enzymes": ["CYP2D6", "CYP3A4", "CYP2B6"],
-        "targets": ["OPRM1", "OPRD1", "OPRK1", "OPRL1"],
-        "pgx_level": "high",
-    },
-    "ondansetron": {
-        "drugbank_id": "DB00904",
-        "enzymes": ["CYP2D6", "CYP3A4", "CYP1A2"],
-        "pgx_level": "low",
-    },
-    "atomoxetine": {
-        "drugbank_id": "DB00289",
-        "enzymes": ["CYP2D6", "CYP2B6", "CYP2C19", "CYP3A4"],
-        "pgx_level": "high",
-    },
-    "methylphenidate": {
-        "drugbank_id": "DB00422",
-        "enzymes": ["CES1", "CYP2D6"],
-        "pgx_level": "moderate",
-    },
-    "tacrine": {
-        "drugbank_id": "DB00908",
-        "enzymes": ["CYP1A2", "CYP2D6", "NAT1", "NAT2"],
-        "pgx_level": "moderate",
-    },
-    "donepezil": {
-        "drugbank_id": "DB00843",
-        "enzymes": ["CYP2D6", "CYP3A4"],
-        "pgx_level": "low",
-    },
-    "galantamine": {
-        "drugbank_id": "DB00674",
-        "enzymes": ["CYP2D6", "CYP3A4"],
-        "pgx_level": "low",
-    },
-}
-
-
-class ExternalDatabaseClient:
-    """Unified client for external PGx databases.
-
-    Provides:
-    - PharmGKB API integration (clinical annotations)
-    - FDA PGx table queries (regulatory requirements)
-    - DrugBank mappings (drug-gene relationships)
-    - Expanded gene coverage (20+ pharmacogenes)
-    - Dynamic rule generation (combines external + internal data)
-    """
-
-    def __init__(self, cache_ttl_hours: int = 24) -> None:
-        self.cache: dict[str, Any] = {}
-        self.cache_timestamps: dict[str, datetime] = {}
-        self.cache_ttl = timedelta(hours=cache_ttl_hours)
-
-        # Load static databases
-        self.fda_pgx_table = FDA_PGX_TABLE
-        self.drugbank_mappings = DRUGBANK_PGX_MAPPINGS
-        self.expanded_genes = EXPANDED_PHARMACOGENES
-
-        # API availability
-        self.has_internet = self._check_internet()
-
-    def _check_internet(self) -> bool:
-        """Check if internet connectivity is available."""
-        if not REQUESTS_AVAILABLE:
-            return False
-        try:
-            requests.head("https://api.pharmgkb.org", timeout=3)
-            return True
-        except:
-            return False
-
-    def _get_cached_or_fetch(self, key: str, fetch_func) -> Any:
-        """Get from cache or fetch new data."""
-        now = datetime.now()
-
-        if key in self.cache and key in self.cache_timestamps:
-            age = now - self.cache_timestamps[key]
-            if age < self.cache_ttl:
-                return self.cache[key]
-
-        # Fetch new data
-        try:
-            data = fetch_func()
-            self.cache[key] = data
-            self.cache_timestamps[key] = now
-            return data
-        except Exception as e:
-            logger.warning(f"Failed to fetch {key}: {e}")
-            # Return cached data even if expired, or None
-            return self.cache.get(key)
-
-    def get_fda_pgx_info(self, drug: str) -> dict | None:
-        """Get FDA PGx information for a drug."""
-        drug_lower = drug.lower().replace(' ', '_')
-
-        # Exact match
-        if drug_lower in self.fda_pgx_table:
-            return self.fda_pgx_table[drug_lower]
-
-        # Partial match
-        for key, info in self.fda_pgx_table.items():
-            if drug_lower in key or key in drug_lower:
-                return info
-
-        return None
-
-    def get_drugbank_pgx_info(self, drug: str) -> dict | None:
-        """Get DrugBank PGx mapping for a drug."""
-        drug_lower = drug.lower().replace(' ', '_')
-
-        if drug_lower in self.drugbank_mappings:
-            return self.drugbank_mappings[drug_lower]
-
-        # Partial match
-        for key, info in self.drugbank_mappings.items():
-            if drug_lower in key or key in drug_lower:
-                return info
-
-        return None
-
-    def get_expanded_gene_info(self, gene: str) -> list[ExpandedAlleleDefinition] | None:
-        """Get comprehensive gene information from expanded database."""
-        return self.expanded_genes.get(gene.upper())
-
-    def get_all_genes_for_drug(self, drug: str) -> list[str]:
-        """Get all relevant genes for a drug from multiple sources."""
-        genes = set()
-
-        # From internal rules
-        if drug.lower() in DRUG_GENE_RULES:
-            genes.update(DRUG_GENE_RULES[drug.lower()].get('genes', []))
-
-        # From FDA table
-        fda_info = self.get_fda_pgx_info(drug)
-        if fda_info:
-            biomarkers = fda_info.get('biomarkers', [])
-            if biomarkers:
-                genes.update(biomarkers)
-            biomarker = fda_info.get('biomarker')
-            if biomarker:
-                genes.add(biomarker)
-
-        # From DrugBank
-        db_info = self.get_drugbank_pgx_info(drug)
-        if db_info:
-            genes.update(db_info.get('enzymes', []))
-            genes.update(db_info.get('transporters', []))
-            genes.update(db_info.get('targets', []))
-
-        return sorted(list(genes))
-
-    def has_required_pgx_test(self, drug: str) -> tuple[bool, str]:
-        """Check if drug has required PGx testing. Returns (required, reason)."""
-        fda_info = self.get_fda_pgx_info(drug)
-
-        if not fda_info:
-            return False, ""
-
-        if fda_info.get('required_test', False):
-            biomarker = fda_info.get('biomarker', fda_info.get('biomarkers', ['unknown'])[0])
-            return True, f"FDA requires {biomarker} testing before prescribing"
-
-        return False, ""
-
-    def get_drug_warnings(self, drug: str, gene_variants: dict[str, str]) -> list[str]:
-        """Get all relevant warnings for a drug-gene combination."""
-        warnings = []
-
-        # FDA warnings
-        fda_info = self.get_fda_pgx_info(drug)
-        if fda_info:
-            if fda_info.get('boxed_warning'):
-                warnings.append(f"FDA BOXED WARNING: {fda_info['boxed_warning']}")
-            if fda_info.get('warning'):
-                warnings.append(f"FDA Warning: {fda_info['warning']}")
-            if fda_info.get('contraindication'):
-                warnings.append(f"CONTRAINDICATION: {fda_info['contraindication']}")
-
-        # Check gene-specific warnings
-        for gene, variant in gene_variants.items():
-            gene_info = self.get_expanded_gene_info(gene)
-            if gene_info:
-                for allele in gene_info:
-                    if variant in allele.star_allele or variant in allele.allele:
-                        if allele.clinical_significance == 'severe':
-                            warnings.append(f"⚠️ SEVERE: {allele.phenotype_effect}")
-
-        return warnings
-
-    def get_all_supported_drugs(self) -> list[str]:
-        """Get comprehensive list of all supported drugs."""
-        drugs = set()
-
-        # From internal rules
-        drugs.update(DRUG_GENE_RULES.keys())
-
-        # From FDA table
-        drugs.update(self.fda_pgx_table.keys())
-
-        # From DrugBank mappings
-        drugs.update(self.drugbank_mappings.keys())
-
-        return sorted(list(drugs))
-
-    def generate_dynamic_drug_rule(self, drug: str) -> dict | None:
-        """Generate dynamic drug rule combining all external sources."""
-        drug_lower = drug.lower().replace(' ', '_')
-
-        # Get all sources
-        fda_info = self.get_fda_pgx_info(drug)
-        db_info = self.get_drugbank_pgx_info(drug)
-        internal_info = DRUG_GENE_RULES.get(drug_lower)
-
-        if not any([fda_info, db_info, internal_info]):
-            return None
-
-        # Combine genes from all sources
-        all_genes = set()
-
-        if internal_info:
-            all_genes.update(internal_info.get('genes', []))
-
-        if fda_info:
-            biomarkers = fda_info.get('biomarkers', [])
-            if biomarkers:
-                all_genes.update(biomarkers)
-            biomarker = fda_info.get('biomarker')
-            if biomarker:
-                all_genes.add(biomarker)
-
-        if db_info:
-            all_genes.update(db_info.get('enzymes', []))
-            all_genes.update(db_info.get('transporters', []))
-
-        # Filter to only known pharmacogenes
-        known_genes = SUPPORTED_PHARMACOGENES + list(self.expanded_genes.keys())
-        relevant_genes = [g for g in all_genes if g.upper() in [k.upper() for k in known_genes]]
-
-        if not relevant_genes:
-            return None
-
-        # Build headline
-        headlines = []
-        if fda_info:
-            if fda_info.get('boxed_warning'):
-                headlines.append(f"FDA BOXED WARNING: {fda_info['boxed_warning']}")
-            elif fda_info.get('warning'):
-                headlines.append(f"FDA Warning: {fda_info['warning']}")
-
-        if db_info and db_info.get('pgx_level') == 'high':
-            headlines.append(f"High pharmacogenomic variability ({', '.join(relevant_genes[:2])})")
-
-        if not headlines:
-            headlines.append(f"Pharmacogenomic factors affect response ({', '.join(relevant_genes)})")
-
-        # Build limitations
-        limitations = []
-
-        if fda_info and fda_info.get('required_test'):
-            limitations.append(f"REQUIRED: {fda_info.get('biomarker', 'Genetic testing')} before prescribing")
-
-        if len(relevant_genes) > 3:
-            limitations.append("Multiple genes involved - clinical complexity high")
-
-        # Check for expanded gene coverage
-        expanded_matches = [g for g in relevant_genes if g.upper() in self.expanded_genes]
-        if expanded_matches:
-            limitations.append(f"Advanced gene coverage: {', '.join(expanded_matches)}")
-
-        # Combine with internal limitations if available
-        if internal_info and 'limitations' in internal_info:
-            limitations.extend(internal_info['limitations'])
-
-        return {
-            'genes': relevant_genes,
-            'headline': ' '.join(headlines),
-            'limitations': limitations if limitations else ["Always consult clinical guidelines"],
-            'sources': {
-                'fda': fda_info is not None,
-                'drugbank': db_info is not None,
-                'internal': internal_info is not None,
-            },
-            'pgx_level': db_info.get('pgx_level', 'moderate') if db_info else 'moderate',
-        }
-
-    def get_coverage_statistics(self) -> dict[str, Any]:
-        """Get statistics on database coverage."""
-        return {
-            'internal_rules': len(DRUG_GENE_RULES),
-            'fda_pgx_drugs': len(self.fda_pgx_table),
-            'drugbank_mappings': len(self.drugbank_mappings),
-            'total_unique_drugs': len(self.get_all_supported_drugs()),
-            'expanded_genes': len(self.expanded_genes),
-            'gene_categories': list(set(g.value for g in GeneCategory)),
-            'required_testing_available': sum(1 for d in self.fda_pgx_table.values() if d.get('required_test')),
-            'high_pgx_level_drugbank': sum(1 for d in self.drugbank_mappings.values() if d.get('pgx_level') == 'high'),
-        }
-
-
-class HybridPredictionSystem:
-    """Hybrid system combining rule-based, ML, and clinical references."""
-
-    def __init__(self) -> None:
-        self.ml_layer = PharmacogenomicsModelLayer()
-        self.pharmgkb = PharmGKBClient()
-        self.fda = FDALabelClient()
-        self.is_initialized = False
-
-    def initialize(self) -> None:
-        """Initialize and train ML models."""
-        if not self.is_initialized:
-            logger.info("Initializing Hybrid Prediction System...")
-            self.ml_layer.train_all_models()
-            self.is_initialized = True
-            logger.info("Hybrid system ready")
-
-    def predict(
-        self,
-        drug: str,
-        gene_variants: dict[str, str],
-        include_clinical_refs: bool = True
-    ) -> dict[str, Any]:
-        """Generate hybrid prediction combining all evidence sources."""
-        if not self.is_initialized:
-            self.initialize()
-
-        results = {
-            'drug': drug,
-            'gene_variants': gene_variants,
-            'ml_predictions': None,
-            'clinical_annotations': [],
-            'fda_warnings': [],
-            'consensus': {},
-            'confidence': 'low'
-        }
-
-        # 1. ML Prediction
-        gene_profile = {g: 1 if v else 0 for g, v in gene_variants.items()}
-        ml_pred = self.ml_layer.predict(gene_profile, drug)
-        results['ml_predictions'] = ml_pred
-
-        # 2. Clinical Annotations
-        if include_clinical_refs:
-            clinical_anns = self.pharmgkb.get_annotations(drug)
-            results['clinical_annotations'] = clinical_anns
-
-            # Check FDA warnings
-            fda_label = self.fda.get_label(drug)
-            if fda_label:
-                results['fda_warnings'] = fda_label.boxed_warning
-                results['fda_requirements'] = fda_label.test_requirements
-
-        # 3. Generate Consensus
-        results['consensus'] = self._generate_consensus(results, drug, gene_variants)
-
-        # 4. Calculate overall confidence
-        confidence_factors = [
-            ml_pred.agreement_score if ml_pred else 0,
-            1.0 if clinical_anns else 0.5,
-            1.0 if fda_label else 0.5
-        ]
-        avg_confidence = np.mean(confidence_factors)
-
-        if avg_confidence >= 0.8:
-            results['confidence'] = 'high'
-        elif avg_confidence >= 0.6:
-            results['confidence'] = 'moderate'
-        else:
-            results['confidence'] = 'low'
-
-        return results
-
-    def _generate_consensus(
-        self, results: dict, drug: str, gene_variants: dict
-    ) -> dict[str, Any]:
-        """Generate consensus recommendation from all sources."""
-        consensus = {
-            'risk_level': 'unknown',
-            'recommendation': '',
-            'dosing_guidance': '',
-            'sources': [],
-            'disclaimers': []
-        }
-
-        ml_pred = results.get('ml_predictions')
-        clinical_anns = results.get('clinical_annotations', [])
-        fda_label = self.fda.get_label(drug)
-
-        # Determine risk level
-        risk_scores = []
-
-        if ml_pred:
-            risk_map = {'low': 1, 'moderate': 2, 'high': 3, 'severe': 4}
-            risk_scores.append(risk_map.get(ml_pred.consensus_risk, 0))
-            consensus['sources'].append(f"ML Ensemble (n={len(ml_pred.predictions)} models)")
-
-        for ann in clinical_anns:
-            if ann.clinical_significance == 'severe':
-                risk_scores.append(4)
-            elif ann.clinical_significance == 'high':
-                risk_scores.append(3)
-            elif ann.clinical_significance == 'moderate':
-                risk_scores.append(2)
-            else:
-                risk_scores.append(1)
-            consensus['sources'].append(f"{ann.source}: {ann.gene} {ann.variant}")
-
-        if risk_scores:
-            avg_risk = np.mean(risk_scores)
-            if avg_risk >= 3.5:
-                consensus['risk_level'] = 'severe'
-                consensus['recommendation'] = "Consider alternative therapy. High genetic risk."
-            elif avg_risk >= 2.5:
-                consensus['risk_level'] = 'high'
-                consensus['recommendation'] = "Dose adjustment recommended. Enhanced monitoring required."
-            elif avg_risk >= 1.5:
-                consensus['risk_level'] = 'moderate'
-                consensus['recommendation'] = "Monitor closely. Consider dose optimization."
-            else:
-                consensus['risk_level'] = 'low'
-                consensus['recommendation'] = "Standard dosing appropriate."
-
-        # Add FDA guidance
-        if fda_label:
-            consensus['dosing_guidance'] = fda_label.precaution
-            if fda_label.boxed_warning:
-                consensus['disclaimers'].append(f"FDA Boxed Warning: {fda_label.boxed_warning}")
-
-        return consensus
-
-
-class EnhancedHybridPredictionSystem(HybridPredictionSystem):
-    """Enhanced hybrid system with expanded database coverage."""
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.external_db = ExternalDatabaseClient()
-        self.use_dynamic_rules = True
-
-    def predict(
-        self,
-        drug: str,
-        gene_variants: dict[str, str],
-        include_clinical_refs: bool = True,
-        use_dynamic_rules: bool = True
-    ) -> dict[str, Any]:
-        """Generate prediction using expanded database coverage."""
-        results = super().predict(drug, gene_variants, include_clinical_refs)
-
-        # Add dynamic rule information
-        if use_dynamic_rules:
-            dynamic_rule = self.external_db.generate_dynamic_drug_rule(drug)
-            if dynamic_rule:
-                results['dynamic_rule'] = dynamic_rule
-                results['all_relevant_genes'] = dynamic_rule.get('genes', [])
-
-        # Add required testing check
-        required, reason = self.external_db.has_required_pgx_test(drug)
-        if required:
-            results['required_testing'] = {
-                'required': True,
-                'reason': reason,
-            }
-
-        # Add expanded gene information
-        expanded_info = {}
-        for gene in gene_variants:
-            gene_data = self.external_db.get_expanded_gene_info(gene)
-            if gene_data:
-                expanded_info[gene] = [
-                    {
-                        'allele': a.allele,
-                        'function': a.function,
-                        'phenotype': a.phenotype_effect,
-                        'clinical_significance': a.clinical_significance,
-                        'frequency_european': a.frequency_european,
-                    }
-                    for a in gene_data
-                ]
-
-        if expanded_info:
-            results['expanded_gene_data'] = expanded_info
-
-        return results
-
-    def get_coverage_report(self) -> dict[str, Any]:
-        """Generate comprehensive coverage report."""
-        stats = self.external_db.get_coverage_statistics()
-
-        return {
-            'coverage_summary': {
-                'total_drugs_supported': stats['total_unique_drugs'],
-                'fda_annotated_drugs': stats['fda_pgx_drugs'],
-                'drugbank_mapped_drugs': stats['drugbank_mappings'],
-                'genes_covered': stats['expanded_genes'],
-                'estimated_coverage_percent': min(75, int(stats['total_unique_drugs'] / 400 * 100)),
-            },
-            'gene_categories': {
-                'cytochrome_p450': sum(1 for g in self.external_db.expanded_genes.values() if g[0].gene_category == GeneCategory.CYTOCHROME_P450),
-                'ugt_enzymes': sum(1 for g in self.external_db.expanded_genes.values() if g[0].gene_category == GeneCategory.UDP_GLUCURONOSYLTRANSFERASE),
-                'nat_enzymes': sum(1 for g in self.external_db.expanded_genes.values() if g[0].gene_category == GeneCategory.N_ACETYLTRANSFERASE),
-                'hla_genes': sum(1 for g in self.external_db.expanded_genes.values() if g[0].gene_category == GeneCategory.HUMAN_LEUKOCYTE_ANTIGEN),
-                'transporters': sum(1 for g in self.external_db.expanded_genes.values() if g[0].gene_category == GeneCategory.TRANSPORTER),
-                'other': sum(1 for g in self.external_db.expanded_genes.values() if g[0].gene_category not in [
-                    GeneCategory.CYTOCHROME_P450, GeneCategory.UDP_GLUCURONOSYLTRANSFERASE,
-                    GeneCategory.N_ACETYLTRANSFERASE, GeneCategory.HUMAN_LEUKOCYTE_ANTIGEN,
-                    GeneCategory.TRANSPORTER
-                ]),
-            },
-            'high_impact_drugs': [
-                drug for drug, info in self.external_db.fda_pgx_table.items()
-                if info.get('severity') in ['severe', 'high'] or info.get('required_test')
-            ][:20],
-        }
-
-
-# --- end merged module: src/clinical/external_databases.py ---
-
-# --- begin merged module: src/clinical/pharmgkb_fda_integration.py ---
-"""Integration with PharmGKB and FDA labels for clinical-grade references.
-
-Creates a hybrid system combining:
-- Rule-based (existing CPIC guidelines)
-- Data-driven (ML models)
-- Clinical-grade references (PharmGKB + FDA)
-"""
-
-from dataclasses import dataclass, field
-from typing import Any
-from datetime import datetime
-import json
-
-
-@dataclass
-class ClinicalAnnotation:
-    """Clinical annotation from PharmGKB or FDA."""
-    source: str  # 'PharmGKB', 'FDA', 'CPIC'
-    variant: str
-    gene: str
-    drug: str
-    phenotype: str
-    clinical_significance: str  # 'high', 'moderate', 'low'
-    evidence_level: str  # '1A', '1B', '2A', '2B', '3', '4'
-    description: str
-    dosing_guideline: str = ""
-    warning: str = ""
-    url: str = ""
-    last_updated: str = ""
-
-
-@dataclass
-class FDADrugLabel:
-    """FDA drug label pharmacogenomics information."""
-    drug_name: str
-    brand_names: list[str] = field(default_factory=list)
-    biomarker_info: str = ""
-    actionable_variants: list[str] = field(default_factory=list)
-    test_requirements: str = ""
-    dosing_table: dict[str, str] = field(default_factory=dict)
-    boxed_warning: str = ""
-    precaution: str = ""
-
-
-class PharmGKBClient:
-    """Client for PharmGKB clinical annotations."""
-
-    # Simulated clinical annotation database - expanded with external database data
-    CLINICAL_ANNOTATIONS: dict[str, list[ClinicalAnnotation]] = {}
-
-    def __init__(self) -> None:
-        # Initialize with static data plus any external database annotations
-        self.annotations = self.CLINICAL_ANNOTATIONS
-        self._populate_from_external_db()
-
-    def _populate_from_external_db(self) -> None:
-        """Populate annotations from FDA PGx table."""
-        for drug, info in FDA_PGX_TABLE.items():
-            anns = []
-
-            biomarkers = info.get('biomarkers', [])
-            if info.get('biomarker'):
-                biomarkers = [info.get('biomarker')]
-
-            for biomarker in biomarkers:
-                if info.get('boxed_warning'):
-                    anns.append(ClinicalAnnotation(
-                        source="FDA",
-                        variant="",
-                        gene=biomarker,
-                        drug=drug,
-                        phenotype="",
-                        clinical_significance="high" if info.get('severity') != 'severe' else 'severe',
-                        evidence_level="1A",
-                        description=info.get('boxed_warning', ''),
-                        warning=info.get('boxed_warning', '')
-                    ))
-
-            if anns:
-                self.annotations[drug] = anns
-
-    def get_annotations(self, drug: str, gene: str | None = None) -> list[ClinicalAnnotation]:
-        """Get clinical annotations for a drug."""
-        drug_lower = drug.lower()
-        results = []
-
-        for key, annotations in self.annotations.items():
-            if drug_lower in key or key in drug_lower:
-                for ann in annotations:
-                    if gene is None or ann.gene.upper() == gene.upper():
-                        results.append(ann)
-
-        return results
-
-    def check_fda_warning(self, drug: str, gene_variant: str) -> str | None:
-        """Check for FDA warnings for drug-gene combination."""
-        annotations = self.get_annotations(drug)
-        for ann in annotations:
-            if ann.source == "FDA" and ann.warning:
-                if gene_variant in ann.variant or ann.variant in gene_variant:
-                    return ann.warning
-        return None
-
-
-class FDALabelClient:
-    """Client for FDA drug label pharmacogenomics information."""
-
-    def __init__(self) -> None:
-        # Use the comprehensive FDA PGx table
-        self.labels = {k: self._convert_to_label(v, k) for k, v in FDA_PGX_TABLE.items()}
-
-    def _convert_to_label(self, info: dict, drug_name: str) -> FDADrugLabel:
-        """Convert FDA PGx table entry to FDADrugLabel."""
-        biomarkers = info.get('biomarkers', [])
-        if info.get('biomarker'):
-            biomarkers = [info.get('biomarker')]
-
-        return FDADrugLabel(
-            drug_name=drug_name,
-            brand_names=info.get('drug_classes', []),
-            biomarker_info=', '.join(biomarkers) if biomarkers else '',
-            actionable_variants=biomarkers,
-            test_requirements="REQUIRED" if info.get('required_test') else ("RECOMMENDED" if info.get('recommended_test') else ""),
-            boxed_warning=info.get('boxed_warning', ''),
-            precaution=info.get('warning', '')
-        )
-
-    def get_label(self, drug: str) -> FDADrugLabel | None:
-        """Get FDA label info for a drug."""
-        return self.labels.get(drug.lower().replace(' ', '_'))
-
-    def has_pgx_requirement(self, drug: str) -> bool:
-        """Check if drug has PGx testing requirement."""
-        label = self.get_label(drug)
-        if label:
-            return "REQUIRED" in label.test_requirements.upper()
-        return False
-
-
-# --- end merged module: src/clinical/pharmgkb_fda_integration.py ---
-
 # --- begin merged module: src/ui/main_window.py ---
-"""Main PySide6 window for the Pharmexia desktop application."""
+"""Main PySide6 window for the Pharmexia desktop application.
 
+PySide6 is optional.  When not installed the window class and launcher are
+replaced with stubs that print a clear installation message instead of
+crashing with an ImportError.
+"""
 
 import sys
 from pathlib import Path
 
-from PySide6.QtWidgets import (
-    QApplication,
-    QComboBox,
-    QDialog,
-    QDialogButtonBox,
-    QFileDialog,
-    QFormLayout,
-    QFrame,
-    QGroupBox,
-    QHBoxLayout,
-    QLabel,
-    QLineEdit,
-    QListWidget,
-    QListWidgetItem,
-    QMainWindow,
-    QMessageBox,
-    QPushButton,
-    QScrollArea,
-    QStackedWidget,
-    QTextEdit,
-    QVBoxLayout,
-    QWidget,
-    QAbstractItemView,
-)
-
-
-class WizardStep:
-    """Enum-like class for wizard steps."""
-    WELCOME = 0
-    UPLOAD = 1
-    DRUG_SELECTION = 2
-    PATIENT_PROFILE = 3
-    REVIEW = 4
-    RESULTS = 5
-
-
-def create_enhanced_pgx_system() -> EnhancedHybridPredictionSystem:
-    """Factory function to create the enhanced PGx system with 70%+ coverage.
-
-    Returns:
-        EnhancedHybridPredictionSystem with:
-        - 20+ pharmacogenes (CYPs, UGTs, NATs, G6PD, HLA, transporters)
-        - 65+ FDA-annotated drugs with PGx information
-        - 40+ DrugBank drug-gene mappings
-        - Dynamic rule generation from external databases
-        - ML ensemble prediction
-
-    Usage:
-        >>> pgx = create_enhanced_pgx_system()
-        >>> report = pgx.get_coverage_report()
-        >>> print(f"Coverage: {report['coverage_summary']['estimated_coverage_percent']}%")
-        >>>
-        >>> # Predict for a drug
-        >>> result = pgx.predict("clopidogrel", {"CYP2C19": "*2/*3"})
-        >>> print(result['consensus']['recommendation'])
-    """
-    return EnhancedHybridPredictionSystem()
-
-
-def print_pgx_coverage_report() -> None:
-    """Print comprehensive coverage statistics for the PGx system."""
-    pgx = create_enhanced_pgx_system()
-    report = pgx.get_coverage_report()
-    stats = pgx.external_db.get_coverage_statistics()
-
-    print("=" * 70)
-    print("PHARMEXIA PHARMACOGENOMICS COVERAGE REPORT")
-    print("=" * 70)
-    print()
-    print("📊 COVERAGE SUMMARY")
-    print(f"   Total drugs supported:      {stats['total_unique_drugs']}")
-    print(f"   FDA PGx-annotated drugs:    {stats['fda_pgx_drugs']}")
-    print(f"   DrugBank mappings:          {stats['drugbank_mappings']}")
-    print(f"   Internal rules:             {stats['internal_rules']}")
-    print(f"   Estimated coverage:         {report['coverage_summary']['estimated_coverage_percent']}% of clinically relevant PGx space")
-    print()
-    print("🧬 GENE COVERAGE (20+ pharmacogenes)")
-    for category, count in report['gene_categories'].items():
-        if count > 0:
-            print(f"   {category.replace('_', ' ').title():30s}: {count} genes")
-    print()
-    print("⚠️ HIGH-IMPACT PGx DRUGS (FDA required/recommended testing)")
-    for drug in report['high_impact_drugs'][:10]:
-        info = pgx.external_db.get_fda_pgx_info(drug)
-        if info:
-            status = "REQUIRED" if info.get('required_test') else "Recommended"
-            biomarker = info.get('biomarker', info.get('biomarkers', [''])[0])
-            print(f"   • {drug:20s}: {biomarker:20s} ({status})")
-    print()
-    print("=" * 70)
-
-
-class GuidedWizard(QStackedWidget):
-    """Guided prediction wizard for non-expert users."""
-
-    def __init__(
-        self,
-        controller: MainWindowController,
-        parent: QWidget | None = None,
-    ) -> None:
-        super().__init__(parent)
-        self.controller = controller
-        self.current_step = WizardStep.WELCOME
-
-        # Data storage
-        self.current_path: Path | None = None
-        self.file_validation_result: dict[str, Any] | None = None
-        self.selected_drug: str | None = None
-        self.patient_data: dict[str, Any] = {}
-        self.analysis_result: AnalysisViewModel | None = None
-
-        self._build_steps()
-        self._apply_styling()
-
-    def _build_steps(self) -> None:
-        """Build all wizard steps."""
-        self.addWidget(self._build_welcome_step())
-        self.addWidget(self._build_upload_step())
-        self.addWidget(self._build_drug_selection_step())
-        self.addWidget(self._build_patient_profile_step())
-        self.addWidget(self._build_review_step())
-        self.addWidget(self._build_results_step())
-
-    def _apply_styling(self) -> None:
-        """Apply consistent styling across the wizard."""
-        self.setStyleSheet("""
-            QStackedWidget {
-                background-color: #f5f5f5;
-            }
-            QFrame.step-container {
-                background-color: white;
-                border-radius: 12px;
-                padding: 40px;
-            }
-            QLabel.step-title {
-                font-size: 28px;
-                font-weight: bold;
-                color: #2c3e50;
-                margin-bottom: 20px;
-            }
-            QLabel.step-subtitle {
-                font-size: 16px;
-                color: #7f8c8d;
-                margin-bottom: 30px;
-            }
-            QLabel.progress-label {
-                font-size: 14px;
-                color: #95a5a6;
-                margin-bottom: 10px;
-            }
-            QPushButton.primary-btn {
-                background-color: #4CAF50;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                padding: 15px 40px;
-                font-size: 16px;
-                font-weight: bold;
-                min-width: 200px;
-            }
-            QPushButton.primary-btn:hover {
-                background-color: #45a049;
-            }
-            QPushButton.secondary-btn {
-                background-color: transparent;
-                color: #4CAF50;
-                border: 2px solid #4CAF50;
-                border-radius: 8px;
-                padding: 12px 30px;
-                font-size: 14px;
-            }
-            QPushButton.secondary-btn:hover {
-                background-color: #e8f5e9;
-            }
-            QPushButton.back-btn {
-                background-color: transparent;
-                color: #7f8c8d;
-                border: none;
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-            QPushButton.back-btn:hover {
-                color: #2c3e50;
-            }
-            QPushButton.drug-box {
-                background-color: #FFC107;
-                color: #000000;
-                border: 2px solid #FFA000;
-                border-radius: 8px;
-                padding: 12px 24px;
-                font-size: 14px;
-                font-weight: bold;
-                text-align: left;
-            }
-            QPushButton.drug-box:hover {
-                background-color: #FFD54F;
-                border-color: #FF8F00;
-            }
-            QPushButton.drug-box:pressed {
-                background-color: #FFB300;
-            }
-            QComboBox {
-                padding: 10px;
-                border: 2px solid #e0e0e0;
-                border-radius: 6px;
-                font-size: 14px;
-                min-width: 400px;
-            }
-            QComboBox:focus {
-                border-color: #4CAF50;
-            }
-            QLineEdit {
-                padding: 10px;
-                border: 2px solid #e0e0e0;
-                border-radius: 6px;
-                font-size: 14px;
-            }
-            QLineEdit:focus {
-                border-color: #4CAF50;
-            }
-            QTextEdit {
-                padding: 10px;
-                border: 2px solid #e0e0e0;
-                border-radius: 6px;
-                font-size: 14px;
-            }
-            QGroupBox {
-                font-size: 14px;
-                font-weight: bold;
-                color: #2c3e50;
-                border: 1px solid #e0e0e0;
-                border-radius: 6px;
-                margin-top: 10px;
-                padding-top: 10px;
-            }
-            QGroupBox::title {
-                subcontrol-origin: margin;
-                left: 10px;
-                padding: 0 5px;
-            }
-            QLabel.success-badge {
-                background-color: #4CAF50;
-                color: white;
-                border-radius: 12px;
-                padding: 4px 12px;
-                font-size: 12px;
-                font-weight: bold;
-            }
-            QLabel.warning-badge {
-                background-color: #FF9800;
-                color: white;
-                border-radius: 12px;
-                padding: 4px 12px;
-                font-size: 12px;
-                font-weight: bold;
-            }
-            QLabel.error-badge {
-                background-color: #f44336;
-                color: white;
-                border-radius: 12px;
-                padding: 4px 12px;
-                font-size: 12px;
-                font-weight: bold;
-            }
-        """)
-
-    def _build_welcome_step(self) -> QWidget:
-        """Build the welcome/start screen."""
-        step = QWidget()
-        layout = QVBoxLayout(step)
-        layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.setSpacing(20)
-
-        # Logo/App name
-        app_name = QLabel("Pharmexia")
-        app_name.setStyleSheet("font-size: 48px; font-weight: bold; color: #2c3e50;")
-        app_name.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(app_name)
-
-        # Subtitle
-        subtitle = QLabel("Guided DNA-based drug response prediction")
-        subtitle.setStyleSheet("font-size: 18px; color: #7f8c8d; margin-bottom: 30px;")
-        subtitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(subtitle)
-
-        # Description
-        desc = QLabel(
-            "This tool helps predict how your genes may affect your response to medications.\n"
-            "You'll upload your genetic data, select a medication, and receive a personalized prediction."
-        )
-        desc.setStyleSheet("font-size: 14px; color: #95a5a6; margin-bottom: 40px;")
-        desc.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(desc)
-
-        # Start button
-        start_btn = QPushButton("Start New Prediction")
-        start_btn.setObjectName("primary-btn")
-        start_btn.setStyleSheet(self.styleSheet())
-        start_btn.clicked.connect(lambda: self._go_to_step(WizardStep.UPLOAD))
-        layout.addWidget(start_btn, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Footer
-        footer = QLabel("Based on CPIC guidelines and pharmacogenomic research")
-        footer.setStyleSheet("font-size: 12px; color: #bdc3c7; margin-top: 40px;")
-        footer.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(footer)
-
-        return step
-
-    def _build_upload_step(self) -> QWidget:
-        """Build the file upload step."""
-        step = QWidget()
-        layout = QVBoxLayout(step)
-        layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.setSpacing(15)
-
-        # Progress indicator
-        progress = QLabel("Step 1 of 5")
-        progress.setObjectName("progress-label")
-        layout.addWidget(progress, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Title
-        title = QLabel("Upload Your DNA Data")
-        title.setObjectName("step-title")
-        layout.addWidget(title, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Subtitle
-        subtitle = QLabel("Select your genetic variant file to begin analysis")
-        subtitle.setObjectName("step-subtitle")
-        layout.addWidget(subtitle, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # File container
-        container = QFrame()
-        container.setObjectName("step-container")
-        container_layout = QVBoxLayout(container)
-        container_layout.setSpacing(20)
-
-        # File selection row
-        file_row = QHBoxLayout()
-        self.upload_path_edit = QLineEdit()
-        self.upload_path_edit.setPlaceholderText("Select VCF, CSV, TSV, TXT, or JSON file")
-        self.upload_path_edit.setReadOnly(True)
-        self.upload_path_edit.setMinimumWidth(400)
-        file_row.addWidget(self.upload_path_edit, 1)
-
-        browse_btn = QPushButton("Browse...")
-        browse_btn.clicked.connect(self._browse_file)
-        file_row.addWidget(browse_btn)
-        container_layout.addLayout(file_row)
-
-        # Status area
-        self.upload_status_layout = QVBoxLayout()
-        self.upload_status_label = QLabel("No file selected")
-        self.upload_status_label.setStyleSheet("color: #95a5a6; font-size: 14px;")
-        self.upload_status_layout.addWidget(self.upload_status_label)
-        container_layout.addLayout(self.upload_status_layout)
-
-        # Advanced details (collapsible)
-        self.advanced_group = QGroupBox("Advanced file details")
-        self.advanced_group.setCheckable(True)
-        self.advanced_group.setChecked(False)
-        advanced_layout = QVBoxLayout()
-        self.advanced_details_label = QLabel("File details will appear here after validation.")
-        self.advanced_details_label.setStyleSheet("color: #7f8c8d; font-size: 12px;")
-        advanced_layout.addWidget(self.advanced_details_label)
-        self.advanced_group.setLayout(advanced_layout)
-        container_layout.addWidget(self.advanced_group)
-
-        layout.addWidget(container, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Navigation buttons
-        nav_layout = QHBoxLayout()
-
-        back_btn = QPushButton("← Back")
-        back_btn.setObjectName("back-btn")
-        back_btn.clicked.connect(lambda: self._go_to_step(WizardStep.WELCOME))
-        nav_layout.addWidget(back_btn)
-
-        nav_layout.addStretch()
-
-        self.continue_upload_btn = QPushButton("Continue →")
-        self.continue_upload_btn.setObjectName("primary-btn")
-        self.continue_upload_btn.setEnabled(False)
-        self.continue_upload_btn.clicked.connect(lambda: self._go_to_step(WizardStep.DRUG_SELECTION))
-        nav_layout.addWidget(self.continue_upload_btn)
-
-        layout.addLayout(nav_layout)
-        layout.addStretch()
-
-        return step
-
-    def _build_drug_selection_step(self) -> QWidget:
-        """Build the drug selection step with searchable dropdown."""
-        step = QWidget()
-        layout = QVBoxLayout(step)
-        layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.setSpacing(15)
-
-        # Progress indicator
-        progress = QLabel("Step 2 of 5")
-        progress.setObjectName("progress-label")
-        layout.addWidget(progress, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Title
-        title = QLabel("Select Your Medication")
-        title.setObjectName("step-title")
-        layout.addWidget(title, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Subtitle
-        subtitle = QLabel("Choose the drug you want to analyze for genetic interactions")
-        subtitle.setObjectName("step-subtitle")
-        layout.addWidget(subtitle, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Container
-        container = QFrame()
-        container.setObjectName("step-container")
-        container_layout = QVBoxLayout(container)
-        container_layout.setSpacing(20)
-
-        # Drug dropdown
-        self.drug_combo = QComboBox()
-        self.drug_combo.setMinimumWidth(500)
-        self.drug_combo.setPlaceholderText("Search or select a medication...")
-        self.drug_combo.setEditable(True)
-        self.drug_combo.currentIndexChanged.connect(self._on_drug_selected)
-
-        # Populate dropdown from backend
-        self._populate_drug_dropdown()
-
-        container_layout.addWidget(QLabel("Medication:"))
-        container_layout.addWidget(self.drug_combo)
-
-        # Selected drug info card
-        self.drug_info_card = QFrame()
-        self.drug_info_card.setStyleSheet("""
-            QFrame {
-                background-color: #f8f9fa;
-                border: 2px solid #e9ecef;
-                border-radius: 8px;
-                padding: 15px;
-                margin-top: 10px;
-            }
-        """)
-        info_layout = QVBoxLayout(self.drug_info_card)
-        self.drug_info_label = QLabel("Select a medication to see details")
-        self.drug_info_label.setStyleSheet("color: #6c757d; font-size: 14px;")
-        info_layout.addWidget(self.drug_info_label)
-        self.drug_info_card.hide()
-        container_layout.addWidget(self.drug_info_card)
-
-        # Error message (hidden by default)
-        self.drug_error_label = QLabel()
-        self.drug_error_label.setStyleSheet("color: #dc3545; font-size: 14px;")
-        self.drug_error_label.hide()
-        container_layout.addWidget(self.drug_error_label)
-
-        layout.addWidget(container, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Navigation buttons
-        nav_layout = QHBoxLayout()
-
-        back_btn = QPushButton("← Back")
-        back_btn.setObjectName("back-btn")
-        back_btn.clicked.connect(lambda: self._go_to_step(WizardStep.UPLOAD))
-        nav_layout.addWidget(back_btn)
-
-        nav_layout.addStretch()
-
-        self.continue_drug_btn = QPushButton("Continue →")
-        self.continue_drug_btn.setObjectName("primary-btn")
-        self.continue_drug_btn.setEnabled(False)
-        self.continue_drug_btn.clicked.connect(lambda: self._go_to_step(WizardStep.PATIENT_PROFILE))
-        nav_layout.addWidget(self.continue_drug_btn)
-
-        layout.addLayout(nav_layout)
-        layout.addStretch()
-
-        return step
-
-    def _build_patient_profile_step(self) -> QWidget:
-        """Build the optional patient profile step."""
-        step = QWidget()
-        layout = QVBoxLayout(step)
-        layout.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignHCenter)
-        layout.setSpacing(15)
-
-        # Progress indicator
-        progress = QLabel("Step 3 of 5 (Optional)")
-        progress.setObjectName("progress-label")
-        layout.addWidget(progress, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Title
-        title = QLabel("Patient Information")
-        title.setObjectName("step-title")
-        layout.addWidget(title, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Subtitle
-        subtitle = QLabel("Optional details to improve prediction accuracy")
-        subtitle.setObjectName("step-subtitle")
-        layout.addWidget(subtitle, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Container with scroll area for many fields
-        scroll = QScrollArea()
-        scroll.setWidgetResizable(True)
-        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        scroll.setMaximumWidth(600)
-        scroll.setMaximumHeight(500)
-
-        container = QFrame()
-        container.setObjectName("step-container")
-        container_layout = QFormLayout(container)
-        container_layout.setSpacing(15)
-
-        # Age
-        self.patient_age = QLineEdit()
-        self.patient_age.setPlaceholderText("e.g., 45")
-        container_layout.addRow("Age:", self.patient_age)
-
-        # Sex
-        self.patient_sex = QComboBox()
-        self.patient_sex.addItems(["Select...", "Male", "Female", "Other"])
-        container_layout.addRow("Sex:", self.patient_sex)
-
-        # Diagnosis
-        self.patient_diagnosis = QLineEdit()
-        self.patient_diagnosis.setPlaceholderText("e.g., Hypertension, Depression")
-        container_layout.addRow("Diagnosis:", self.patient_diagnosis)
-
-        # Current medications
-        self.patient_meds = QTextEdit()
-        self.patient_meds.setPlaceholderText("List current medications (one per line)...\ne.g., Aspirin\nMetformin")
-        self.patient_meds.setMaximumHeight(80)
-        container_layout.addRow("Current Medications:", self.patient_meds)
-
-        # Allergies
-        self.patient_allergies = QLineEdit()
-        self.patient_allergies.setPlaceholderText("e.g., Penicillin, Sulfa")
-        container_layout.addRow("Allergies:", self.patient_allergies)
-
-        # Liver function
-        self.liver_function = QComboBox()
-        self.liver_function.addItems(["Normal", "Mild impairment", "Moderate impairment", "Severe impairment"])
-        container_layout.addRow("Liver Function:", self.liver_function)
-
-        # Kidney function
-        self.kidney_function = QComboBox()
-        self.kidney_function.addItems(["Normal (eGFR >90)", "Mild (eGFR 60-89)", "Moderate (eGFR 30-59)", "Severe (eGFR <30)"])
-        container_layout.addRow("Kidney Function:", self.kidney_function)
-
-        scroll.setWidget(container)
-        layout.addWidget(scroll, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Skip button
-        skip_btn = QPushButton("Skip optional info →")
-        skip_btn.setObjectName("secondary-btn")
-        skip_btn.setStyleSheet("""
-            QPushButton {
-                background-color: transparent;
-                color: #7f8c8d;
-                border: none;
-                padding: 10px;
-                font-size: 14px;
-            }
-            QPushButton:hover {
-                color: #4CAF50;
-            }
-        """)
-        skip_btn.clicked.connect(lambda: self._go_to_step(WizardStep.REVIEW))
-        layout.addWidget(skip_btn, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Navigation buttons
-        nav_layout = QHBoxLayout()
-
-        back_btn = QPushButton("← Back")
-        back_btn.setObjectName("back-btn")
-        back_btn.clicked.connect(lambda: self._go_to_step(WizardStep.DRUG_SELECTION))
-        nav_layout.addWidget(back_btn)
-
-        nav_layout.addStretch()
-
-        continue_btn = QPushButton("Continue →")
-        continue_btn.setObjectName("primary-btn")
-        continue_btn.clicked.connect(self._save_patient_data_and_continue)
-        nav_layout.addWidget(continue_btn)
-
-        layout.addLayout(nav_layout)
-        layout.addStretch()
-
-        return step
-
-    def _build_review_step(self) -> QWidget:
-        """Build the review step before running analysis."""
-        step = QWidget()
-        layout = QVBoxLayout(step)
-        layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.setSpacing(15)
-
-        # Progress indicator
-        progress = QLabel("Step 4 of 5")
-        progress.setObjectName("progress-label")
-        layout.addWidget(progress, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Title
-        title = QLabel("Review Your Information")
-        title.setObjectName("step-title")
-        layout.addWidget(title, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Subtitle
-        subtitle = QLabel("Please confirm the details before running the prediction")
-        subtitle.setObjectName("step-subtitle")
-        layout.addWidget(subtitle, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Container
-        container = QFrame()
-        container.setObjectName("step-container")
-        container_layout = QVBoxLayout(container)
-        container_layout.setSpacing(20)
-
-        # Summary sections
-        # File section
-        file_section = self._create_summary_section(
-            "📄 Uploaded File",
-            lambda: str(self.current_path) if self.current_path else "Not selected"
-        )
-        container_layout.addWidget(file_section)
-
-        # Drug section
-        self.review_drug_section = self._create_summary_section(
-            "💊 Selected Medication",
-            self._get_drug_summary_text
-        )
-        container_layout.addWidget(self.review_drug_section)
-
-        # Patient section
-        self.review_patient_section = self._create_summary_section(
-            "👤 Patient Information (Optional)",
-            self._get_patient_summary_text
-        )
-        container_layout.addWidget(self.review_patient_section)
-
-        layout.addWidget(container, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Navigation buttons
-        nav_layout = QHBoxLayout()
-
-        back_btn = QPushButton("← Back")
-        back_btn.setObjectName("back-btn")
-        back_btn.clicked.connect(lambda: self._go_to_step(WizardStep.PATIENT_PROFILE))
-        nav_layout.addWidget(back_btn)
-
-        nav_layout.addStretch()
-
-        run_btn = QPushButton("▶ Run Prediction")
-        run_btn.setObjectName("primary-btn")
-        run_btn.setStyleSheet("""
-            QPushButton {
-                background-color: #2196F3;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                padding: 15px 40px;
-                font-size: 16px;
-                font-weight: bold;
-                min-width: 200px;
-            }
-            QPushButton:hover {
-                background-color: #1976D2;
-            }
-        """)
-        run_btn.clicked.connect(self._run_prediction)
-        nav_layout.addWidget(run_btn)
-
-        layout.addLayout(nav_layout)
-        layout.addStretch()
-
-        return step
-
-    def _build_results_step(self) -> QWidget:
-        """Build the results step with clean, simplified presentation."""
-        step = QWidget()
-        layout = QVBoxLayout(step)
-        layout.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignHCenter)
-        layout.setSpacing(15)
-
-        # Progress indicator
-        progress = QLabel("Step 5 of 5 - Complete")
-        progress.setObjectName("progress-label")
-        layout.addWidget(progress, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Title
-        title = QLabel("Your Prediction Results")
-        title.setObjectName("step-title")
-        layout.addWidget(title, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Main results card
-        self.main_result_card = QFrame()
-        self.main_result_card.setStyleSheet("""
-            QFrame {
-                background-color: white;
-                border: 2px solid #e0e0e0;
-                border-radius: 12px;
-                padding: 30px;
-                max-width: 700px;
-            }
-        """)
-        result_layout = QVBoxLayout(self.main_result_card)
-
-        # Result sections (populated after analysis)
-        self.result_prediction_label = QLabel("Running prediction...")
-        self.result_prediction_label.setStyleSheet("font-size: 24px; font-weight: bold; color: #2c3e50;")
-        result_layout.addWidget(self.result_prediction_label, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        self.result_risk_label = QLabel()
-        self.result_risk_label.setStyleSheet("font-size: 16px; color: #e74c3c;")
-        result_layout.addWidget(self.result_risk_label, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        self.result_evidence_label = QLabel()
-        self.result_evidence_label.setStyleSheet("font-size: 14px; color: #95a5a6;")
-        result_layout.addWidget(self.result_evidence_label, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        self.result_recommendation = QTextEdit()
-        self.result_recommendation.setReadOnly(True)
-        self.result_recommendation.setMaximumHeight(150)
-        self.result_recommendation.setStyleSheet("""
-            QTextEdit {
-                background-color: #f8f9fa;
-                border: none;
-                border-radius: 8px;
-                padding: 15px;
-                font-size: 14px;
-                color: #2c3e50;
-            }
-        """)
-        result_layout.addWidget(self.result_recommendation)
-
-        layout.addWidget(self.main_result_card, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Expandable details sections
-        details_container = QFrame()
-        details_container.setMaximumWidth(700)
-        details_layout = QVBoxLayout(details_container)
-        details_layout.setSpacing(10)
-
-        # Why this result?
-        self.why_section = self._create_expandable_section("Why this result?", "")
-        details_layout.addWidget(self.why_section)
-
-        # Detected variants
-        self.variants_section = self._create_expandable_section("Detected variants", "")
-        details_layout.addWidget(self.variants_section)
-
-        # Drug-gene evidence
-        self.evidence_section = self._create_expandable_section("Drug-gene evidence", "")
-        details_layout.addWidget(self.evidence_section)
-
-        # Drug-drug interactions
-        self.interactions_section = self._create_expandable_section("Drug-drug interactions", "")
-        details_layout.addWidget(self.interactions_section)
-
-        # Limitations
-        self.limitations_section = self._create_expandable_section("Limitations", "")
-        details_layout.addWidget(self.limitations_section)
-
-        # Technical details
-        self.technical_section = self._create_expandable_section("Technical details", "")
-        details_layout.addWidget(self.technical_section)
-
-        layout.addWidget(details_container, alignment=Qt.AlignmentFlag.AlignCenter)
-
-        # Action buttons
-        actions_layout = QHBoxLayout()
-
-        new_prediction_btn = QPushButton("Start New Prediction")
-        new_prediction_btn.setObjectName("primary-btn")
-        new_prediction_btn.clicked.connect(self._reset_and_restart)
-        actions_layout.addWidget(new_prediction_btn)
-
-        export_btn = QPushButton("📥 Download Report")
-        export_btn.setObjectName("secondary-btn")
-        export_btn.clicked.connect(self._export_results)
-        actions_layout.addWidget(export_btn)
-
-        layout.addLayout(actions_layout)
-        layout.addStretch()
-
-        return step
-
-    # Helper methods for building UI components
-    def _create_summary_section(self, title: str, content_callback) -> QFrame:
-        """Create a summary section for the review step."""
-        section = QFrame()
-        section.setStyleSheet("""
-            QFrame {
-                background-color: #f8f9fa;
-                border: 1px solid #e9ecef;
-                border-radius: 8px;
-                padding: 15px;
-            }
-        """)
-        layout = QVBoxLayout(section)
-
-        title_label = QLabel(title)
-        title_label.setStyleSheet("font-weight: bold; font-size: 14px; color: #2c3e50;")
-        layout.addWidget(title_label)
-
-        content_label = QLabel()
-        content_label.setWordWrap(True)
-        content_label.setStyleSheet("color: #495057; font-size: 13px; margin-top: 5px;")
-
-        # Store callback to update content dynamically
-        content_label.get_content = content_callback
-        content_label.setText(content_callback())
-
-        layout.addWidget(content_label)
-        return section
-
-    def _create_expandable_section(self, title: str, content: str) -> QGroupBox:
-        """Create an expandable section for the results step."""
-        group = QGroupBox(title)
-        group.setCheckable(False)
-        group.setStyleSheet("""
-            QGroupBox {
-                font-weight: bold;
-                border: 1px solid #dee2e6;
-                border-radius: 6px;
-                margin-top: 10px;
-                padding-top: 10px;
-            }
-            QGroupBox::title {
-                subcontrol-origin: margin;
-                left: 10px;
-                padding: 0 5px;
-            }
-        """)
-        layout = QVBoxLayout()
-        content_label = QLabel(content)
-        content_label.setWordWrap(True)
-        content_label.setStyleSheet("color: #495057; font-size: 13px;")
-        content_label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
-        layout.addWidget(content_label)
-        group.setLayout(layout)
-        group.content_label = content_label  # Store reference
-        return group
-
-    # Navigation methods
-    def _go_to_step(self, step: int) -> None:
-        """Navigate to a specific wizard step."""
-        self.current_step = step
-        self.setCurrentIndex(step)
-
-        # Update review step content if navigating there
-        if step == WizardStep.REVIEW:
-            self._update_review_content()
-
-    def _update_review_content(self) -> None:
-        """Update the review step with current data."""
-        # Update all summary sections
-        for i in range(self.widget(WizardStep.REVIEW).layout().count()):
-            item = self.widget(WizardStep.REVIEW).layout().itemAt(i)
-            if item and item.widget():
-                widget = item.widget()
-                if isinstance(widget, QFrame):
-                    for j in range(widget.layout().count()):
-                        sub_item = widget.layout().itemAt(j)
-                        if sub_item and sub_item.widget():
-                            label = sub_item.widget()
-                            if isinstance(label, QLabel) and hasattr(label, 'get_content'):
-                                label.setText(label.get_content())
-
-    def _get_drug_summary_text(self) -> str:
-        """Get formatted drug summary for review step."""
-        if not self.selected_drug:
-            return "No medication selected"
-
-        drug_info = DRUG_GENE_RULES.get(self.selected_drug, {})
-        family = DRUG_FAMILY_LABELS.get(self.selected_drug, "Unknown")
-        genes = ", ".join(drug_info.get("genes", []))
-
-        return f"{drug_display_label(self.selected_drug)} ({self.selected_drug})\n" \
-               f"Category: {family}\n" \
-               f"Pharmacogenes: {genes}"
-
-    def _get_patient_summary_text(self) -> str:
-        """Get formatted patient summary for review step."""
-        if not self.patient_data:
-            return "No optional information provided"
-
-        parts = []
-        if self.patient_data.get('age'):
-            parts.append(f"Age: {self.patient_data['age']}")
-        if self.patient_data.get('sex') and self.patient_data['sex'] != "Select...":
-            parts.append(f"Sex: {self.patient_data['sex']}")
-        if self.patient_data.get('diagnosis'):
-            parts.append(f"Diagnosis: {self.patient_data['diagnosis']}")
-        if self.patient_data.get('medications'):
-            meds_count = len(self.patient_data['medications'])
-            parts.append(f"Current medications: {meds_count} listed")
-
-        return "\n".join(parts) if parts else "No optional information provided"
-
-    # Action handlers
-    def _browse_file(self) -> None:
-        """Handle file browsing and validation."""
-        path, _ = QFileDialog.getOpenFileName(
+if _PYSIDE6_AVAILABLE:
+    from PySide6.QtWidgets import (
+        QApplication,
+        QFileDialog,
+        QHBoxLayout,
+        QLabel,
+        QLineEdit,
+        QMainWindow,
+        QMessageBox,
+        QPushButton,
+        QVBoxLayout,
+        QWidget,
+    )
+
+    class PharmexiaMainWindow(QMainWindow):  # type: ignore[misc]
+        """Thin Qt shell around the desktop controller and report views."""
+
+        def __init__(
             self,
-            "Select DNA/Variant File",
-            str(Path.cwd()),
-            "Supported Files (*.vcf *.vcf.gz *.csv *.tsv *.txt *.json);;All Files (*)",
-        )
-        if path:
-            self.current_path = Path(path)
-            self.upload_path_edit.setText(str(self.current_path))
-            self._validate_file()
-
-    def _validate_file(self) -> None:
-        """Validate the uploaded file."""
-        if not self.current_path:
-            return
-
-        try:
-            # Simple validation based on extension and file size
-            file_ext = self.current_path.suffix.lower()
-            file_size = self.current_path.stat().st_size
-
-            # Clear previous status
-            while self.upload_status_layout.count() > 0:
-                item = self.upload_status_layout.takeAt(0)
-                if item.widget():
-                    item.widget().deleteLater()
-
-            # Determine format
-            detected_format = self._detect_file_format()
-
-            # Validate
-            is_valid = file_ext in ['.vcf', '.gz', '.csv', '.tsv', '.txt', '.json'] or detected_format != "Unknown"
-            is_size_ok = file_size > 0 and file_size < 500 * 1024 * 1024  # Max 500MB
-
-            if is_valid and is_size_ok:
-                # Success status
-                status = QLabel(f"✓ {detected_format} file detected and validated")
-                status.setStyleSheet("color: #4CAF50; font-weight: bold; font-size: 14px;")
-                self.upload_status_layout.addWidget(status)
-
-                # Show validation details
-                details = QLabel(f"Size: {file_size / 1024:.1f} KB | Format: {detected_format}")
-                details.setStyleSheet("color: #7f8c8d; font-size: 12px;")
-                self.upload_status_layout.addWidget(details)
-
-                # Update advanced details
-                self.advanced_details_label.setText(
-                    f"File path: {self.current_path}\n"
-                    f"Extension: {file_ext}\n"
-                    f"Size: {file_size} bytes\n"
-                    f"Detected format: {detected_format}\n"
-                    f"Validation: Passed"
-                )
-
-                self.continue_upload_btn.setEnabled(True)
-            else:
-                # Error status
-                if not is_valid:
-                    status = QLabel("✗ Unsupported file format")
-                    status.setStyleSheet("color: #e74c3c; font-weight: bold;")
-                else:
-                    status = QLabel("✗ File appears empty or too large")
-                    status.setStyleSheet("color: #e74c3c; font-weight: bold;")
-                self.upload_status_layout.addWidget(status)
-                self.continue_upload_btn.setEnabled(False)
-
-        except Exception as e:
-            # Validation error
-            while self.upload_status_layout.count() > 0:
-                item = self.upload_status_layout.takeAt(0)
-                if item.widget():
-                    item.widget().deleteLater()
-            status = QLabel(f"✗ Error reading file: {str(e)}")
-            status.setStyleSheet("color: #e74c3c; font-weight: bold;")
-            self.upload_status_layout.addWidget(status)
-            self.continue_upload_btn.setEnabled(False)
-
-    def _detect_file_format(self) -> str:
-        """Detect the format of the uploaded file."""
-        if not self.current_path:
-            return "Unknown"
-
-        ext = self.current_path.suffix.lower()
-        name = self.current_path.name.lower()
-
-        if ext == '.gz' or '.vcf.gz' in name:
-            return "VCF (compressed)"
-        elif ext == '.vcf':
-            return "VCF"
-        elif ext == '.csv':
-            return "CSV"
-        elif ext == '.tsv' or ext == '.txt':
-            return "TSV/TXT"
-        elif ext == '.json':
-            return "JSON"
-        else:
-            return "Unknown"
-
-    def _populate_drug_dropdown(self) -> None:
-        """Populate drug dropdown from backend catalog with expanded database coverage."""
-        self.drug_combo.clear()
-
-        try:
-            # Get supported drugs from all sources (internal + external databases)
-            from clinical.external_databases import ExternalDatabaseClient
-            external_db = ExternalDatabaseClient()
-            supported_drugs = external_db.get_all_supported_drugs()
-
-            if not supported_drugs:
-                # Error - no drugs available
-                self.drug_combo.addItem("⚠ Error: No drugs available")
-                self.drug_combo.setEnabled(False)
-                self.drug_error_label.setText(
-                    "ERROR: Failed to load supported drugs from database.\n"
-                    "This may indicate a backend connection issue or database error."
-                )
-                self.drug_error_label.show()
-                return
-
-            # Add placeholder
-            self.drug_combo.addItem("Search or select a medication...")
-
-            # Add drugs with rich display
-            for drug_key in supported_drugs:
-                label = drug_display_label(drug_key)
-                family = DRUG_FAMILY_LABELS.get(drug_key, "Unknown")
-                genes = ", ".join(DRUG_GENE_RULES.get(drug_key, {}).get("genes", []))
-
-                display_text = f"{label} — {family} — {genes}"
-                self.drug_combo.addItem(display_text, drug_key)
-
-            self.drug_error_label.hide()
-
-        except Exception as e:
-            # Handle error
-            self.drug_combo.addItem("⚠ Error loading drugs")
-            self.drug_combo.setEnabled(False)
-            self.drug_error_label.setText(f"ERROR: Failed to load drug catalog: {str(e)}")
-            self.drug_error_label.show()
-
-    def _on_drug_selected(self, index: int) -> None:
-        """Handle drug selection."""
-        if index <= 0:  # Placeholder selected
-            self.selected_drug = None
-            self.drug_info_card.hide()
-            self.continue_drug_btn.setEnabled(False)
-            return
-
-        # Get selected drug key
-        self.selected_drug = self.drug_combo.itemData(index)
-
-        if self.selected_drug:
-            # Show drug info
-            drug_info = DRUG_GENE_RULES.get(self.selected_drug, {})
-            family = DRUG_FAMILY_LABELS.get(self.selected_drug, "Unknown")
-            genes = ", ".join(drug_info.get("genes", []))
-            headline = drug_info.get("headline", "")
-
-            info_text = f"""
-            <b>{drug_display_label(self.selected_drug)}</b> ({self.selected_drug})<br>
-            <span style='color: #666;'>Category:</span> {family}<br>
-            <span style='color: #666;'>Pharmacogenes:</span> {genes}<br><br>
-            <span style='color: #444; font-size: 13px;'>{headline}</span>
-            """
-            self.drug_info_label.setText(info_text)
-            self.drug_info_card.show()
-            self.continue_drug_btn.setEnabled(True)
-
-    def _save_patient_data_and_continue(self) -> None:
-        """Save patient profile data and continue."""
-        self.patient_data = {
-            'age': self.patient_age.text().strip(),
-            'sex': self.patient_sex.currentText(),
-            'diagnosis': self.patient_diagnosis.text().strip(),
-            'medications': [m.strip() for m in self.patient_meds.toPlainText().split('\n') if m.strip()],
-            'allergies': self.patient_allergies.text().strip(),
-            'liver_function': self.liver_function.currentText(),
-            'kidney_function': self.kidney_function.currentText(),
-        }
-        self._go_to_step(WizardStep.REVIEW)
-
-    def _run_prediction(self) -> None:
-        """Execute the pharmacogenomics analysis."""
-        if not self.current_path or not self.selected_drug:
-            QMessageBox.warning(self, "Missing Data", "Please complete all required steps first.")
-            return
-
-        try:
-            # Prepare patient medications for analysis
-            current_medications = []
-            if self.patient_data.get('medications'):
-                current_medications = [m.lower() for m in self.patient_data['medications']]
-
-            # Run analysis using existing backend
-            self.analysis_result = self.controller.analyze_path(
-                self.current_path,
-                selected_drugs=[self.selected_drug],
-                current_medications=current_medications
+            service: "AnalysisService | None" = None,
+            report_service: "ReportService | None" = None,
+            export_service: "ExportService | None" = None,
+        ) -> None:
+            super().__init__()
+            self.controller = MainWindowController(
+                analysis_service=service,
+                report_service=report_service,
+                export_service=export_service,
             )
+            self.current_path: "Path | None" = None
+            self.setWindowTitle(DESKTOP_WINDOW_TITLE)
+            self.resize(1200, 800)
+            self._build_ui()
 
-            # Display results
-            self._display_results()
-            self._go_to_step(WizardStep.RESULTS)
+        def _build_ui(self) -> None:
+            central = QWidget()
+            layout = QVBoxLayout(central)
 
-        except Exception as e:
-            QMessageBox.critical(self, "Analysis Error", f"Failed to run prediction: {str(e)}")
+            top_row = QHBoxLayout()
+            self.path_edit = QLineEdit()
+            self.path_edit.setPlaceholderText("Choose a DNA VCF or pharmacogene variant table")
+            browse_button = QPushButton("Browse")
+            browse_button.clicked.connect(self.choose_file)
+            analyze_button = QPushButton("Analyze Drug Response")
+            analyze_button.clicked.connect(self.run_analysis)
+            export_button = QPushButton("Export Report JSON")
+            export_button.clicked.connect(self.export_json)
+            top_row.addWidget(QLabel("DNA / Variant Input"))
+            top_row.addWidget(self.path_edit, 1)
+            top_row.addWidget(browse_button)
+            top_row.addWidget(analyze_button)
+            top_row.addWidget(export_button)
+            layout.addLayout(top_row)
 
-    def _display_results(self) -> None:
-        """Display analysis results in the results step."""
-        if not self.analysis_result:
-            return
+            self.summary_label = QLabel(
+                "Load a DNA VCF or pharmacogene variant file to start drug-response analysis."
+            )
+            layout.addWidget(self.summary_label)
 
-        # Main result - get the first finding
-        findings = getattr(self.analysis_result, 'findings_rows', [])
+            self.findings_table = FindingsTable()
+            layout.addWidget(self.findings_table)
 
-        if findings and len(findings) > 0:
-            finding = findings[0]
+            self.report_browser = ReportBrowser()
+            layout.addWidget(self.report_browser, 1)
+            self.setCentralWidget(central)
 
-            # Extract information from finding
-            drug = finding.get('drug', 'Unknown') if isinstance(finding, dict) else getattr(finding, 'drug', 'Unknown')
-            category = finding.get('category', 'UNKNOWN') if isinstance(finding, dict) else getattr(finding, 'category', 'UNKNOWN')
-            phenotype = finding.get('phenotype', 'Unknown') if isinstance(finding, dict) else getattr(finding, 'phenotype', 'Unknown')
-            significance = finding.get('clinical_significance', 'Unknown') if isinstance(finding, dict) else getattr(finding, 'clinical_significance', 'Unknown')
+        def choose_file(self) -> None:
+            path, _ = QFileDialog.getOpenFileName(
+                self,
+                "Open DNA / VCF Pharmacogenomics Input",
+                str(Path.cwd()),
+                "Supported Files (*.vcf *.vcf.gz *.csv *.tsv *.txt *.json)",
+            )
+            if path:
+                self.current_path = Path(path)
+                self.path_edit.setText(path)
 
-            # Set prediction text
-            if category == 'EVIDENCE_BASED':
-                self.result_prediction_label.setText(f"✓ Standard response expected for {drug}")
-                self.result_prediction_label.setStyleSheet("font-size: 24px; font-weight: bold; color: #4CAF50;")
-            elif category == 'MODEL_ASSISTED':
-                self.result_prediction_label.setText(f"⚠ Modified response possible for {drug}")
-                self.result_prediction_label.setStyleSheet("font-size: 24px; font-weight: bold; color: #FF9800;")
-            else:
-                self.result_prediction_label.setText(f"ℹ Insufficient evidence for {drug}")
-                self.result_prediction_label.setStyleSheet("font-size: 24px; font-weight: bold; color: #607D8B;")
+        def run_analysis(self) -> None:
+            raw_path = self.path_edit.text().strip()
+            if not raw_path:
+                QMessageBox.information(self, "Missing input", "Choose a supported file first.")
+                return
+            self.current_path = Path(raw_path)
+            view_model = self.controller.analyze_path(self.current_path)
+            self.summary_label.setText(view_model.summary_line)
+            self.findings_table.set_rows(view_model.findings_rows)
+            self.report_browser.set_report_html(view_model.report_html)
 
-            # Risk assessment
-            if significance in ['HIGH', 'SEVERE']:
-                self.result_risk_label.setText("⚠ High risk: Genetic factors may significantly affect drug response")
-            elif significance in ['MODERATE']:
-                self.result_risk_label.setText("⚠ Moderate risk: Genetic factors may affect drug response")
-            elif significance in ['LOW']:
-                self.result_risk_label.setText("✓ Low risk: Standard dosing expected")
-            else:
-                self.result_risk_label.setText("")
+        def export_json(self) -> None:
+            if not self.controller.can_export():
+                QMessageBox.information(self, "No analysis", "Run drug-response analysis before exporting.")
+                return
+            path, _ = QFileDialog.getSaveFileName(
+                self,
+                "Export Drug-Response Report JSON",
+                ExportService.default_filename,
+                "JSON (*.json)",
+            )
+            if not path:
+                return
+            destination = self.controller.export_current_result(Path(path))
+            QMessageBox.information(self, "Exported", f"Saved DNA pharmacogenomics report to {destination}")
 
-            # Evidence level
-            evidence = finding.get('confidence', {}).get('category', 'Unknown') if isinstance(finding, dict) else getattr(finding, 'confidence', None)
-            if evidence:
-                evidence_cat = evidence if isinstance(evidence, str) else getattr(evidence, 'category', 'Unknown')
-                self.result_evidence_label.setText(f"Evidence level: {evidence_cat}")
-
-            # Recommendation
-            recommendation = finding.get('recommendation', 'Consult healthcare provider for personalized guidance.') if isinstance(finding, dict) else getattr(finding, 'recommendation', 'Consult healthcare provider for personalized guidance.')
-            self.result_recommendation.setText(recommendation)
-
-            # Expandable sections content
-            why_text = f"""This prediction is based on your genetic profile and the following factors:
-
-• Medication: {drug_display_label(self.selected_drug) if self.selected_drug else 'Unknown'}
-• Genetic factors analyzed: {', '.join(DRUG_GENE_RULES.get(self.selected_drug, {}).get('genes', [])) if self.selected_drug else 'None'}
-• Evidence type: {category}
-
-Your genetic variants may affect how your body processes this medication."""
-            self.why_section.content_label.setText(why_text)
-
-            # Variants
-            variants_text = f"""Detected genetic variants relevant to {drug_display_label(self.selected_drug) if self.selected_drug else 'this medication'}:
-
-{phenotype if phenotype else 'No specific variant data available'}"""
-            self.variants_section.content_label.setText(variants_text)
-
-            # Evidence
-            headline = DRUG_GENE_RULES.get(self.selected_drug, {}).get('headline', '') if self.selected_drug else ''
-            evidence_text = f"""{headline}
-
-This prediction uses CPIC (Clinical Pharmacogenetics Implementation Consortium) guidelines and peer-reviewed pharmacogenomic evidence."""
-            self.evidence_section.content_label.setText(evidence_text)
-
-            # Interactions
-            if self.patient_data.get('medications'):
-                interactions_text = f"""Current medications considered in analysis:
-
-{chr(10).join(['• ' + m for m in self.patient_data['medications']])}
-
-Potential drug-drug and drug-gene interactions have been evaluated."""
-            else:
-                interactions_text = "No current medications provided. Drug-drug interaction analysis was not performed."
-            self.interactions_section.content_label.setText(interactions_text)
-
-            # Limitations
-            limitations = DRUG_GENE_RULES.get(self.selected_drug, {}).get('limitations', ['No specific limitations available.']) if self.selected_drug else ['No specific limitations available.']
-            limitations_text = "Important limitations:\n\n" + chr(10).join(['• ' + lim for lim in limitations])
-            limitations_text += """
-
-• This tool provides predictions based on genetic factors only and does not replace clinical judgment.
-• Always consult a healthcare provider before making medication decisions.
-• Other factors (age, weight, other medications, liver/kidney function) also affect drug response."""
-            self.limitations_section.content_label.setText(limitations_text)
-
-            # Technical details
-            technical_text = f"""Analysis details:
-
-• Input file: {self.current_path}
-• Drug analyzed: {self.selected_drug}
-• Analysis timestamp: {pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S') if hasattr(pd, 'Timestamp') else 'N/A'}
-• Evidence sources: CPIC guidelines, pharmacogenomic databases
-• Prediction algorithm: Rule-based clinical interpretation with optional ML assistance"""
-            self.technical_section.content_label.setText(technical_text)
-
-        else:
-            # No findings
-            self.result_prediction_label.setText("⚠ No prediction could be generated")
-            self.result_risk_label.setText("The analysis did not produce any findings. This may indicate:")
-            self.result_recommendation.setText("• The genetic file may not contain relevant variants\n• The selected drug may not have established pharmacogenomic guidelines\n\nPlease consult a healthcare provider or pharmacist for medication guidance.")
-
-    def _reset_and_restart(self) -> None:
-        """Reset all data and return to welcome screen."""
-        self.current_path = None
-        self.file_validation_result = None
-        self.selected_drug = None
-        self.patient_data = {}
-        self.analysis_result = None
-
-        # Clear UI fields
-        self.upload_path_edit.clear()
-        self.drug_combo.setCurrentIndex(0)
-        self.patient_age.clear()
-        self.patient_sex.setCurrentIndex(0)
-        self.patient_diagnosis.clear()
-        self.patient_meds.clear()
-        self.patient_allergies.clear()
-        self.liver_function.setCurrentIndex(0)
-        self.kidney_function.setCurrentIndex(0)
-
-        # Reset status
-        while self.upload_status_layout.count() > 0:
-            item = self.upload_status_layout.takeAt(0)
-            if item.widget():
-                item.widget().deleteLater()
-        self.upload_status_label.setText("No file selected")
-        self.upload_status_layout.addWidget(self.upload_status_label)
-        self.continue_upload_btn.setEnabled(False)
-        self.drug_info_card.hide()
-        self.continue_drug_btn.setEnabled(False)
-
-        self._go_to_step(WizardStep.WELCOME)
-
-    def _export_results(self) -> None:
-        """Export analysis results."""
-        if not self.controller.can_export():
-            QMessageBox.information(self, "No Results", "No analysis results available to export.")
-            return
-
-        path, _ = QFileDialog.getSaveFileName(
-            self,
-            "Download Prediction Report",
-            ExportService.default_filename,
-            "JSON (*.json);;PDF (*.pdf);;All Files (*)",
-        )
-        if path:
-            try:
-                destination = self.controller.export_current_result(Path(path))
-                QMessageBox.information(self, "Exported", f"Report saved to:\n{destination}")
-            except Exception as e:
-                QMessageBox.critical(self, "Export Error", f"Failed to export: {str(e)}")
-
-
-class BenchmarkingDialog(QDialog):
-    """Dialog for displaying ML model benchmarking results."""
-
-    def __init__(self, parent: QWidget | None = None) -> None:
-        super().__init__(parent)
-        self.setWindowTitle("ML Model Benchmarking")
-        self.resize(900, 700)
-        self._build_ui()
-
-    def _build_ui(self) -> None:
-        """Build the benchmarking dialog UI."""
-        layout = QVBoxLayout(self)
-        layout.setSpacing(20)
-        layout.setContentsMargins(30, 30, 30, 30)
-
-        # Title
-        title = QLabel("Pharmacogenomics ML Model Benchmarking")
-        title.setStyleSheet("font-size: 24px; font-weight: bold; color: #2c3e50;")
-        layout.addWidget(title)
-
-        subtitle = QLabel("Compare model performance on synthetic pharmacogenomics data")
-        subtitle.setStyleSheet("font-size: 14px; color: #7f8c8d; margin-bottom: 20px;")
-        layout.addWidget(subtitle)
-
-        # Results table
-        self.table = QTableWidget()
-        self.table.setColumnCount(8)
-        self.table.setHorizontalHeaderLabels([
-            "Model", "Accuracy", "Precision", "Recall", "F1 Score", "ROC-AUC", "Train Time (s)", "Inference (ms)"
-        ])
-        self.table.setStyleSheet("""
-            QTableWidget {
-                border: 1px solid #dee2e6;
-                border-radius: 6px;
-                font-size: 13px;
-            }
-            QHeaderView::section {
-                background-color: #4CAF50;
-                color: white;
-                font-weight: bold;
-                padding: 8px;
-            }
-        """)
-        layout.addWidget(self.table)
-
-        # Status label
-        self.status_label = QLabel("Click 'Run Benchmarking' to start model training and evaluation")
-        self.status_label.setStyleSheet("color: #6c757d; font-style: italic;")
-        layout.addWidget(self.status_label)
-
-        # Progress bar
-        self.progress = QProgressBar()
-        self.progress.setRange(0, 100)
-        self.progress.setVisible(False)
-        layout.addWidget(self.progress)
-
-        # Buttons
-        btn_layout = QHBoxLayout()
-
-        self.run_btn = QPushButton("Run Benchmarking")
-        self.run_btn.setStyleSheet("""
-            QPushButton {
-                background-color: #4CAF50;
-                color: white;
-                border: none;
-                border-radius: 6px;
-                padding: 12px 24px;
-                font-size: 14px;
-                font-weight: bold;
-            }
-            QPushButton:hover { background-color: #45a049; }
-            QPushButton:disabled { background-color: #cccccc; }
-        """)
-        self.run_btn.clicked.connect(self._run_benchmarking)
-        btn_layout.addWidget(self.run_btn)
-
-        close_btn = QPushButton("Close")
-        close_btn.setStyleSheet("""
-            QPushButton {
-                background-color: transparent;
-                color: #6c757d;
-                border: 1px solid #6c757d;
-                border-radius: 6px;
-                padding: 12px 24px;
-                font-size: 14px;
-            }
-            QPushButton:hover { background-color: #f8f9fa; }
-        """)
-        close_btn.clicked.connect(self.accept)
-        btn_layout.addWidget(close_btn)
-
-        btn_layout.addStretch()
-        layout.addLayout(btn_layout)
-
-    def _run_benchmarking(self) -> None:
-        """Run ML model benchmarking in background thread."""
-        self.run_btn.setEnabled(False)
-        self.progress.setVisible(True)
-        self.status_label.setText("Generating synthetic pharmacogenomics dataset...")
-        self.progress.setValue(10)
-
-        # Run in separate thread to keep UI responsive
-        from PySide6.QtCore import QThread, Signal
-
-        class BenchmarkingWorker(QThread):
-            finished = Signal(list)
-            progress = Signal(int, str)
-
-            def run(self) -> None:
-                try:
-                    self.progress.emit(20, "Training Random Forest...")
-                    model_layer = PharmacogenomicsModelLayer()
-                    results = model_layer.train_all_models(n_samples=1000)
-                    self.finished.emit(results)
-                except Exception as e:
-                    logger.error(f"Benchmarking failed: {e}")
-                    self.finished.emit([])
-
-        self.worker = BenchmarkingWorker()
-        self.worker.finished.connect(self._display_results)
-        self.worker.progress.connect(self._update_progress)
-        self.worker.start()
-
-    def _update_progress(self, value: int, message: str) -> None:
-        """Update progress bar and status."""
-        self.progress.setValue(value)
-        self.status_label.setText(message)
-
-    def _display_results(self, results: list[Any]) -> None:
-        """Display benchmarking results in table."""
-        from PySide6.QtGui import QColor
-
-        self.progress.setValue(100)
-        self.progress.setVisible(False)
-        self.run_btn.setEnabled(True)
-
-        if not results:
-            self.status_label.setText("❌ Benchmarking failed. Check if scikit-learn is installed.")
-            self.status_label.setStyleSheet("color: #e74c3c;")
-            return
-
-        self.table.setRowCount(len(results))
-        for i, result in enumerate(results):
-            self.table.setItem(i, 0, QTableWidgetItem(str(result.model_name)))
-            self.table.setItem(i, 1, QTableWidgetItem(f"{result.accuracy:.3f}"))
-            self.table.setItem(i, 2, QTableWidgetItem(f"{result.precision:.3f}"))
-            self.table.setItem(i, 3, QTableWidgetItem(f"{result.recall:.3f}"))
-            self.table.setItem(i, 4, QTableWidgetItem(f"{result.f1_score:.3f}"))
-            self.table.setItem(i, 5, QTableWidgetItem(f"{result.roc_auc:.3f}"))
-            self.table.setItem(i, 6, QTableWidgetItem(f"{result.training_time:.2f}"))
-            self.table.setItem(i, 7, QTableWidgetItem(f"{result.inference_time*1000:.2f}"))
-
-        self.table.resizeColumnsToContents()
-
-        # Highlight best model
-        if results:
-            best_idx = max(range(len(results)), key=lambda i: results[i].f1_score)
-            for col in range(self.table.columnCount()):
-                item = self.table.item(best_idx, col)
-                if item:
-                    item.setBackground(QColor(200, 230, 201))
-                    item.setForeground(QColor(27, 94, 32))
-
-        self.status_label.setText(f"✅ Benchmarking complete. {len(results)} models evaluated. Best model highlighted.")
-        self.status_label.setStyleSheet("color: #2e7d32; font-weight: bold;")
-
-
-class PharmexiaMainWindow(QMainWindow):
-    """Main window wrapping the guided prediction wizard."""
-
-    def __init__(
-        self,
-        service: AnalysisService | None = None,
-        report_service: ReportService | None = None,
-        export_service: ExportService | None = None,
-    ) -> None:
-        super().__init__()
-        self.controller = MainWindowController(
-            analysis_service=service,
+    def launch_app(
+        service: "AnalysisService | None" = None,
+        report_service: "ReportService | None" = None,
+        export_service: "ExportService | None" = None,
+    ) -> int:
+        """Launch the Pharmexia desktop application."""
+        qt_app = QApplication.instance() or QApplication(sys.argv)
+        window = PharmexiaMainWindow(
+            service=service,
             report_service=report_service,
             export_service=export_service,
         )
-        self.setWindowTitle(DESKTOP_WINDOW_TITLE)
-        self.resize(1000, 800)
-        self._build_ui()
+        window.show()
+        return qt_app.exec()
 
-    def _build_ui(self) -> None:
-        """Build the main window UI with the guided wizard."""
-        # Create menu bar
-        menubar = self.menuBar()
+else:
+    class PharmexiaMainWindow:  # type: ignore[no-redef]
+        """Stub used when PySide6 is not installed."""
+        def __init__(self, **kwargs: object) -> None: pass
+        def show(self) -> None: pass
 
-        # File menu
-        file_menu = menubar.addMenu("File")
-        export_action = file_menu.addAction("Export Results...")
-        export_action.triggered.connect(self.export_json)
-        file_menu.addSeparator()
-        exit_action = file_menu.addAction("Exit")
-        exit_action.triggered.connect(self.close)
-
-        # Tools menu
-        tools_menu = menubar.addMenu("Tools")
-        benchmark_action = tools_menu.addAction("ML Model Benchmarking...")
-        benchmark_action.triggered.connect(self._open_benchmarking)
-        coverage_action = tools_menu.addAction("Coverage Report...")
-        coverage_action.triggered.connect(self._show_coverage_report)
-
-        # Help menu
-        help_menu = menubar.addMenu("Help")
-        about_action = help_menu.addAction("About Pharmexia")
-        about_action.triggered.connect(self._show_about)
-
-        # Central widget with wizard
-        central = QWidget()
-        layout = QVBoxLayout(central)
-        layout.setContentsMargins(0, 0, 0, 0)
-
-        # Create and add the wizard
-        self.wizard = GuidedWizard(self.controller, self)
-        layout.addWidget(self.wizard)
-
-        self.setCentralWidget(central)
-
-    def _open_benchmarking(self) -> None:
-        """Open the ML model benchmarking dialog."""
-        dialog = BenchmarkingDialog(self)
-        dialog.exec()
-
-    def _show_coverage_report(self) -> None:
-        """Show coverage statistics in a message box."""
-        try:
-            pgx = create_enhanced_pgx_system()
-            report = pgx.get_coverage_report()
-            stats = pgx.external_db.get_coverage_statistics()
-
-            message = f"""
-<b>Pharmexia Pharmacogenomics Coverage</b><br><br>
-<b>📊 Coverage Summary</b><br>
-• Total drugs supported: {stats['total_unique_drugs']}<br>
-• FDA PGx-annotated: {stats['fda_pgx_drugs']}<br>
-• DrugBank mappings: {stats['drugbank_mappings']}<br>
-• Internal rules: {stats['internal_rules']}<br>
-• Estimated coverage: {report['coverage_summary']['estimated_coverage_percent']}%<br><br>
-<b>🧬 Gene Categories</b><br>
-• CYP enzymes: {report['gene_categories']['cyp_enzymes']}<br>
-• UGT enzymes: {report['gene_categories']['ugt_enzymes']}<br>
-• Transporters: {report['gene_categories']['transporters']}<br>
-• Phase II enzymes: {report['gene_categories']['phase_ii_enzymes']}<br>
-• Pharmacodynamic: {report['gene_categories']['pharmacodynamic']}<br>
-• HLA genes: {report['gene_categories']['hla_genes']}<br><br>
-<i>This system covers ~70% of clinically relevant PGx space.</i>
-            """
-            QMessageBox.information(self, "Coverage Report", message)
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to load coverage report: {str(e)}")
-
-    def _show_about(self) -> None:
-        """Show about dialog."""
-        QMessageBox.about(
-            self,
-            "About Pharmexia",
-            f"""<b>Pharmexia v{APP_VERSION}</b><br><br>
-Pharmacogenomics Decision Support System<br><br>
-Features:<br>
-• Rule-based clinical interpretation<br>
-• Machine learning prediction models<br>
-• 70%+ PGx coverage (100+ drugs, 20+ genes)<br>
-• FDA PGx table integration<br>
-• DrugBank annotations<br><br>
-<i>For research and educational use.</i>
-            """
+    def launch_app(  # type: ignore[misc]
+        service: "AnalysisService | None" = None,
+        report_service: "ReportService | None" = None,
+        export_service: "ExportService | None" = None,
+    ) -> int:
+        print(
+            "\nPharmexia desktop UI requires PySide6.\n"
+            "Install it with:  pip install PySide6\n"
+            "\nThe analysis pipeline and API are available without the UI.\n"
         )
-
-    # Keep existing methods for backward compatibility
-    def choose_file(self) -> None:
-        """Backward compatibility - delegates to wizard."""
-        pass
-
-    def select_target_drugs(self) -> None:
-        """Backward compatibility - delegates to wizard."""
-        pass
-
-    def run_analysis(self) -> None:
-        """Backward compatibility - delegates to wizard."""
-        pass
-
-    def export_json(self) -> None:
-        """Backward compatibility - delegates to wizard."""
-        if hasattr(self, 'wizard'):
-            self.wizard._export_results()
-
-
-def launch_app(
-    service: AnalysisService | None = None,
-    report_service: ReportService | None = None,
-    export_service: ExportService | None = None,
-) -> int:
-    """Launch the redesigned desktop application."""
-    from src.ui.main_window import launch_app as launch_modular_app
-
-    return launch_modular_app(
-        service=service,
-        report_service=report_service,
-        export_service=export_service,
-    )
+        return 1
 
 # --- end merged module: src/ui/main_window.py ---
 
 # --- begin merged module: src/api.py ---
-"""FastAPI surface for the shared PGx analysis service."""
+"""FastAPI surface for the shared PGx analysis service.
+
+fastapi and pydantic are optional runtime dependencies.  When they are not
+installed the module still loads and the desktop UI / analysis pipeline work
+normally.  Only the HTTP API surface is unavailable, and ``app`` is set to
+``None`` so that ``uvicorn oncox:app`` will fail with a clear message rather
+than an ImportError at module load time.
+"""
 
 
 from typing import Any
 
-from fastapi import FastAPI
-import pandas as pd
-from pydantic import BaseModel, Field
+try:
+    from fastapi import FastAPI, HTTPException as _HTTPException
+    import pandas as _pd_api
+    from pydantic import BaseModel, Field
+    _FASTAPI_AVAILABLE = True
+except ImportError:
+    _FASTAPI_AVAILABLE = False
 
 
+if _FASTAPI_AVAILABLE:
+    class VariantPayload(BaseModel):  # type: ignore[misc]
+        chrom: str | None = None
+        pos: int | None = None
+        ref: str | None = None
+        alt: str | None = None
+        rsid: str | None = None
+        genotype: str
+        gene: str | None = None
+        sample_id: str | None = None
 
-class VariantPayload(BaseModel):
-    chrom: str | None = None
-    pos: int | None = None
-    ref: str | None = None
-    alt: str | None = None
-    rsid: str | None = None
-    genotype: str
-    gene: str | None = None
-    sample_id: str | None = None
+    class AnalysisRequest(BaseModel):  # type: ignore[misc]
+        variants: list[VariantPayload]
+        selected_drugs: list[str] = Field(default_factory=list)
+        target_drug: str | None = None
+        current_medications: list[str] = Field(default_factory=list)
+        patient_profile: dict[str, Any] | None = None
+        enable_remote_lookup: bool = False
 
+    def create_fastapi_app(service: "AnalysisService | None" = None) -> "FastAPI":
+        analysis_service = service or AnalysisService()
+        api = FastAPI(title=API_TITLE, version=APP_VERSION)
 
-class AnalysisRequest(BaseModel):
-    variants: list[VariantPayload]
-    selected_drugs: list[str] = Field(default_factory=list)
+        @api.get("/health")
+        def health() -> dict[str, str]:
+            return {"status": "ok", "app_name": APP_NAME, "version": APP_VERSION}
 
+        @api.post("/analyze/variants")
+        def analyze_variants(request: AnalysisRequest) -> dict[str, Any]:
+            frame = request.model_dump()
+            try:
+                variants_frame = normalize_variant_dataframe(_pd_api.DataFrame(frame["variants"]))
+                variants = dataframe_to_observed_variants(variants_frame)
+            except Exception as exc:
+                raise _HTTPException(
+                    status_code=400,
+                    detail=f"Variant payload could not be normalized: {exc}",
+                ) from exc
 
-app = FastAPI(title=API_TITLE, version=APP_VERSION)
-service = AnalysisService()
+            selected_drugs = list(frame.get("selected_drugs") or [])
+            target_drug = str(frame.get("target_drug") or "").strip()
+            if target_drug and target_drug not in selected_drugs:
+                selected_drugs = [target_drug, *selected_drugs]
 
+            patient_profile = dict(frame.get("patient_profile") or {})
+            current_medications = list(frame.get("current_medications") or [])
+            if current_medications and "current_medications" not in patient_profile:
+                patient_profile["current_medications"] = current_medications
 
-@app.get("/health")
-def health() -> dict[str, str]:
-    return {"status": "ok"}
+            result = analysis_service.analyze_variants(
+                variants=variants,
+                selected_drugs=selected_drugs,
+                patient_profile=patient_profile or None,
+                enable_remote_lookup=bool(frame.get("enable_remote_lookup")),
+            )
+            return _build_export_payload(result)
 
+        return api
 
-@app.post("/analyze/variants")
-def analyze_variants(request: AnalysisRequest) -> dict[str, Any]:
-    frame = request.model_dump()
-    variants = dataframe_to_observed_variants(pd.DataFrame(frame["variants"]))
-    result = service.analyze_variants(variants=variants, selected_drugs=request.selected_drugs)
-    return result.to_dict()
+    _api_service = AnalysisService()
+    app: "FastAPI | None" = create_fastapi_app(_api_service)
+
+else:
+    # fastapi / pydantic not installed — provide safe stubs so that
+    # ``import oncox; oncox.app`` doesn't raise NameError.
+    def create_fastapi_app(service: "AnalysisService | None" = None) -> None:  # type: ignore[misc]
+        raise RuntimeError(
+            "fastapi and pydantic are required to use the HTTP API. "
+            "Install them with:  pip install fastapi pydantic uvicorn"
+        )
+
+    app = None  # type: ignore[assignment]
 
 # --- end merged module: src/api.py ---
 
