@@ -1,0 +1,2422 @@
+[
+ {
+  "gene": "CYP2C19",
+  "allele": "*38",
+  "function": "Normal function",
+  "pharmcat_phenotype_1_n": "Normal Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*2",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "partial_overlap",
+  "pharmexia_phenotype": "Intermediate Metabolizer",
+  "pharmexia_outcome": "call_matches",
+  "pharmexia_call": "*1/*2"
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*3",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "represented",
+  "pharmexia_phenotype": "Intermediate Metabolizer",
+  "pharmexia_outcome": "call_matches",
+  "pharmexia_call": "*1/*3"
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*4",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "partial_overlap",
+  "pharmexia_phenotype": "Rapid Metabolizer",
+  "pharmexia_outcome": "call_MISMATCH",
+  "pharmexia_call": "*1/*17"
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*5",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*6",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*7",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*8",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*9",
+  "function": "Decreased function",
+  "pharmcat_phenotype_1_n": "Likely Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*10",
+  "function": "Decreased function",
+  "pharmcat_phenotype_1_n": "Likely Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*11",
+  "function": "Normal function",
+  "pharmcat_phenotype_1_n": "Normal Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*12",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*13",
+  "function": "Normal function",
+  "pharmcat_phenotype_1_n": "Normal Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*14",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*15",
+  "function": "Normal function",
+  "pharmcat_phenotype_1_n": "Normal Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*16",
+  "function": "Decreased function",
+  "pharmcat_phenotype_1_n": "Likely Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*17",
+  "function": "Increased function",
+  "pharmcat_phenotype_1_n": "Rapid Metabolizer",
+  "representation": "represented",
+  "pharmexia_phenotype": "Rapid Metabolizer",
+  "pharmexia_outcome": "call_matches",
+  "pharmexia_call": "*1/*17"
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*18",
+  "function": "Normal function",
+  "pharmcat_phenotype_1_n": "Normal Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*19",
+  "function": "Decreased function",
+  "pharmcat_phenotype_1_n": "Likely Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*22",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*23",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*24",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*25",
+  "function": "Decreased function",
+  "pharmcat_phenotype_1_n": "Likely Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*26",
+  "function": "Decreased function",
+  "pharmcat_phenotype_1_n": "Likely Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*28",
+  "function": "Normal function",
+  "pharmcat_phenotype_1_n": "Normal Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*29",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*30",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*31",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*32",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*33",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*34",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*35",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*39",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*40",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C19",
+  "allele": "*41",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*2",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "represented",
+  "pharmexia_phenotype": "Intermediate Metabolizer",
+  "pharmexia_outcome": "call_matches",
+  "pharmexia_call": "*1/*2"
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*3",
+  "function": "0.0",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "represented",
+  "pharmexia_phenotype": "Intermediate Metabolizer",
+  "pharmexia_outcome": "call_matches",
+  "pharmexia_call": "*1/*3"
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*4",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*5",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*6",
+  "function": "0.0",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*7",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*8",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*9",
+  "function": "1.0",
+  "pharmcat_phenotype_1_n": "Normal Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*10",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*11",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*12",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*13",
+  "function": "0.0",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*14",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*15",
+  "function": "0.0",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*16",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*17",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*18",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "partial_overlap",
+  "pharmexia_phenotype": "Intermediate Metabolizer",
+  "pharmexia_outcome": "call_MISMATCH",
+  "pharmexia_call": "*1/*3"
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*19",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*20",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*21",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*22",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*23",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*24",
+  "function": "0.0",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*25",
+  "function": "0.0",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*26",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*27",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*28",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*29",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*30",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*31",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*32",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*33",
+  "function": "0.0",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*34",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*35",
+  "function": "0.0",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "partial_overlap",
+  "pharmexia_phenotype": "Intermediate Metabolizer",
+  "pharmexia_outcome": "call_matches",
+  "pharmexia_call": "*1/*2"
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*36",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*37",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*38",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*39",
+  "function": "0.0",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*40",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*41",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*42",
+  "function": "0.0",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*43",
+  "function": "0.0",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*44",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*45",
+  "function": "0.0",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*46",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*47",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*48",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*49",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*50",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*51",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*52",
+  "function": "0.0",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*53",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*54",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*55",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*56",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*57",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*58",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*59",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*60",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*61",
+  "function": "0.5",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "partial_overlap",
+  "pharmexia_phenotype": "Intermediate Metabolizer",
+  "pharmexia_outcome": "call_matches",
+  "pharmexia_call": "*1/*2"
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*62",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*63",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*64",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*65",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*66",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*67",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*68",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "partial_overlap",
+  "pharmexia_phenotype": "Intermediate Metabolizer",
+  "pharmexia_outcome": "call_MISMATCH",
+  "pharmexia_call": "*1/*3"
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*69",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*70",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*71",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*72",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*73",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*74",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*75",
+  "function": "n/a",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*76",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*77",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*78",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*79",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*80",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*81",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*82",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*83",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*84",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*85",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*86",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*87",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*88",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*89",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*90",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*91",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*92",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "partial_overlap",
+  "pharmexia_phenotype": "Intermediate Metabolizer",
+  "pharmexia_outcome": "call_vs_no_reference_phenotype",
+  "pharmexia_call": "*1/*2"
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*93",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "CYP2C9",
+  "allele": "*94",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*2",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "represented",
+  "pharmexia_phenotype": "Intermediate Metabolizer",
+  "pharmexia_outcome": "call_matches",
+  "pharmexia_call": "*1/*2"
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*3A",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "partial_overlap",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*3B",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*3C",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*4",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*5",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*6",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*7",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*8",
+  "function": "Decreased function",
+  "pharmcat_phenotype_1_n": "Normal Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*9",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*10",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*11",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*12",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*13",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*14",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*15",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*16",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*17",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*18",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*19",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*20",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*21",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*22",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*23",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*24",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*25",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*26",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*27",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*28",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*29",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*30",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*31",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*32",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*33",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*34",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*35",
+  "function": "Unknown function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*36",
+  "function": "Unknown function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*37",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*38",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*39",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*40",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*41",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "partial_overlap",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*42",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*43",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*44",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*45",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*46",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "TPMT",
+  "allele": "*47",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*3",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "represented",
+  "pharmexia_phenotype": "Intermediate Metabolizer",
+  "pharmexia_outcome": "call_matches",
+  "pharmexia_call": "*1/*3"
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*4",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*5",
+  "function": "Decreased function",
+  "pharmcat_phenotype_1_n": "Normal Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*6",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*7",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*8",
+  "function": "Decreased function",
+  "pharmcat_phenotype_1_n": "Normal Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*9",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*10",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*11",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*12",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*13",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*14",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*15",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*16",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*17",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*18",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*19",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Intermediate Metabolizer",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*20",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*21",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*22",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "NUDT15",
+  "allele": "*23",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*2",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*4",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*5",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Decreased Function",
+  "representation": "represented",
+  "pharmexia_phenotype": "Decreased Function",
+  "pharmexia_outcome": "call_matches",
+  "pharmexia_call": "*1/*5"
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*6",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*8",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*9",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Decreased Function",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*10",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*11",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*14",
+  "function": "Increased function",
+  "pharmcat_phenotype_1_n": "Normal Function",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*15",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Decreased Function",
+  "representation": "partial_overlap",
+  "pharmexia_phenotype": "Decreased Function",
+  "pharmexia_outcome": "call_matches",
+  "pharmexia_call": "*1/*5"
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*16",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*19",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*20",
+  "function": "Increased function",
+  "pharmcat_phenotype_1_n": "Normal Function",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*23",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Decreased Function",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*24",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*25",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*26",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*27",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*28",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*29",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*30",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*31",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Decreased Function",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*32",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*33",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*34",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*36",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*37",
+  "function": "Normal function",
+  "pharmcat_phenotype_1_n": "Normal Function",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*39",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Decreased Function",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*40",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "partial_overlap",
+  "pharmexia_phenotype": "Decreased Function",
+  "pharmexia_outcome": "call_MISMATCH",
+  "pharmexia_call": "*1/*5"
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*41",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Decreased Function",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*42",
+  "function": "Uncertain function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*43",
+  "function": "Unknown function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*44",
+  "function": "Unknown function",
+  "pharmcat_phenotype_1_n": "Indeterminate",
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*45.001",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*45.002",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "partial_overlap",
+  "pharmexia_phenotype": "Decreased Function",
+  "pharmexia_outcome": "call_vs_no_reference_phenotype",
+  "pharmexia_call": "*1/*5"
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*47",
+  "function": "No function",
+  "pharmcat_phenotype_1_n": "Decreased Function",
+  "representation": "partial_overlap",
+  "pharmexia_phenotype": "Decreased Function",
+  "pharmexia_outcome": "call_matches",
+  "pharmexia_call": "*1/*5"
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*50",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*51",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*52",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*53",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*54",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*55",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*56",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*57",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ },
+ {
+  "gene": "SLCO1B1",
+  "allele": "*58",
+  "function": "Unknown",
+  "pharmcat_phenotype_1_n": null,
+  "representation": "not_represented",
+  "pharmexia_phenotype": null,
+  "pharmexia_outcome": "inconclusive",
+  "pharmexia_call": null
+ }
+]

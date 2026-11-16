@@ -1,0 +1,67 @@
+--- oncox.py	2026-11-15 23:34:57.264316128 +0200
++++ oncox_patched.py	2026-11-16 07:23:35.032145735 +0200
+@@ -15,7 +15,7 @@
+ 
+ # ── Branding constants (formerly src/branding.py) ────────────────────────────
+ APP_NAME = "Pharmexia"
+-APP_VERSION = "2.0.0"
++APP_VERSION = "2.0.1"
+ API_TITLE = "Pharmexia PGx API"
+ DESKTOP_WINDOW_TITLE = "Pharmexia — DNA Pharmacogenomics"
+ EXPORT_BASENAME = "pharmexia_report"
+@@ -323,6 +323,35 @@
+     ],
+ }
+ 
++
++# Strand handling. Rule-file ALT alleles are written on the gene (coding) strand.
++# TPMT and VKORC1 are encoded on the reverse strand of GRCh38, so a standard VCF
++# reports these loci on the forward strand. Map: rsID -> (forward REF, forward ALT).
++FORWARD_STRAND_ALLELES: dict[str, tuple[str, str]] = {
++    "rs1800462": ("C", "G"),  # TPMT *2
++    "rs1800460": ("C", "T"),  # TPMT *3B/*3A component
++    "rs1142345": ("T", "C"),  # TPMT *3C/*3A component
++    "rs9923231": ("C", "T"),  # VKORC1 -1639G>A
++}
++_COMPLEMENT = {"A": "T", "T": "A", "C": "G", "G": "C"}
++
++
++def alt_matches_definition(variant_ref: str | None, variant_alt: str | None, definition: dict[str, Any]) -> bool:
++    """True when the observed ALT equals the rule ALT, on either the gene strand or the forward strand."""
++    if variant_alt is None:
++        return False
++    alt = str(variant_alt).upper()
++    ref = str(variant_ref).upper() if variant_ref else None
++    coding_alt = str(definition.get("alt")).upper()
++    forward = FORWARD_STRAND_ALLELES.get(str(definition.get("rsid")))
++    if forward is None:
++        return alt == coding_alt
++    fwd_ref, fwd_alt = forward
++    if alt == fwd_alt and (ref is None or ref == fwd_ref):
++        return True
++    # gene-strand notation: REF must be the complement of the forward REF when supplied
++    return alt == coding_alt and (ref is None or ref == _COMPLEMENT[fwd_ref])
++
+ RSID_TO_GENE = {
+     definition["rsid"]: gene
+     for gene, definitions in ALLELE_DEFINITIONS.items()
+@@ -2437,8 +2466,7 @@
+ def _variant_matches_definition(variant: ObservedVariant, definition: dict[str, object]) -> bool:
+     return (
+         variant.rsid == definition.get("rsid")
+-        and variant.alt is not None
+-        and str(variant.alt).upper() == str(definition.get("alt")).upper()
++        and alt_matches_definition(variant.ref, variant.alt, definition)
+         and (variant.genotype_code or 0) > 0
+     )
+ 
+@@ -3229,8 +3257,7 @@
+     for definition in ALLELE_DEFINITIONS[gene]:
+         if (
+             variant.rsid == definition.get("rsid")
+-            and variant.alt is not None
+-            and str(variant.alt).upper() == str(definition.get("alt")).upper()
++            and alt_matches_definition(variant.ref, variant.alt, definition)
+         ):
+             matches.append(
+                 AlleleMatch(

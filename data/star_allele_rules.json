@@ -1,0 +1,296 @@
+{
+  "schema_version": "2.0-pharmcat3.4.0-reference",
+  "genes": {
+    "CYP2C19": {
+      "reference_allele": "*1",
+      "required_loci": [
+        "rs4244285",
+        "rs4986893",
+        "rs12248560"
+      ],
+      "calling_strategy": "single_nonreference_locus_only",
+      "allow_reference_call": false,
+      "confidence_categories": {
+        "supported": "LIMITED_PANEL_SUPPORTED",
+        "inconclusive": "INCONCLUSIVE"
+      },
+      "alleles": {
+        "*2": {
+          "rsid": "rs4244285",
+          "alt": "A",
+          "callable": true,
+          "function": "No function",
+          "notes": [],
+          "sources": [
+            {
+              "label": "PharmCAT/CPIC",
+              "url": "https://cpicpgx.org/"
+            }
+          ]
+        },
+        "*3": {
+          "rsid": "rs4986893",
+          "alt": "A",
+          "callable": true,
+          "function": "No function",
+          "notes": [],
+          "sources": [
+            {
+              "label": "PharmCAT/CPIC",
+              "url": "https://cpicpgx.org/"
+            }
+          ]
+        },
+        "*17": {
+          "rsid": "rs12248560",
+          "alt": "T",
+          "callable": true,
+          "function": "Increased function",
+          "notes": [],
+          "sources": [
+            {
+              "label": "PharmCAT/CPIC",
+              "url": "https://cpicpgx.org/"
+            }
+          ]
+        }
+      },
+      "diplotype_phenotypes": {
+        "*1/*2": "Intermediate Metabolizer",
+        "*2/*2": "Poor Metabolizer",
+        "*1/*3": "Intermediate Metabolizer",
+        "*3/*3": "Poor Metabolizer",
+        "*1/*17": "Rapid Metabolizer",
+        "*17/*17": "Ultrarapid Metabolizer"
+      },
+      "limitations": [
+        "CYP2C19: only the panel alleles listed are detected; absence of a panel allele does not establish *1/*1."
+      ],
+      "sources": [
+        {
+          "label": "CPIC_CLOPIDOGREL",
+          "url": "https://cpicpgx.org/guidelines/"
+        }
+      ]
+    },
+    "CYP2C9": {
+      "reference_allele": "*1",
+      "required_loci": [
+        "rs1799853",
+        "rs1057910"
+      ],
+      "calling_strategy": "single_nonreference_locus_only",
+      "allow_reference_call": false,
+      "confidence_categories": {
+        "supported": "LIMITED_PANEL_SUPPORTED",
+        "inconclusive": "INCONCLUSIVE"
+      },
+      "alleles": {
+        "*2": {
+          "rsid": "rs1799853",
+          "alt": "T",
+          "callable": true,
+          "function": "0.5",
+          "notes": [],
+          "sources": [
+            {
+              "label": "PharmCAT/CPIC",
+              "url": "https://cpicpgx.org/"
+            }
+          ]
+        },
+        "*3": {
+          "rsid": "rs1057910",
+          "alt": "C",
+          "callable": true,
+          "function": "0.0",
+          "notes": [],
+          "sources": [
+            {
+              "label": "PharmCAT/CPIC",
+              "url": "https://cpicpgx.org/"
+            }
+          ]
+        }
+      },
+      "diplotype_phenotypes": {
+        "*1/*2": "Intermediate Metabolizer",
+        "*2/*2": "Intermediate Metabolizer",
+        "*1/*3": "Intermediate Metabolizer",
+        "*3/*3": "Poor Metabolizer"
+      },
+      "limitations": [
+        "CYP2C9: only the panel alleles listed are detected; absence of a panel allele does not establish *1/*1."
+      ],
+      "sources": [
+        {
+          "label": "CPIC_WARFARIN",
+          "url": "https://cpicpgx.org/guidelines/"
+        }
+      ]
+    },
+    "TPMT": {
+      "reference_allele": "*1",
+      "required_loci": [
+        "rs1800462",
+        "rs1800460",
+        "rs1142345"
+      ],
+      "calling_strategy": "single_nonreference_locus_only",
+      "allow_reference_call": false,
+      "confidence_categories": {
+        "supported": "LIMITED_PANEL_SUPPORTED",
+        "inconclusive": "INCONCLUSIVE"
+      },
+      "alleles": {
+        "*2": {
+          "rsid": "rs1800462",
+          "alt": "C",
+          "callable": true,
+          "function": "No function",
+          "notes": [],
+          "sources": [
+            {
+              "label": "PharmCAT/CPIC",
+              "url": "https://cpicpgx.org/"
+            }
+          ]
+        },
+        "*3B_component": {
+          "rsid": "rs1800460",
+          "alt": "A",
+          "callable": false,
+          "function": "No function",
+          "notes": [
+            "*3B is defined by rs1800460 alone only when the other TPMT*3 locus is reference; with both loci heterozygous, *1/*3A and *3B/*3C cannot be distinguished without phase, so no standalone call is made."
+          ],
+          "sources": [
+            {
+              "label": "PharmCAT/CPIC",
+              "url": "https://cpicpgx.org/"
+            }
+          ]
+        },
+        "*3C_component": {
+          "rsid": "rs1142345",
+          "alt": "G",
+          "callable": false,
+          "function": "No function",
+          "notes": [
+            "*3C is defined by rs1142345 alone only when the other TPMT*3 locus is reference; with both loci heterozygous, *1/*3A and *3B/*3C cannot be distinguished without phase, so no standalone call is made."
+          ],
+          "sources": [
+            {
+              "label": "PharmCAT/CPIC",
+              "url": "https://cpicpgx.org/"
+            }
+          ]
+        }
+      },
+      "diplotype_phenotypes": {
+        "*1/*2": "Intermediate Metabolizer",
+        "*2/*2": "Poor Metabolizer"
+      },
+      "limitations": [
+        "TPMT: only the panel alleles listed are detected; absence of a panel allele does not establish *1/*1."
+      ],
+      "sources": [
+        {
+          "label": "CPIC_THIOPURINES",
+          "url": "https://cpicpgx.org/guidelines/"
+        }
+      ]
+    },
+    "NUDT15": {
+      "reference_allele": "*1",
+      "required_loci": [
+        "rs116855232"
+      ],
+      "calling_strategy": "single_nonreference_locus_only",
+      "allow_reference_call": false,
+      "confidence_categories": {
+        "supported": "LIMITED_PANEL_SUPPORTED",
+        "inconclusive": "INCONCLUSIVE"
+      },
+      "alleles": {
+        "*3": {
+          "rsid": "rs116855232",
+          "alt": "T",
+          "callable": true,
+          "function": "No function",
+          "notes": [],
+          "sources": [
+            {
+              "label": "PharmCAT/CPIC",
+              "url": "https://cpicpgx.org/"
+            }
+          ]
+        }
+      },
+      "diplotype_phenotypes": {
+        "*1/*3": "Intermediate Metabolizer",
+        "*3/*3": "Poor Metabolizer"
+      },
+      "limitations": [
+        "NUDT15: only the panel alleles listed are detected; absence of a panel allele does not establish *1/*1."
+      ],
+      "sources": [
+        {
+          "label": "CPIC_THIOPURINES",
+          "url": "https://cpicpgx.org/guidelines/"
+        }
+      ]
+    },
+    "SLCO1B1": {
+      "reference_allele": "*1",
+      "required_loci": [
+        "rs4149056"
+      ],
+      "calling_strategy": "single_nonreference_locus_only",
+      "allow_reference_call": false,
+      "confidence_categories": {
+        "supported": "LIMITED_PANEL_SUPPORTED",
+        "inconclusive": "INCONCLUSIVE"
+      },
+      "alleles": {
+        "*5": {
+          "rsid": "rs4149056",
+          "alt": "C",
+          "callable": true,
+          "function": "No function",
+          "notes": [],
+          "sources": [
+            {
+              "label": "PharmCAT/CPIC",
+              "url": "https://cpicpgx.org/"
+            }
+          ]
+        }
+      },
+      "diplotype_phenotypes": {
+        "*1/*5": "Decreased Function",
+        "*5/*5": "Poor Function"
+      },
+      "limitations": [
+        "SLCO1B1: only the panel alleles listed are detected; absence of a panel allele does not establish *1/*1."
+      ],
+      "sources": [
+        {
+          "label": "CPIC_STATINS",
+          "url": "https://cpicpgx.org/guidelines/"
+        }
+      ]
+    }
+  },
+  "source_layers": [
+    {
+      "name": "PharmCAT phenotype tables",
+      "version": "v3.4.0 (ClinPGx data 2026-07-13)",
+      "url": "https://github.com/PharmGKB/PharmCAT"
+    },
+    {
+      "name": "CPIC guidelines",
+      "url": "https://cpicpgx.org/guidelines/"
+    }
+  ]
+}
