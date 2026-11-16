@@ -15,7 +15,7 @@ from typing import Any
 
 # ── Branding constants (formerly src/branding.py) ────────────────────────────
 APP_NAME = "Pharmexia"
-APP_VERSION = "2.0.1"
+APP_VERSION = "2.1.0"
 API_TITLE = "Pharmexia PGx API"
 DESKTOP_WINDOW_TITLE = "Pharmexia — DNA Pharmacogenomics"
 EXPORT_BASENAME = "pharmexia_report"
@@ -200,6 +200,14 @@ ALLELE_DEFINITIONS: dict[str, list[dict[str, Any]]] = {
             "allele": "*17",
             "function": "increased_function",
             "effect": "increased_cyp2c19_activity",
+            "sources": ["CPIC_CLOPIDOGREL", "NCBI_CLOPIDOGREL"],
+        },
+        {
+            "rsid": "rs28399504",
+            "alt": "G",
+            "allele": "*4",
+            "function": "no_function",
+            "effect": "reduced_cyp2c19_activity",
             "sources": ["CPIC_CLOPIDOGREL", "NCBI_CLOPIDOGREL"],
         },
     ],

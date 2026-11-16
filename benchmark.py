@@ -14,30 +14,46 @@ def load(gene):
     alleles={}
     base_na=[na for na in tr['namedAlleles'] if na['name']=='*1'] or [na for na in tr['namedAlleles'] if na['reference']]
     baseline=[x if x is not None else var[i]['ref'] for i,x in enumerate(base_na[0]['alleles'])]
+    IU={'R':'AG','Y':'CT','S':'CG','W':'AT','K':'GT','M':'AC','N':'ACGT'}
+    def allowed(x):
+        out=set()
+        for tok in x.split(' or '):
+            out|=set(IU[tok]) if tok in IU else {tok}
+        return out
     for na in tr['namedAlleles']:
-        alt=set()
+        alt=set(); wild=set()
+        corepos=set(na.get('corePositions') or [])
         for i,x in enumerate(na['alleles']):
             if x is None: continue
-            if baseline[i] not in set(x.split(' or ')): alt.add(i)
-        core={idx for idx,v in enumerate(var) if v['position'] in set(na.get('corePositions') or [])}
-        alleles[na['name']]=dict(alt=frozenset(alt&core) if core else frozenset(alt),ref=(na['name']=='*1'),sv=na['structuralVariant'])
+            al_=allowed(x)
+            if baseline[i] not in al_: alt.add(i)
+            elif len(al_)>1: wild.add(i)
+        core={idx for idx,v in enumerate(var) if v['position'] in corepos}
+        alleles[na['name']]=dict(alt=frozenset(alt&core) if core else frozenset(alt),wild=frozenset(wild),ref=(na['name']=='*1'),sv=na['structuralVariant'])
     ptab={tuple(sorted(e['diplotypekey'].items())):e['generesult'] for e in ph['diplotypes']}
     return tr,var,pos_by_rs,alleles,ph['haplotypes'],ptab
 DATA={g:load(g) for g in GENES}
 
 TAG_USED=[False]
 def hap_name(gene,S):
-    """Name a panel-visible haplotype S (set of panel locus indices carrying alt). Uses PharmCAT core definitions;
-    where an allele has additional core positions outside the panel, the panel locus acts as a tag SNP (flagged)."""
+    """Name a panel-visible haplotype S. An allele matches when its required alt positions (visible on the panel)
+    are all in S and every other alt in S falls on a wildcard (IUPAC) position of that allele. Alleles with required
+    positions outside the panel are matched on the panel locus alone (tag SNP, flagged)."""
     _,_,pos_by_rs,alleles,_,_=DATA[gene]
     P={pos_by_rs[d['rsid']] for d in DEFS[gene]}
     S=frozenset(S)
     if not S: return '*1'
-    cands=[(len(a['alt']),n) for n,a in alleles.items() if not a['sv'] and (a['alt']&P)==S and '.' not in n]
+    cands=[]
+    for n,a in alleles.items():
+        if a['sv'] or '.' in n or a['ref']: continue
+        req=a['alt']&P
+        if not req or not req<=S: continue
+        if not (S-req)<=a['wild']: continue
+        cands.append((-len(req),len(a['alt']),n))
     if not cands: return None
-    cands.sort(); 
-    if len(cands)>1 and cands[0][0]==cands[1][0]: return None
-    n=cands[0][1]
+    cands.sort()
+    if len(cands)>1 and cands[0][:2]==cands[1][:2]: return None
+    n=cands[0][2]
     if not alleles[n]['alt']<=P: TAG_USED[0]=True
     return n
 def oracle(gene, geno):  # geno: {rsid: 0/1/2}

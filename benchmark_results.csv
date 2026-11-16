@@ -1,0 +1,351 @@
+scenario,gene,genotype,oracle_status,oracle_phenotype,oracle_diplotype,pharmexia_call,pharmexia_phenotype,pharmexia_confidence,classification
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=0;rs28399504=0,DETERMINATE,Normal Metabolizer,*1/*1,,,INCONCLUSIVE,conservative_no_reference_call
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=0;rs28399504=1,DETERMINATE,Intermediate Metabolizer,*1/*4,*1/*4,Intermediate Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=0;rs28399504=2,DETERMINATE,Poor Metabolizer,*4/*4,*4/*4,Poor Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=1;rs28399504=0,DETERMINATE,Rapid Metabolizer,*1/*17,*1/*17,Rapid Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=1;rs28399504=1,DETERMINATE,Intermediate Metabolizer,*1/*4|*17/*4,,,INCONCLUSIVE,conservative_inconclusive_determinable
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=1;rs28399504=2,DETERMINATE,Poor Metabolizer,*4/*4,,,INCONCLUSIVE,conservative_inconclusive_determinable
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=2;rs28399504=0,DETERMINATE,Ultrarapid Metabolizer,*17/*17,*17/*17,Ultrarapid Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=2;rs28399504=1,DETERMINATE,Intermediate Metabolizer,*17/*4,,,INCONCLUSIVE,conservative_inconclusive_determinable
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=2;rs28399504=2,DETERMINATE,Poor Metabolizer,*4/*4,,,INCONCLUSIVE,conservative_inconclusive_determinable
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=1;rs12248560=0;rs28399504=0,DETERMINATE,Intermediate Metabolizer,*1/*3,*1/*3,Intermediate Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=1;rs12248560=0;rs28399504=1,AMBIGUOUS,Poor Metabolizer|UNDEFINED,*3/*4,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=1;rs12248560=0;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=1;rs12248560=1;rs28399504=0,AMBIGUOUS,Intermediate Metabolizer|UNDEFINED,*17/*3,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=1;rs12248560=1;rs28399504=1,AMBIGUOUS,Poor Metabolizer|UNDEFINED,*3/*4,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=1;rs12248560=1;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=1;rs12248560=2;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=1;rs12248560=2;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=1;rs12248560=2;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=2;rs12248560=0;rs28399504=0,DETERMINATE,Poor Metabolizer,*3/*3,*3/*3,Poor Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=2;rs12248560=0;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=2;rs12248560=0;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=2;rs12248560=1;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=2;rs12248560=1;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=2;rs12248560=1;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=2;rs12248560=2;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=2;rs12248560=2;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=0;rs4986893=2;rs12248560=2;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=0;rs12248560=0;rs28399504=0,DETERMINATE,Intermediate Metabolizer,*1/*2|(tag-SNP assumption),*1/*2,Intermediate Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=0;rs12248560=0;rs28399504=1,AMBIGUOUS,Poor Metabolizer|UNDEFINED,*2/*4,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=0;rs12248560=0;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=0;rs12248560=1;rs28399504=0,AMBIGUOUS,Intermediate Metabolizer|UNDEFINED,*17/*2,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=0;rs12248560=1;rs28399504=1,AMBIGUOUS,Poor Metabolizer|UNDEFINED,*2/*4,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=0;rs12248560=1;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=0;rs12248560=2;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=0;rs12248560=2;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=0;rs12248560=2;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=1;rs12248560=0;rs28399504=0,AMBIGUOUS,Poor Metabolizer|UNDEFINED,*2/*3,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=1;rs12248560=0;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=1;rs12248560=0;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=1;rs12248560=1;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=1;rs12248560=1;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=1;rs12248560=1;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=1;rs12248560=2;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=1;rs12248560=2;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=1;rs12248560=2;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=2;rs12248560=0;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=2;rs12248560=0;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=2;rs12248560=0;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=2;rs12248560=1;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=2;rs12248560=1;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=2;rs12248560=1;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=2;rs12248560=2;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=2;rs12248560=2;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=1;rs4986893=2;rs12248560=2;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=0;rs12248560=0;rs28399504=0,DETERMINATE,Poor Metabolizer,*2/*2|(tag-SNP assumption),*2/*2,Poor Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=0;rs12248560=0;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=0;rs12248560=0;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=0;rs12248560=1;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=0;rs12248560=1;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=0;rs12248560=1;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=0;rs12248560=2;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=0;rs12248560=2;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=0;rs12248560=2;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=1;rs12248560=0;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=1;rs12248560=0;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=1;rs12248560=0;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=1;rs12248560=1;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=1;rs12248560=1;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=1;rs12248560=1;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=1;rs12248560=2;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=1;rs12248560=2;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=1;rs12248560=2;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=2;rs12248560=0;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=2;rs12248560=0;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=2;rs12248560=0;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=2;rs12248560=1;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=2;rs12248560=1;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=2;rs12248560=1;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=2;rs12248560=2;rs28399504=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=2;rs12248560=2;rs28399504=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C19,rs4244285=2;rs4986893=2;rs12248560=2;rs28399504=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C9,rs1799853=0;rs1057910=0,DETERMINATE,Normal Metabolizer,*1/*1,,,INCONCLUSIVE,conservative_no_reference_call
+A_panel_exhaustive,CYP2C9,rs1799853=0;rs1057910=1,DETERMINATE,Intermediate Metabolizer,*1/*3,*1/*3,Intermediate Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,CYP2C9,rs1799853=0;rs1057910=2,DETERMINATE,Poor Metabolizer,*3/*3,*3/*3,Poor Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,CYP2C9,rs1799853=1;rs1057910=0,DETERMINATE,Intermediate Metabolizer,*1/*2,*1/*2,Intermediate Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,CYP2C9,rs1799853=1;rs1057910=1,AMBIGUOUS,Poor Metabolizer|UNDEFINED,*2/*3,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C9,rs1799853=1;rs1057910=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C9,rs1799853=2;rs1057910=0,DETERMINATE,Intermediate Metabolizer,*2/*2,*2/*2,Intermediate Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,CYP2C9,rs1799853=2;rs1057910=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,CYP2C9,rs1799853=2;rs1057910=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=0;rs1800460=0;rs1142345=0,DETERMINATE,Normal Metabolizer,*1/*1,,,INCONCLUSIVE,conservative_no_reference_call
+A_panel_exhaustive,TPMT,rs1800462=0;rs1800460=0;rs1142345=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=0;rs1800460=0;rs1142345=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=0;rs1800460=1;rs1142345=0,DETERMINATE,Intermediate Metabolizer,*1/*3B,,,INCONCLUSIVE,conservative_inconclusive_determinable
+A_panel_exhaustive,TPMT,rs1800462=0;rs1800460=1;rs1142345=1,AMBIGUOUS,Intermediate Metabolizer|UNDEFINED,*1/*3A,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=0;rs1800460=1;rs1142345=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=0;rs1800460=2;rs1142345=0,DETERMINATE,Poor Metabolizer,*3B/*3B,,,INCONCLUSIVE,conservative_inconclusive_determinable
+A_panel_exhaustive,TPMT,rs1800462=0;rs1800460=2;rs1142345=1,DETERMINATE,Poor Metabolizer,*3A/*3B,,,INCONCLUSIVE,conservative_inconclusive_determinable
+A_panel_exhaustive,TPMT,rs1800462=0;rs1800460=2;rs1142345=2,DETERMINATE,Poor Metabolizer,*3A/*3A,,,INCONCLUSIVE,conservative_inconclusive_determinable
+A_panel_exhaustive,TPMT,rs1800462=1;rs1800460=0;rs1142345=0,DETERMINATE,Intermediate Metabolizer,*1/*2,*1/*2,Intermediate Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,TPMT,rs1800462=1;rs1800460=0;rs1142345=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=1;rs1800460=0;rs1142345=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=1;rs1800460=1;rs1142345=0,AMBIGUOUS,Poor Metabolizer|UNDEFINED,*2/*3B,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=1;rs1800460=1;rs1142345=1,AMBIGUOUS,Poor Metabolizer|UNDEFINED,*2/*3A,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=1;rs1800460=1;rs1142345=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=1;rs1800460=2;rs1142345=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=1;rs1800460=2;rs1142345=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=1;rs1800460=2;rs1142345=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=2;rs1800460=0;rs1142345=0,DETERMINATE,Poor Metabolizer,*2/*2,*2/*2,Poor Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,TPMT,rs1800462=2;rs1800460=0;rs1142345=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=2;rs1800460=0;rs1142345=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=2;rs1800460=1;rs1142345=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=2;rs1800460=1;rs1142345=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=2;rs1800460=1;rs1142345=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=2;rs1800460=2;rs1142345=0,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=2;rs1800460=2;rs1142345=1,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,TPMT,rs1800462=2;rs1800460=2;rs1142345=2,AMBIGUOUS,UNDEFINED,,,,INCONCLUSIVE,concordant_inconclusive_ambiguous
+A_panel_exhaustive,NUDT15,rs116855232=0,DETERMINATE,Normal Metabolizer,*1/*1,,,INCONCLUSIVE,conservative_no_reference_call
+A_panel_exhaustive,NUDT15,rs116855232=1,DETERMINATE,Intermediate Metabolizer,*1/*3,*1/*3,Intermediate Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,NUDT15,rs116855232=2,DETERMINATE,Poor Metabolizer,*3/*3,*3/*3,Poor Metabolizer,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,SLCO1B1,rs4149056=0,DETERMINATE,Normal Function,*1/*1,,,INCONCLUSIVE,conservative_no_reference_call
+A_panel_exhaustive,SLCO1B1,rs4149056=1,DETERMINATE,Decreased Function,*1/*5,*1/*5,Decreased Function,LIMITED_PANEL_SUPPORTED,concordant_call
+A_panel_exhaustive,SLCO1B1,rs4149056=2,DETERMINATE,Poor Function,*5/*5,*5/*5,Poor Function,LIMITED_PANEL_SUPPORTED,concordant_call
+C_incomplete_coverage,CYP2C19,rs4244285=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs12248560=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs12248560=0;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs12248560=0;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs12248560=1;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs12248560=1;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs12248560=1;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs12248560=2;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs12248560=2;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs12248560=2;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=1;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=1;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=1;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=2;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=2;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=2;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=0;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=0;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=0;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=1;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=1;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=1;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=2;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=2;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=2;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=0;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=0;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=0;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=1;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=1;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=1;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=2;rs12248560=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=2;rs12248560=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=2;rs12248560=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=0;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=0;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=1;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=1;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=1;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=2;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=2;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs4986893=2;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=0;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=0;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=1;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=1;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=1;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=2;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=2;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs4986893=2;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=0;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=0;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=1;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=1;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=1;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=2;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=2;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs4986893=2;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs12248560=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs12248560=0;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs12248560=0;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs12248560=1;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs12248560=1;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs12248560=1;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs12248560=2;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs12248560=2;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=0;rs12248560=2;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs12248560=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs12248560=0;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs12248560=0;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs12248560=1;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs12248560=1;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs12248560=1;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs12248560=2;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs12248560=2;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=1;rs12248560=2;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs12248560=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs12248560=0;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs12248560=0;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs12248560=1;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs12248560=1;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs12248560=1;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs12248560=2;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs12248560=2;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4244285=2;rs12248560=2;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs12248560=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs12248560=0;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs12248560=0;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs12248560=1;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs12248560=1;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs12248560=1;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs12248560=2;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs12248560=2;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=0;rs12248560=2;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs12248560=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs12248560=0;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs12248560=0;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs12248560=1;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs12248560=1;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs12248560=1;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs12248560=2;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs12248560=2;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=1;rs12248560=2;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs12248560=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs12248560=0;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs12248560=0;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs12248560=1;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs12248560=1;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs12248560=1;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs12248560=2;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs12248560=2;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C19,rs4986893=2;rs12248560=2;rs28399504=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C9,rs1799853=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C9,rs1799853=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C9,rs1799853=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C9,rs1057910=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C9,rs1057910=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,CYP2C9,rs1057910=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800460=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800460=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800460=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1142345=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1142345=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1142345=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=0;rs1800460=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=0;rs1800460=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=0;rs1800460=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=1;rs1800460=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=1;rs1800460=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=1;rs1800460=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=2;rs1800460=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=2;rs1800460=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=2;rs1800460=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=0;rs1142345=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=0;rs1142345=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=0;rs1142345=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=1;rs1142345=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=1;rs1142345=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=1;rs1142345=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=2;rs1142345=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=2;rs1142345=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800462=2;rs1142345=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800460=0;rs1142345=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800460=0;rs1142345=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800460=0;rs1142345=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800460=1;rs1142345=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800460=1;rs1142345=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800460=1;rs1142345=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800460=2;rs1142345=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800460=2;rs1142345=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+C_incomplete_coverage,TPMT,rs1800460=2;rs1142345=2,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_incomplete
+D_unsupported_alt,CYP2C19,rs4244285=1;rs4986893=0;rs12248560=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_unsupported_alt
+D_unsupported_alt,CYP2C19,rs4244285=0;rs4986893=1;rs12248560=0;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_unsupported_alt
+D_unsupported_alt,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=1;rs28399504=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_unsupported_alt
+D_unsupported_alt,CYP2C19,rs4244285=0;rs4986893=0;rs12248560=0;rs28399504=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_unsupported_alt
+D_unsupported_alt,CYP2C9,rs1799853=1;rs1057910=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_unsupported_alt
+D_unsupported_alt,CYP2C9,rs1799853=0;rs1057910=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_unsupported_alt
+D_unsupported_alt,TPMT,rs1800462=1;rs1800460=0;rs1142345=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_unsupported_alt
+D_unsupported_alt,TPMT,rs1800462=0;rs1800460=1;rs1142345=0,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_unsupported_alt
+D_unsupported_alt,TPMT,rs1800462=0;rs1800460=0;rs1142345=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_unsupported_alt
+D_unsupported_alt,NUDT15,rs116855232=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_unsupported_alt
+D_unsupported_alt,SLCO1B1,rs4149056=1,n/a,,,,,INCONCLUSIVE,concordant_inconclusive_unsupported_alt

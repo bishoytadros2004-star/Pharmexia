@@ -6,7 +6,8 @@
       "required_loci": [
         "rs4244285",
         "rs4986893",
-        "rs12248560"
+        "rs12248560",
+        "rs28399504"
       ],
       "calling_strategy": "single_nonreference_locus_only",
       "allow_reference_call": false,
@@ -53,6 +54,19 @@
               "url": "https://cpicpgx.org/"
             }
           ]
+        },
+        "*4": {
+          "rsid": "rs28399504",
+          "alt": "G",
+          "callable": true,
+          "function": "No function",
+          "notes": [],
+          "sources": [
+            {
+              "label": "PharmCAT/CPIC",
+              "url": "https://cpicpgx.org/"
+            }
+          ]
         }
       },
       "diplotype_phenotypes": {
@@ -61,7 +75,9 @@
         "*1/*3": "Intermediate Metabolizer",
         "*3/*3": "Poor Metabolizer",
         "*1/*17": "Rapid Metabolizer",
-        "*17/*17": "Ultrarapid Metabolizer"
+        "*17/*17": "Ultrarapid Metabolizer",
+        "*1/*4": "Intermediate Metabolizer",
+        "*4/*4": "Poor Metabolizer"
       },
       "limitations": [
         "CYP2C19: only the panel alleles listed are detected; absence of a panel allele does not establish *1/*1."

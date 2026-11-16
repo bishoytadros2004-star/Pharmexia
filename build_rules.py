@@ -2,7 +2,7 @@
 import json, pathlib
 PC = pathlib.Path('/home/claude/pharmgkb/pharmcat/src/main/resources/org/pharmgkb/pharmcat')
 PANEL = {  # gene: (reference, [(allele, rsid, alt, callable)])
- 'CYP2C19': ('*1',[('*2','rs4244285','A',True),('*3','rs4986893','A',True),('*17','rs12248560','T',True)]),
+ 'CYP2C19': ('*1',[('*2','rs4244285','A',True),('*3','rs4986893','A',True),('*17','rs12248560','T',True),('*4','rs28399504','G',True)]),
  'CYP2C9':  ('*1',[('*2','rs1799853','T',True),('*3','rs1057910','C',True)]),
  'TPMT':    ('*1',[('*2','rs1800462','C',True),('*3B_component','rs1800460','A',False),('*3C_component','rs1142345','G',False)]),
  'NUDT15':  ('*1',[('*3','rs116855232','T',True)]),
